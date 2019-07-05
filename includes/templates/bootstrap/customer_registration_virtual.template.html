@@ -1,0 +1,183 @@
+<form class="webform-client-form col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2" action="@@sp_action" method="post" accept-charset="UTF-8">
+    <div>
+        <div id="items-fieldset-wrapper">
+            <div id="items-fieldset-wrapper">
+                <fieldset class="panel panel-default form-wrapper" id="edit-account-info">
+                    <legend class="panel-heading">
+                        <div class="panel-title fieldset-legend">
+                            <h3>@@title_account_information</h3> </div>
+                    </legend>
+                    <div class="panel-body">
+                        <div class="form-type-textfield form-item-account-info-email form-item form-group">
+                            <label for="edit-account-info-email">@@title_str_email<span class="form-required" title="@@field_is_required">*</span></label>
+                            <input class="form-control form-text required" type="text" id="edit-account-info-email" name="account_info[email]" value="" size="60" maxlength="128">
+                        </div>
+                        <div class="form-type-textfield form-item-account-info-first-name form-item form-group">
+                            <label for="edit-account-info-first-name">@@title_first_name<span class="form-required" title="@@field_is_required.">*</span></label>
+                            <input class="form-control form-text required" type="text" id="edit-account-info-first-name" name="account_info[first_name]" value="" size="60" maxlength="128">
+                        </div>
+                        <div class="form-type-textfield form-item-account-info-last-name form-item form-group">
+                            <label for="edit-account-info-last-name">@@title_last_name<span class="form-required" title="@@field_is_required.">*</span></label>
+                            <input class="form-control form-text required" type="text" id="edit-account-info-last-name" name="account_info[last_name]" value="" size="60" maxlength="128">
+                        </div>
+                        <div class="form-type-password form-item-account-info-password form-item form-group">
+                            <label for="edit-account-info-password">@@title_str_password<span class="form-required" title="@@field_is_required.">*</span></label>
+                            <input class="form-control form-text required" type="password" id="edit-account-info-password" name="account_info[password]" size="60" maxlength="128">
+                        </div>
+                        <div class="form-type-password form-item-account-info-confirm-password form-item form-group">
+                            <label for="edit-account-info-confirm-password">@@title_confirm_password <span class="form-required" title="@@field_is_required.">*</span></label>
+                            <input class="form-control form-text required" type="password" id="edit-account-info-confirm-password" name="account_info[confirm_password]" size="60" maxlength="128">
+                        </div>
+                        <label for="date-of-birth-dd-mm-yyyy" class="date-of-birth-dd-mm-yyyy">@@tittle_date_of_birth (dd/mm/yyyy)</label>
+                        <div class="form-type-select form-item-account-info-birthdate-day form-item form-group">
+                            <select class="form-control form-select" id="edit-account-info-birthdate-day" name="account_info[birthdate_day]">
+                                <!--<option value="01">01</option>-->
+                                @@data_options_bd_day
+                            </select>
+                        </div>
+                        <div class="form-type-select form-item-account-info-birthdate-month form-item form-group">
+                            <select class="form-control form-select" id="edit-account-info-birthdate-month" name="account_info[birthdate_month]">
+                                @@data_options_bd_month
+                            </select>
+                        </div>
+                        <div class="form-type-select form-item-account-info-birthdate-year form-item form-group">
+                            <select class="form-control form-select" id="edit-account-info-birthdate-year" name="account_info[birthdate_year]">
+                                @@data_bd_years
+                            </select>
+                        </div>
+                        <div class="form-type-radios form-item-account-info-gender form-item form-group">
+                            <label for="edit-account-info-gender">@@title_gender<span class="form-required" title="@@field_is_required.">*</span></label>
+                            <div id="edit-account-info-gender" class="form-radios">
+                                <div class="form-type-radio form-item-account-info-gender form-item radio">
+                                    <input type="radio" id="edit-account-info-gender-m" name="account_info[gender]" value="M" checked="checked" class="form-radio">
+                                    <label for="edit-account-info-gender-m">@@title_male</label>
+
+                                </div>
+                                <div class="form-type-radio form-item-account-info-gender form-item radio">
+                                    <input type="radio" id="edit-account-info-gender-f" name="account_info[gender]" value="F" class="form-radio">
+                                    <label for="edit-account-info-gender-f">@@title_female</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="items-fieldset-wrapper">
+            <div id="items-fieldset-wrapper">
+                <fieldset class="panel panel-default form-wrapper" id="edit-delivery-addr">
+                    <legend class="panel-heading">
+                        <div class="panel-title fieldset-legend">
+                            <h3>@@title_delivery_address</h3> </div>
+                    </legend>
+                    <div class="panel-body">
+                        <div class="form-type-select form-item-delivery-addr-country form-item form-group">
+                            <label for="edit-delivery-addr-country">@@title_country<span class="form-required" title="@@field_is_required.">*</span></label>
+                            <select class="form-control form-select required ajax-processed" id="edit-delivery-addr-country" name="delivery_addr[country]">
+                                @@data_country_options
+                            </select>
+                        </div>
+                        <div id="state-wrapper">
+                            <div class="form-type-select form-item-delivery-addr-state form-item form-group">
+                                <label for="edit-delivery-addr-state">@@title_state_province <span class="form-required" title="@@field_is_required.">*</span></label>
+                                <select class="form-control form-select required ajax-processed" id="edit-delivery-addr-state" name="delivery_addr[state]">
+                                    <!--<option value="" selected="selected">Please select your State</option>-->
+                                    @@data_state_options
+                                </select>
+                            </div>
+                        </div>
+                        <div id="city-wrapper">
+                            <div class="form-type-select form-item-delivery-addr-city form-item form-group">
+                                <label for="edit-delivery-addr-city">@@title_city <span class="form-required" title="@@field_is_required.">*</span></label>
+                                <select class="form-control form-select required" id="edit-delivery-addr-city" name="delivery_addr[city]">
+                                    <!--<option value="" selected="selected">Please select your City</option>-->
+                                    @@data_city_options
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-type-textarea form-item-delivery-addr-address form-item form-group">
+                            <label for="edit-delivery-addr-address">@@title_del_address <span class="form-required" title="@@field_is_required.">*</span></label>
+                            <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea">
+                                <textarea class="form-control form-textarea required" id="edit-delivery-addr-address" name="delivery_addr[address]" cols="60" rows="5"></textarea>
+                                <div class="grippie"></div>
+                            </div>
+                        </div>
+                        <div class="form-type-textfield form-item-delivery-addr-region form-item form-group">
+                            <label for="edit-delivery-addr-region">@@title_region </label>
+                            <input class="form-control form-text" type="text" id="edit-delivery-addr-region" name="delivery_addr[region]" value="" size="60" maxlength="128">
+                        </div>
+                        <div class="form-type-textfield form-item-delivery-addr-postal-code form-item form-group">
+                            <label for="edit-delivery-addr-postal-code">@@title_postal_code </label>
+                            <input class="form-control form-text" type="text" id="edit-delivery-addr-postal-code" name="delivery_addr[postal_code]" value="" size="60" maxlength="128">
+                        </div>
+                        <fieldset class="panel panel-default form-wrapper" id="edit-delivery-addr-phone">
+                            <legend class="panel-heading">
+                                <div class="panel-title fieldset-legend">
+                                    @@title_telephone </div>
+                            </legend>
+                            <div class="panel-body">
+                                <div class="form-type-textfield form-item-delivery-addr-phone-tel-country-code form-item form-group">
+                                    <label for="edit-delivery-addr-phone-tel-country-code">@@title_phone_country_code <span class="form-required" title="@@field_is_required.">*</span></label>
+                                    <input class="form-control form-text required" type="text" id="edit-delivery-addr-phone-tel-country-code" name="delivery_addr[phone][tel_country_code]" value="" size="60" maxlength="3">
+                                </div>
+                                <div class="form-type-textfield form-item-delivery-addr-phone-tel-number form-item form-group">
+                                    <label for="edit-delivery-addr-phone-tel-number">@@title_phones_mumber <span class="form-required" title="@@field_is_required.">*</span></label>
+                                    <input class="form-control form-text required" type="text" id="edit-delivery-addr-phone-tel-number" name="delivery_addr[phone][tel_number]" value="" size="60" maxlength="128">
+                                </div>
+                                <div class="form-type-textfield form-item-delivery-addr-phone-tel-extension form-item form-group">
+                                    <label for="edit-delivery-addr-phone-tel-extension">@@title_phones_extension </label>
+                                    <input class="form-control form-text" type="text" id="edit-delivery-addr-phone-tel-extension" name="delivery_addr[phone][tel_extension]" value="" size="60" maxlength="128">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="panel panel-default form-wrapper" id="edit-delivery-addr-cel-phone">
+                            <legend class="panel-heading">
+                                <div class="panel-title fieldset-legend">
+                                    @@title_cell_phone <small>(@@title_optional)</small> </div>
+                            </legend>
+                            <div class="panel-body">
+                                <div class="form-type-textfield form-item-delivery-addr-cel-phone-cel-country-code form-item form-group">
+                                    <label for="edit-delivery-addr-cel-phone-cel-country-code">@@title_phone_country_code </label>
+                                    <input class="form-control form-text" type="text" id="edit-delivery-addr-cel-phone-cel-country-code" name="delivery_addr[cel_phone][cel_country_code]" value="" size="60" maxlength="3">
+                                </div>
+                                <div class="form-type-textfield form-item-delivery-addr-cel-phone-cel-number form-item form-group">
+                                    <label for="edit-delivery-addr-cel-phone-cel-number">@@title_phones_mumber </label>
+                                    <input class="form-control form-text" type="text" id="edit-delivery-addr-cel-phone-cel-number" name="delivery_addr[cel_phone][cel_number]" value="" size="60" maxlength="128">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-type-textfield form-item-delivery-addr-id-number form-item form-group">
+                            <label for="edit-delivery-addr-id-number">@@title_Id_number <span class="form-required" title="@@field_is_required.">*</span></label>
+                            <input class="form-control form-text required" type="text" id="edit-delivery-addr-id-number" name="delivery_addr[id_number]" value="" size="60" maxlength="128">
+                        </div>
+                        <div class="more-info">
+                            <p class="toggler">@@text_what_is_this</p>
+                            <div class="toggled" style="display: none;">@@id_number_description.</div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="form-type-checkbox form-item-terms-2 form-item checkbox">
+            <input type="checkbox" id="edit-terms-2" name="terms_2" value="1" checked="checked" class="form-checkbox">
+            <label for="edit-terms-2">@@title_newsletter_check </label>
+
+        </div>
+        <div class="form-type-checkbox form-item-terms-3 form-item checkbox">
+            <input type="checkbox" id="edit-terms-3" name="terms_3" value="1" class="form-checkbox required">
+            <label for="edit-terms-3">@@title_terms_and_conditions <a href="@@data_terms_link"> @@tittle_view</a> <span class="form-required" title="@@field_is_required.">*</span></label>
+
+        </div>
+        <div class="submit-wrapper centered">
+            <input type="submit" class="btn btn-primary form-submit" id="edit-submit" name="sp_customer_reg_virtual_action" value="Submit" type="submit">@@title_submit</input>
+        </div>
+        <input type="hidden" name="form_build_id" value="form-2UhKEasN2FJxXofivs4INftkdLwdrsecT1YW61HZgYQ">        
+        <!--<div class="edit-contact-link-me-wrapper">
+            <div class="form-type-textfield form-item-contact-link-me form-item form-group" data-toggle="tooltip" title="" data-original-title="To prevent automated spam submissions leave this field empty.">
+                <label for="edit-contact-link-me">contact link me </label>
+                <input class="form-control form-text" type="text" id="edit-contact-link-me" name="contact_link_me" value="" size="20" maxlength="128">
+            </div>
+        </div>-->
+    </div>
+</form>

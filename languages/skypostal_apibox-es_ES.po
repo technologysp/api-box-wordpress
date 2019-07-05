@@ -1,0 +1,460 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-09 23:19+0000\n"
+"PO-Revision-Date: 2019-07-04 23:50-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: includes\n"
+
+#: includes/sp_services.php:90
+msgid "Invalid session"
+msgstr "Sesión inválida"
+
+#: includes/sp_services.php:164 includes/sp_services.php:177
+msgid "Please select"
+msgstr "Seleccione"
+
+#: includes/sp_init.php:24
+msgid "Invalid credentials"
+msgstr "Credenciales inválidas"
+
+#: includes/sp_init.php:41 includes/sp_init.php:69 includes/sp_init.php:97
+msgid "Invalid Birth Date"
+msgstr "Fecha de nacimiento inválida"
+
+#: includes/sp_init.php:42 includes/sp_init.php:70 includes/sp_init.php:187
+msgid "Invalid email"
+msgstr "Email inválido"
+
+#: includes/sp_init.php:43 includes/sp_init.php:71
+#: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
+msgid "Password does not match"
+msgstr "Las contraseñas no coinciden"
+
+#: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
+msgid "No information found"
+msgstr "No se encontraron registros"
+
+#: includes/sp_init.php:52 includes/sp_init.php:79
+msgid "Registration failed. Check your data and try again."
+msgstr "Falló el regístro. Revise los datos e intente de nuevo."
+
+#: includes/sp_init.php:102 includes/sp_init.php:124 includes/sp_init.php:147
+#: includes/sp_init.php:192
+msgid "Information updated"
+msgstr "Información actualizada"
+
+#: includes/sp_init.php:104 includes/sp_init.php:126 includes/sp_init.php:149
+#: includes/sp_init.php:194 includes/sp_init.php:216
+msgid "Information not updated"
+msgstr "No se pudo actualizar"
+
+#: includes/sp_forms.php:26 includes/sp_forms.php:224
+msgid "This field is required"
+msgstr "El campo es requerido"
+
+#: includes/sp_forms.php:131 includes/sp_forms.php:327
+msgid "The form ID is required"
+msgstr "El ID del formulario es requerido"
+
+#: includes/sp_forms.php:393 includes/sp_forms.php:415
+msgid "is required"
+msgstr "es requerido"
+
+#: includes/sp_forms.php:445
+msgid "Account Information"
+msgstr "Información de tu cuenta"
+
+#: includes/sp_forms.php:449 includes/sp_forms.php:798
+#: includes/sp_forms.php:799 includes/sp_forms.php:852
+#: includes/sp_forms.php:878 includes/sp_forms.php:879
+msgid "Email"
+msgstr "Email"
+
+#: includes/sp_forms.php:452 includes/sp_forms.php:561
+msgid "First name"
+msgstr "Nombres"
+
+#: includes/sp_forms.php:453 includes/sp_forms.php:562
+msgid "Last name"
+msgstr "Apellidos"
+
+#: includes/sp_forms.php:456 includes/sp_forms.php:825
+#: includes/sp_forms.php:853
+msgid "Password"
+msgstr "Contraseña"
+
+#: includes/sp_forms.php:457 includes/sp_forms.php:826
+msgid "Confirm Password"
+msgstr "Confirma tu contraseña"
+
+#: includes/sp_forms.php:460 includes/sp_forms.php:566
+msgid "Date of Birth"
+msgstr "Fecha de nacimiento"
+
+#: includes/sp_forms.php:461 includes/sp_forms.php:567
+msgid "Gender"
+msgstr "Género"
+
+#: includes/sp_forms.php:465
+msgid "TAX Identifier"
+msgstr "Identificador de Impuestos"
+
+#: includes/sp_forms.php:467
+msgid "Next"
+msgstr "Siguiente"
+
+#: includes/sp_forms.php:534
+msgid "Prev"
+msgstr "Atrás"
+
+#: includes/sp_forms.php:534
+msgid "Cellphone"
+msgstr "Celular"
+
+#: includes/sp_forms.php:534
+msgid "Phone"
+msgstr "Teléfono"
+
+#: includes/sp_forms.php:478 includes/sp_forms.php:641
+msgid "Delivery Address"
+msgstr "Dirección de entrega"
+
+#: includes/sp_forms.php:482 includes/sp_forms.php:645
+msgid "Country"
+msgstr "País"
+
+#: includes/sp_forms.php:483 includes/sp_forms.php:646
+msgid "State / Province"
+msgstr "Estado / Provincia"
+
+#: includes/sp_forms.php:484 includes/sp_forms.php:647
+msgid "City"
+msgstr "Ciudad"
+
+#: includes/sp_forms.php:487 includes/sp_forms.php:650
+msgid "Address"
+msgstr "Direccion"
+
+#: includes/sp_forms.php:490 includes/sp_forms.php:653
+msgid "Region"
+msgstr "Región"
+
+#: includes/sp_forms.php:491 includes/sp_forms.php:654
+msgid "Postal Code"
+msgstr "Código postal"
+
+#: includes/sp_forms.php:494 includes/sp_forms.php:565
+#: includes/sp_forms.php:657
+msgid "Identification Number"
+msgstr "Número de identificación"
+
+#: includes/sp_forms.php:513 includes/sp_forms.php:527
+#: includes/sp_forms.php:669 includes/sp_forms.php:683
+msgid "Country code"
+msgstr "Código de País"
+
+#: includes/sp_forms.php:514 includes/sp_forms.php:528
+#: includes/sp_forms.php:607 includes/sp_forms.php:670
+#: includes/sp_forms.php:684
+msgid "Number"
+msgstr "Número"
+
+#: includes/sp_forms.php:515 includes/sp_forms.php:529
+#: includes/sp_forms.php:671 includes/sp_forms.php:685
+msgid "Extension"
+msgstr "Extensión"
+
+#: includes/sp_forms.php:541
+msgid ""
+"Yes, I would like to receive specials offers and important information "
+"regarding my address."
+msgstr ""
+"Sí, me gustaría recibir ofertas especiales e información importante de mi "
+"casillero."
+
+#: includes/sp_forms.php:542
+msgid "By submitting, you accept the"
+msgstr "Al enviar, usted acepta los"
+
+#: includes/sp_forms.php:542
+msgid "terms and conditions"
+msgstr "términos y condiciones"
+
+#: includes/sp_forms.php:545
+msgid "Register customer"
+msgstr "Registrar cliente"
+
+#: includes/sp_forms.php:557
+msgid "Personal Information"
+msgstr "Información Personal"
+
+#: includes/sp_forms.php:567
+msgid "Male"
+msgstr "Masculino"
+
+#: includes/sp_forms.php:567
+msgid "Female"
+msgstr "Femenino"
+
+#: includes/sp_forms.php:577 includes/sp_forms.php:622
+#: includes/sp_forms.php:695 includes/sp_forms.php:809
+#: includes/sp_forms.php:836
+msgid "Update"
+msgstr "Actualizar"
+
+#: includes/sp_forms.php:599
+msgid "Payment \tInformation"
+msgstr "Información de pago"
+
+#: includes/sp_forms.php:603
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/sp_forms.php:606
+msgid "Name as it appears on card"
+msgstr "Nombre como aparece en la tarjeta"
+
+#: includes/sp_forms.php:610
+msgid "Expiration month"
+msgstr "Mes de expiración"
+
+#: includes/sp_forms.php:611
+msgid "Expiration year"
+msgstr "Año de expiración"
+
+#: includes/sp_forms.php:612
+msgid "Security code"
+msgstr "Código de seguridad"
+
+#: includes/sp_forms.php:715
+msgid "Start date"
+msgstr "Desde"
+
+#: includes/sp_forms.php:716
+msgid "End date"
+msgstr "Hasta"
+
+#: includes/sp_forms.php:717 includes/sp_forms.php:749
+msgid "Search"
+msgstr "Buscar"
+
+#: includes/sp_forms.php:748
+msgid "Airway Bill Number"
+msgstr "Número de Guía"
+
+#: includes/sp_forms.php:774
+msgid "Invoice File"
+msgstr "Archivo de factura"
+
+#: includes/sp_forms.php:783
+msgid "Upload"
+msgstr "Subir"
+
+#: includes/sp_forms.php:863
+msgid "Login"
+msgstr "Login"
+
+#: includes/sp_forms.php:889
+msgid "Send Code"
+msgstr "Enviar código"
+
+#: includes/sp_shortcodes.php:11
+msgid "Invalid user or password"
+msgstr "Usuario o contraseña inválidos"
+
+#: includes/sp_shortcodes.php:108
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: includes/sp_shortcodes.php:235
+msgid "Invalid start date"
+msgstr "Fecha de inicio inválida"
+
+#: includes/sp_shortcodes.php:237
+msgid "Invalid end date"
+msgstr "Fecha de fin inválida"
+
+#: includes/sp_shortcodes.php:247 includes/sp_shortcodes.php:342
+#: includes/sp_shortcodes.php:667
+msgid "AWB"
+msgstr "AWB"
+
+#: includes/sp_shortcodes.php:248 includes/sp_shortcodes.php:343
+#: includes/sp_shortcodes.php:668
+msgid "External Tracking"
+msgstr "Número de rastreo"
+
+#: includes/sp_shortcodes.php:249 includes/sp_shortcodes.php:344
+#: includes/sp_shortcodes.php:669
+msgid "Merchant"
+msgstr "Tienda"
+
+#: includes/sp_shortcodes.php:250 includes/sp_shortcodes.php:345
+#: includes/sp_shortcodes.php:670
+msgid "Contents"
+msgstr "Contenido"
+
+#: includes/sp_shortcodes.php:251 includes/sp_shortcodes.php:346
+#: includes/sp_shortcodes.php:378 includes/sp_shortcodes.php:671
+#: includes/sp_shortcodes.php:704
+msgid "Status"
+msgstr "Estado"
+
+#: includes/sp_shortcodes.php:252
+msgid "Date"
+msgstr "Fecha"
+
+#: includes/sp_shortcodes.php:253
+msgid "Invoice"
+msgstr "Factura"
+
+#: includes/sp_shortcodes.php:271
+msgid "Required"
+msgstr "Requerido"
+
+#: includes/sp_shortcodes.php:327
+msgid "Invalid Number"
+msgstr "Número inválido"
+
+#: includes/sp_shortcodes.php:347 includes/sp_shortcodes.php:672
+msgid "Destination"
+msgstr "Destino"
+
+#: includes/sp_shortcodes.php:364 includes/sp_shortcodes.php:690
+msgid "Shipment Details"
+msgstr "Detalles del paquete"
+
+#: includes/sp_shortcodes.php:374 includes/sp_shortcodes.php:700
+msgid "Tracking"
+msgstr "Rastreo"
+
+#: includes/sp_shortcodes.php:376 includes/sp_shortcodes.php:702
+msgid "Location"
+msgstr "Localidad"
+
+#: includes/sp_shortcodes.php:377 includes/sp_shortcodes.php:703
+msgid "Event Date"
+msgstr "Fecha del Evento"
+
+#: includes/sp_shortcodes.php:379 includes/sp_shortcodes.php:705
+msgid "Comments"
+msgstr "Comentarios"
+
+#: includes/sp_shortcodes.php:475 includes/sp_shortcodes.php:533
+msgid "Password updated"
+msgstr "Contraseña actualizada"
+
+#: includes/sp_shortcodes.php:479 includes/sp_shortcodes.php:537
+msgid "Password not updated"
+msgstr "Contraseña NO actualizada"
+
+#: includes/sp_shortcodes.php:510 includes/sp_shortcodes.php:559
+msgid "Invalid recovery code"
+msgstr "Código de recuperación inválido"
+
+#: includes/sp_shortcodes.php:598
+msgid "Email sent"
+msgstr "Email enviado"
+
+#: includes/sp_shortcodes.php:600
+msgid "Account not found"
+msgstr "No se encontró la cuenta"
+
+#: includes/admin/sp_admin.php:35
+msgid "Plugin Available Shortcodes"
+msgstr "Shortcodes disponibles del plugin"
+
+#: includes/admin/sp_admin.php:38
+msgid "Shortcode"
+msgstr "Shortocde"
+
+#: includes/admin/sp_admin.php:40
+msgid "Yes"
+msgstr "Sí"
+
+#: includes/admin/sp_admin.php:40
+msgid "No"
+msgstr "No"
+
+#: includes/admin/sp_admin.php:63
+msgid "Session Login Form"
+msgstr "Formulario de inicio de sesión"
+
+#: includes/admin/sp_admin.php:71
+msgid "Register Virtual Customer Form"
+msgstr "Registrar cliente virtual"
+
+#: includes/admin/sp_admin.php:77
+msgid "Session small name display"
+msgstr "nombre corto de la sesión"
+
+#: includes/admin/sp_admin.php:83
+msgid "Update personal information form"
+msgstr "Formulario de actualización de información personal"
+
+#: includes/admin/sp_admin.php:89
+msgid "Register Customer Default Form"
+msgstr "Formulario de registro de cliente default"
+
+#: includes/admin/sp_admin.php:95
+msgid "Customer Activation Form"
+msgstr "Formulario de activación"
+
+#: includes/admin/sp_admin.php:101
+msgid "Update address and phone form"
+msgstr "formulario de actualización de dirección y teléfono"
+
+#: includes/admin/sp_admin.php:107
+msgid "Display customer shipments form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:113
+msgid "Display customer shipment Information"
+msgstr ""
+
+#: includes/admin/sp_admin.php:119
+msgid "Update customer email"
+msgstr "Actualizar email del cliente"
+
+#: includes/admin/sp_admin.php:125 includes/admin/sp_admin.php:131
+msgid "Requests Recovery password Code"
+msgstr "Solicitar código de recuperación de contraseña"
+
+#: includes/admin/sp_admin.php:137
+msgid "Shipment required invoice control"
+msgstr "Control de facturas"
+
+#: includes/admin/sp_admin.php:143
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: includes/admin/sp_themes.php:1
+msgid "Your tax free U.S. address is"
+msgstr "Tu dirección libre de impuestos en Estados Unidos es"
+
+#. Name of the plugin
+msgid "Skypostal API-BOX"
+msgstr ""
+
+#. Description of the plugin
+msgid "Skypostal API-BOX Plugin"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://skypostal.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Skypostal DEV Team"
+msgstr ""

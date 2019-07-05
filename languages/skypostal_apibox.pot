@@ -1,0 +1,437 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Skypostal API-BOX\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-09 23:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.2; wp-5.2.1"
+
+#: includes/sp_services.php:90
+msgid "Invalid session"
+msgstr ""
+
+#: includes/sp_services.php:164 includes/sp_services.php:177
+msgid "Please select"
+msgstr ""
+
+#: includes/sp_init.php:24
+msgid "Invalid credentials"
+msgstr ""
+
+#: includes/sp_init.php:41 includes/sp_init.php:69 includes/sp_init.php:97
+msgid "Invalid Birth Date"
+msgstr ""
+
+#: includes/sp_init.php:42 includes/sp_init.php:70 includes/sp_init.php:187
+msgid "Invalid email"
+msgstr ""
+
+#: includes/sp_init.php:43 includes/sp_init.php:71
+#: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
+msgid "Password does not match"
+msgstr ""
+
+#: includes/sp_init.php:52 includes/sp_init.php:79
+msgid "Registration failed. Check your data and try again."
+msgstr ""
+
+#: includes/sp_init.php:102 includes/sp_init.php:124 includes/sp_init.php:147
+#: includes/sp_init.php:192
+msgid "Information updated"
+msgstr ""
+
+#: includes/sp_init.php:104 includes/sp_init.php:126 includes/sp_init.php:149
+#: includes/sp_init.php:194 includes/sp_init.php:216
+msgid "Information not updated"
+msgstr ""
+
+#: includes/sp_forms.php:26 includes/sp_forms.php:224
+msgid "This field is required"
+msgstr ""
+
+#: includes/sp_forms.php:131 includes/sp_forms.php:327
+msgid "The form ID is required"
+msgstr ""
+
+#: includes/sp_forms.php:393 includes/sp_forms.php:415
+msgid "is required"
+msgstr ""
+
+#: includes/sp_forms.php:445
+msgid "Account Information"
+msgstr ""
+
+#: includes/sp_forms.php:449 includes/sp_forms.php:798
+#: includes/sp_forms.php:799 includes/sp_forms.php:852
+#: includes/sp_forms.php:878 includes/sp_forms.php:879
+msgid "Email"
+msgstr ""
+
+#: includes/sp_forms.php:452 includes/sp_forms.php:561
+msgid "First name"
+msgstr ""
+
+#: includes/sp_forms.php:453 includes/sp_forms.php:562
+msgid "Last name"
+msgstr ""
+
+#: includes/sp_forms.php:456 includes/sp_forms.php:825
+#: includes/sp_forms.php:853
+msgid "Password"
+msgstr ""
+
+#: includes/sp_forms.php:457 includes/sp_forms.php:826
+msgid "Confirm Password"
+msgstr ""
+
+#: includes/sp_forms.php:460 includes/sp_forms.php:566
+msgid "Date of Birth"
+msgstr ""
+
+#: includes/sp_forms.php:461 includes/sp_forms.php:567
+msgid "Gender"
+msgstr ""
+
+#: includes/sp_forms.php:465
+msgid "TAX Identifier"
+msgstr ""
+
+#: includes/sp_forms.php:467
+msgid "Next"
+msgstr ""
+
+#: includes/sp_forms.php:478 includes/sp_forms.php:641
+msgid "Delivery Address"
+msgstr ""
+
+#: includes/sp_forms.php:482 includes/sp_forms.php:645
+msgid "Country"
+msgstr ""
+
+#: includes/sp_forms.php:483 includes/sp_forms.php:646
+msgid "State / Province"
+msgstr ""
+
+#: includes/sp_forms.php:484 includes/sp_forms.php:647
+msgid "City"
+msgstr ""
+
+#: includes/sp_forms.php:487 includes/sp_forms.php:650
+msgid "Address"
+msgstr ""
+
+#: includes/sp_forms.php:490 includes/sp_forms.php:653
+msgid "Region"
+msgstr ""
+
+#: includes/sp_forms.php:491 includes/sp_forms.php:654
+msgid "Postal Code"
+msgstr ""
+
+#: includes/sp_forms.php:494 includes/sp_forms.php:565
+#: includes/sp_forms.php:657
+msgid "Identification Number"
+msgstr ""
+
+#: includes/sp_forms.php:513 includes/sp_forms.php:527
+#: includes/sp_forms.php:669 includes/sp_forms.php:683
+msgid "Country code"
+msgstr ""
+
+#: includes/sp_forms.php:514 includes/sp_forms.php:528
+#: includes/sp_forms.php:607 includes/sp_forms.php:670
+#: includes/sp_forms.php:684
+msgid "Number"
+msgstr ""
+
+#: includes/sp_forms.php:515 includes/sp_forms.php:529
+#: includes/sp_forms.php:671 includes/sp_forms.php:685
+msgid "Extension"
+msgstr ""
+
+#: includes/sp_forms.php:541
+msgid ""
+"Yes, I would like to receive specials offers and important information "
+"regarding my address."
+msgstr ""
+
+#: includes/sp_forms.php:542
+msgid "By submitting, you accept the"
+msgstr ""
+
+#: includes/sp_forms.php:542
+msgid "terms and conditions"
+msgstr ""
+
+#: includes/sp_forms.php:545
+msgid "Register customer"
+msgstr ""
+
+#: includes/sp_forms.php:557
+msgid "Personal Information"
+msgstr ""
+
+#: includes/sp_forms.php:567
+msgid "Male"
+msgstr ""
+
+#: includes/sp_forms.php:567
+msgid "Female"
+msgstr ""
+
+#: includes/sp_forms.php:577 includes/sp_forms.php:622
+#: includes/sp_forms.php:695 includes/sp_forms.php:809
+#: includes/sp_forms.php:836
+msgid "Update"
+msgstr ""
+
+#: includes/sp_forms.php:599
+msgid "Payment \tInformation"
+msgstr ""
+
+#: includes/sp_forms.php:603
+msgid "Type"
+msgstr ""
+
+#: includes/sp_forms.php:606
+msgid "Name as it appears on card"
+msgstr ""
+
+#: includes/sp_forms.php:610
+msgid "Expiration month"
+msgstr ""
+
+#: includes/sp_forms.php:611
+msgid "Expiration year"
+msgstr ""
+
+#: includes/sp_forms.php:612
+msgid "Security code"
+msgstr ""
+
+#: includes/sp_forms.php:715
+msgid "Start date"
+msgstr ""
+
+#: includes/sp_forms.php:716
+msgid "End date"
+msgstr ""
+
+#: includes/sp_forms.php:717 includes/sp_forms.php:749
+msgid "Search"
+msgstr ""
+
+#: includes/sp_forms.php:748
+msgid "Airway Bill Number"
+msgstr ""
+
+#: includes/sp_forms.php:774
+msgid "Invoice File"
+msgstr ""
+
+#: includes/sp_forms.php:783
+msgid "Upload"
+msgstr ""
+
+#: includes/sp_forms.php:863
+msgid "Login"
+msgstr ""
+
+#: includes/sp_forms.php:889
+msgid "Send Code"
+msgstr ""
+
+#: includes/sp_shortcodes.php:11
+msgid "Invalid user or password"
+msgstr ""
+
+#: includes/sp_shortcodes.php:108
+msgid "Welcome"
+msgstr ""
+
+#: includes/sp_shortcodes.php:235
+msgid "Invalid start date"
+msgstr ""
+
+#: includes/sp_shortcodes.php:237
+msgid "Invalid end date"
+msgstr ""
+
+#: includes/sp_shortcodes.php:247 includes/sp_shortcodes.php:342
+#: includes/sp_shortcodes.php:667
+msgid "AWB"
+msgstr ""
+
+#: includes/sp_shortcodes.php:248 includes/sp_shortcodes.php:343
+#: includes/sp_shortcodes.php:668
+msgid "External Tracking"
+msgstr ""
+
+#: includes/sp_shortcodes.php:249 includes/sp_shortcodes.php:344
+#: includes/sp_shortcodes.php:669
+msgid "Merchant"
+msgstr ""
+
+#: includes/sp_shortcodes.php:250 includes/sp_shortcodes.php:345
+#: includes/sp_shortcodes.php:670
+msgid "Contents"
+msgstr ""
+
+#: includes/sp_shortcodes.php:251 includes/sp_shortcodes.php:346
+#: includes/sp_shortcodes.php:378 includes/sp_shortcodes.php:671
+#: includes/sp_shortcodes.php:704
+msgid "Status"
+msgstr ""
+
+#: includes/sp_shortcodes.php:252
+msgid "Date"
+msgstr ""
+
+#: includes/sp_shortcodes.php:253
+msgid "Invoice"
+msgstr ""
+
+#: includes/sp_shortcodes.php:271
+msgid "Required"
+msgstr ""
+
+#: includes/sp_shortcodes.php:327
+msgid "Invalid Number"
+msgstr ""
+
+#: includes/sp_shortcodes.php:347 includes/sp_shortcodes.php:672
+msgid "Destination"
+msgstr ""
+
+#: includes/sp_shortcodes.php:364 includes/sp_shortcodes.php:690
+msgid "Shipment Details"
+msgstr ""
+
+#: includes/sp_shortcodes.php:374 includes/sp_shortcodes.php:700
+msgid "Tracking"
+msgstr ""
+
+#: includes/sp_shortcodes.php:376 includes/sp_shortcodes.php:702
+msgid "Location"
+msgstr ""
+
+#: includes/sp_shortcodes.php:377 includes/sp_shortcodes.php:703
+msgid "Event Date"
+msgstr ""
+
+#: includes/sp_shortcodes.php:379 includes/sp_shortcodes.php:705
+msgid "Comments"
+msgstr ""
+
+#: includes/sp_shortcodes.php:475 includes/sp_shortcodes.php:533
+msgid "Password updated"
+msgstr ""
+
+#: includes/sp_shortcodes.php:479 includes/sp_shortcodes.php:537
+msgid "Password not updated"
+msgstr ""
+
+#: includes/sp_shortcodes.php:510 includes/sp_shortcodes.php:559
+msgid "Invalid recovery code"
+msgstr ""
+
+#: includes/sp_shortcodes.php:598
+msgid "Email sent"
+msgstr ""
+
+#: includes/sp_shortcodes.php:600
+msgid "Account not found"
+msgstr ""
+
+#: includes/admin/sp_admin.php:35
+msgid "Plugin Available Shortcodes"
+msgstr ""
+
+#: includes/admin/sp_admin.php:38
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin/sp_admin.php:40
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/sp_admin.php:40
+msgid "No"
+msgstr ""
+
+#: includes/admin/sp_admin.php:63
+msgid "Session Login Form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:71
+msgid "Register Virtual Customer Form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:77
+msgid "Session small name display"
+msgstr ""
+
+#: includes/admin/sp_admin.php:83
+msgid "Update personal information form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:89
+msgid "Register Customer Default Form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:95
+msgid "Customer Activation Form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:101
+msgid "Update address and phone form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:107
+msgid "Display customer shipments form"
+msgstr ""
+
+#: includes/admin/sp_admin.php:113
+msgid "Display customer shipment Information"
+msgstr ""
+
+#: includes/admin/sp_admin.php:119
+msgid "Update customer email"
+msgstr ""
+
+#: includes/admin/sp_admin.php:125 includes/admin/sp_admin.php:131
+msgid "Requests Recovery password Code"
+msgstr ""
+
+#: includes/admin/sp_admin.php:137
+msgid "Shipment required invoice control"
+msgstr ""
+
+#: includes/admin/sp_admin.php:143
+msgid "Change password"
+msgstr ""
+
+#. Name of the plugin
+msgid "Skypostal API-BOX"
+msgstr ""
+
+#. Description of the plugin
+msgid "Skypostal API-BOX Plugin"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://skypostal.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Skypostal DEV Team"
+msgstr ""

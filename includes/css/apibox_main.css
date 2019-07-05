@@ -1,0 +1,12 @@
+.margined-radio{
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+#form_section2,#form_section3{
+	display:none;
+}
+
+.centered{
+	text-align: center;
+}
