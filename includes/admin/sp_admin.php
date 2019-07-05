@@ -153,7 +153,19 @@
     				'callback'=>'spapibox_shortcode_customer_change_password',
     				'description'=>__('Change password','skypostal_apibox'),
     				'req_session'=>true
-    			)        			    			
+    			),
+                array(
+                    'key'=>'sp_customer_box_status',
+                    'callback'=>'spapibox_shortcode_customer_box_status',
+                    'description'=>__('Account status info box','skypostal_apibox'),
+                    'req_session'=>true
+                ),
+                array(
+                    'key'=>'sp_customer_box_account_inactive_alert',
+                    'callback'=>'spapibox_shortcode_customer_inactive_alert',
+                    'description'=>__('Account inactive status alert','skypostal_apibox'),
+                    'req_session'=>true
+                )           			    			
     			
     			
     	);
@@ -406,6 +418,16 @@
                 'helper' => '',
                 'supplimental' => 'URL to link terms & conditions page',
                 'default' => 'terms-and-conditions'
+            ),
+            array(
+                'uid' => 'fapibox_activate_box_path',
+                'label' => 'Box Activation URL',
+                'section' => 'third_section',
+                'type' => 'text',
+                'placeholder' => '',
+                'helper' => '',
+                'supplimental' => 'URL to link users to the activation path when not activated',
+                'default' => ''
             )
         );
     	foreach( $fields as $field ){

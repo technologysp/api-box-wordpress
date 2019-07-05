@@ -574,6 +574,39 @@ function spapibox_shortcode_customer_reset_password_send_code() {
 	return ob_get_clean();	
 }
 
+function spapibox_shortcode_customer_box_status(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo '';
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo '';
+		return ob_get_clean();
+    }
+    $render=spapibox_themes_theme_box_status_alert($info[0]);
+    echo $render;
+	return ob_get_clean();
+}
+
+function spapibox_shortcode_customer_inactive_alert(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo '';
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo '';
+		return ob_get_clean();
+    }
+    $render=spapibox_themes_theme_box_status_alert($info[0],true);
+    echo $render;
+	return ob_get_clean();	
+}
 
 function spapibox_shortcode_shipment_invoice_handler(){
 	ob_start();		

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-09 23:19+0000\n"
-"PO-Revision-Date: 2019-06-14 20:41-0600\n"
+"PO-Revision-Date: 2019-07-05 11:02-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -40,6 +40,10 @@ msgstr "Email inválido"
 #: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
 msgid "Password does not match"
 msgstr "Las contraseñas no coinciden"
+
+#: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
+msgid "No information found"
+msgstr "No se encontraron registros"
 
 #: includes/sp_init.php:52 includes/sp_init.php:79
 msgid "Registration failed. Check your data and try again."
@@ -110,6 +114,18 @@ msgstr "Identificador de Impuestos"
 msgid "Next"
 msgstr "Siguiente"
 
+#: includes/sp_forms.php:534
+msgid "Prev"
+msgstr "Atrás"
+
+#: includes/sp_forms.php:534
+msgid "Cellphone"
+msgstr "Celular"
+
+#: includes/sp_forms.php:534
+msgid "Phone"
+msgstr "Teléfono"
+
 #: includes/sp_forms.php:478 includes/sp_forms.php:641
 msgid "Delivery Address"
 msgstr "Dirección de entrega"
@@ -173,7 +189,7 @@ msgstr "Al enviar, usted acepta los"
 
 #: includes/sp_forms.php:542
 msgid "terms and conditions"
-msgstr "Términos y condiciones"
+msgstr "términos y condiciones"
 
 #: includes/sp_forms.php:545
 msgid "Register customer"
@@ -357,11 +373,11 @@ msgstr "No se encontró la cuenta"
 
 #: includes/admin/sp_admin.php:35
 msgid "Plugin Available Shortcodes"
-msgstr ""
+msgstr "Shortcodes disponibles del plugin"
 
 #: includes/admin/sp_admin.php:38
 msgid "Shortcode"
-msgstr ""
+msgstr "Shortocde"
 
 #: includes/admin/sp_admin.php:40
 msgid "Yes"
@@ -373,31 +389,31 @@ msgstr "No"
 
 #: includes/admin/sp_admin.php:63
 msgid "Session Login Form"
-msgstr ""
+msgstr "Formulario de inicio de sesión"
 
 #: includes/admin/sp_admin.php:71
 msgid "Register Virtual Customer Form"
-msgstr ""
+msgstr "Registrar cliente virtual"
 
 #: includes/admin/sp_admin.php:77
 msgid "Session small name display"
-msgstr ""
+msgstr "nombre corto de la sesión"
 
 #: includes/admin/sp_admin.php:83
 msgid "Update personal information form"
-msgstr ""
+msgstr "Formulario de actualización de información personal"
 
 #: includes/admin/sp_admin.php:89
 msgid "Register Customer Default Form"
-msgstr ""
+msgstr "Formulario de registro de cliente default"
 
 #: includes/admin/sp_admin.php:95
 msgid "Customer Activation Form"
-msgstr ""
+msgstr "Formulario de activación"
 
 #: includes/admin/sp_admin.php:101
 msgid "Update address and phone form"
-msgstr ""
+msgstr "formulario de actualización de dirección y teléfono"
 
 #: includes/admin/sp_admin.php:107
 msgid "Display customer shipments form"
@@ -409,23 +425,35 @@ msgstr ""
 
 #: includes/admin/sp_admin.php:119
 msgid "Update customer email"
-msgstr ""
+msgstr "Actualizar email del cliente"
 
 #: includes/admin/sp_admin.php:125 includes/admin/sp_admin.php:131
 msgid "Requests Recovery password Code"
-msgstr ""
+msgstr "Solicitar código de recuperación de contraseña"
 
 #: includes/admin/sp_admin.php:137
 msgid "Shipment required invoice control"
-msgstr ""
+msgstr "Control de facturas"
 
 #: includes/admin/sp_admin.php:143
 msgid "Change password"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: includes/admin/sp_themes.php:1
 msgid "Your tax free U.S. address is"
 msgstr "Tu dirección libre de impuestos en Estados Unidos es"
+
+#: includes/admin/sp_themes.php:1
+msgid "Your account is activated"
+msgstr "Tu cuenta esta activa"
+
+#: includes/admin/sp_themes.php:1
+msgid "Activate your account"
+msgstr "Activa tu cuenta"
+
+#: includes/admin/sp_themes.php:1
+msgid "Your account is not active"
+msgstr "Tu cuenta no esta activa"
 
 #. Name of the plugin
 msgid "Skypostal API-BOX"

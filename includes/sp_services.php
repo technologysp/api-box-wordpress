@@ -42,7 +42,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.0.0.14';
+		$this->version = '1.0.0.15';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';

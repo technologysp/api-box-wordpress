@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-09 23:19+0000\n"
-"PO-Revision-Date: 2019-07-04 23:50-0600\n"
+"PO-Revision-Date: 2019-07-05 11:02-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -442,6 +442,18 @@ msgstr "Cambiar contraseña"
 #: includes/admin/sp_themes.php:1
 msgid "Your tax free U.S. address is"
 msgstr "Tu dirección libre de impuestos en Estados Unidos es"
+
+#: includes/admin/sp_themes.php:1
+msgid "Your account is activated"
+msgstr "Tu cuenta esta activa"
+
+#: includes/admin/sp_themes.php:1
+msgid "Activate your account"
+msgstr "Activa tu cuenta"
+
+#: includes/admin/sp_themes.php:1
+msgid "Your account is not active"
+msgstr "Tu cuenta no esta activa"
 
 #. Name of the plugin
 msgid "Skypostal API-BOX"
