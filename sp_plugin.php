@@ -59,7 +59,8 @@ function spapibpx_enqueue_styles()
 }
 
 //Init the translation files for the current language. ENG for default
-function spapibox_init_langs(){    
+function spapibox_init_langs(){   
+    //wp_enqueue_style( 'apibox_main',plugins_url( '/includes/css/apibox_css_sample.css', __FILE__ ), array(), $tools->version); 
     $findfile = load_plugin_textdomain( 'skypostal_apibox', false,dirname( plugin_basename( __FILE__ ) ). '/languages' );    
 }
 add_action( 'init', 'spapibox_init_langs');

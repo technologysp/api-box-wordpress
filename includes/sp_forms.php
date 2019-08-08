@@ -458,7 +458,7 @@ function spapibox_form_build_customer_registration($skypostalServices_instance, 
 					"confirm_password"=>array("title"=>esc_html__("Confirm Password",'skypostal_apibox'), "type"=>"password", "required"=>true, "layout-cols"=>"6")
 				),
 				"group4"=>array(
-					"date_of_birth"=>array("title"=>esc_html__("Date of Birth",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"6"),
+					"date_of_birth"=>array("title"=>esc_html__("Date of Birth",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"6",  "attributes"=>array("autocomplete"=>"off") ),
 					"gender"=>array("title"=>esc_html__("Gender",'skypostal_apibox'), "type"=>"radio", "required"=>true, "layout-cols"=>"6", "options"=>array("M"=>esc_html__("Male","skypostal_apibox"), "F"=>esc_html__("Female","skypostal_apibox")))
 				)
 		)
@@ -564,7 +564,7 @@ function spapibox_form_build_customer_update_personal_info($skypostalServices_in
 			),
 			"group2"=>array( 
 				"address_id_number"=>array("title"=>esc_html__("Identification Number",'skypostal_apibox'), "type"=>"text", "required"=>false, "layout-cols"=>"4"),	
-				"date_of_birth"=>array("title"=>esc_html__("Date of Birth",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"4"),
+				"date_of_birth"=>array("title"=>esc_html__("Date of Birth",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"4","attributes"=>array("autocomplete"=>"off")),
 				"gender"=>array("title"=>esc_html__("Gender",'skypostal_apibox'), "type"=>"radio", "required"=>true, "options"=>array("M"=>__("Male",'skypostal_apibox'), "F"=>__("Female",'skypostal_apibox')), "layout-cols"=>"4")	
 			)
 		)

@@ -52,7 +52,7 @@ function sup_next(element){
 
 		var do_continue=true;
 		jQuery("#form_section"+currentstep).find("input,textarea,select").each(function(){
-			console.log(jQuery(this).attr("name"));
+			
 			if(jQuery(this).hasClass('required')){
 				if(!sup_validate_req_field(this)) do_continue=false;
 			}
