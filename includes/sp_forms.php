@@ -111,7 +111,7 @@ function spapibox_form_render_field($field_key,$field,$parent_fieldset,$formID, 
 
 function spapibox_form_render_table($data, $formid){
 	
-	$table='<div class="table-responsive">';
+	$table='<div class="table-skypostal-apibox table-responsive">';
 
 	if(isset($data['title'])) $table.='<h4>'.$data['title'].'</h4>';
 
@@ -459,7 +459,7 @@ function spapibox_form_build_customer_registration($skypostalServices_instance, 
 				),
 				"group4"=>array(
 					"date_of_birth"=>array("title"=>esc_html__("Date of Birth",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"6"),
-					"gender"=>array("title"=>esc_html__("Gender",'skypostal_apibox'), "type"=>"radio", "required"=>true, "layout-cols"=>"6", "options"=>array("M"=>"Male", "F"=>"Female"))	
+					"gender"=>array("title"=>esc_html__("Gender",'skypostal_apibox'), "type"=>"radio", "required"=>true, "layout-cols"=>"6", "options"=>array("M"=>esc_html__("Male","skypostal_apibox"), "F"=>esc_html__("Female","skypostal_apibox")))
 				)
 		)
 	);

@@ -12,7 +12,7 @@
  * 
  */
 function spapibox_themes_themeForm($formContent,$attributes,$action,$class){
-$t='<form class="'.$class.'" action="'.$action.'" method="post" accept-charset="UTF-8" '.$attributes.'>
+$t='<form class="form-skypostal-apibox '.$class.'" action="'.$action.'" method="post" accept-charset="UTF-8" '.$attributes.'>
 	'.$formContent.'
 	</form>';
 	return $t;

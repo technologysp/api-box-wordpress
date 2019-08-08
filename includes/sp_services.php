@@ -519,6 +519,15 @@ class skypostalServices
 		return $return_data;
 	}
 	
+	public function sp_shipment_get_ship_rate($data){
+		$method = '/service-customer.svc/customer/TEMP';					
+		$parameters = array(			
+			"trck_nmr_fol"=>sanitize_text_field($data['trck_nmr_fol']),
+			"invoice_file_name"=>sanitize_text_field($data['invoice_file_name']),			
+		);
+		$result = $this->_sp_execute_method($method,$parameters);		
+		return $result;
+	}
 	
 	
 	
