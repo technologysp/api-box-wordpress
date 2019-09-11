@@ -52,7 +52,7 @@ function spapibox_themes_theme_box_status_alert($customer_info,$inactive_only=fa
   $t='';
   if(!$inactive_only) $t=spapibox_get_message('info',__('Your account is activated','skypostal_apibox'));
   if(!$customer_info->is_active){
-    $link_url='/'.get_option( 'fapibox_activate_box_path' );
+    $link_url=''.get_option( 'fapibox_activate_box_path' );
     $action='<a class="btn btn-primary" href='.$link_url.'>'.__('Activate your account','skypostal_apibox').'</a>';
     $title=__('Your account is not active','skypostal_apibox');
     $t='<div class="row box-status-alert">

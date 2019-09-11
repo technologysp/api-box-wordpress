@@ -38,6 +38,14 @@ function spapibox_shortcode_login_form() {
 	return ob_get_clean();
 }
 
+function spapibox_shortcode_logout_action(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	$tools->save_logout_service_session();	
+	echo $tools->get_no_session_action();
+	return ob_get_clean();		
+}
+
 function spapibox_shortcode_customer_registration_virtual() {
 	ob_start();		
 	$tools = new skypostalServices();		

@@ -165,7 +165,14 @@
                     'callback'=>'spapibox_shortcode_customer_inactive_alert',
                     'description'=>__('Account inactive status alert','skypostal_apibox'),
                     'req_session'=>true
-                )           			    			
+                ),
+                array(
+                    'key'=>'sp_customer_box_logout_action',
+                    'callback'=>'spapibox_shortcode_logout_action',
+                    'description'=>__('Account Logout','skypostal_apibox'),
+                    'req_session'=>false
+                )      
+                
     			
     			
     	);

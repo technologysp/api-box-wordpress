@@ -129,7 +129,7 @@ class skypostalServices
 		}
 		return $parameters;
 	}
-	private function _sp_execute_method($method,$parameters,$headers=NULL){
+	private function _sp_execute_method($method,$parameters,$headers=NULL,$noverbose=false){
 		$executeurl=$this->_url_prod;
 		if($this->_api_test_mode) $executeurl=$this->_url_test;
 		$executeurl.=$method;		
@@ -140,7 +140,7 @@ class skypostalServices
 		$parameters = $this->_add_login_service_parameters($parameters);		
 		$jsonDataEncoded = json_encode($parameters);	 
 		
-		if($this->_verbose) echo '<pre>'.$executeurl.'</pre><pre>'.$jsonDataEncoded.'</pre>';
+		if($this->_verbose && !$noverbose) echo '<pre>'.$executeurl.'</pre><pre>'.$jsonDataEncoded.'</pre>';
 		curl_setopt($ch, CURLOPT_POST, 1);	 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);		
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);	 		
@@ -202,7 +202,7 @@ class skypostalServices
 	public function sp_geographic_get_countries(){
 		$method = '/service-geographic.svc/geographic/geographic-get-countries';			
 		$parameters = array();					 
-		$result = $this->_sp_execute_method($method,$parameters);		
+		$result = $this->_sp_execute_method($method,$parameters,NULL,true);		
 		$countries=array();
 		foreach($result as $key=>$value){
 			$countries[$value->country_code] = $value->country_name;
@@ -214,7 +214,7 @@ class skypostalServices
 		$parameters = array(		
 			'country_code' => $country_code			
 		);	 
-		$result = $this->_sp_execute_method($method,$parameters);		
+		$result = $this->_sp_execute_method($method,$parameters,NULL,true);		
 		$states=array();
 		$states[0]=esc_html__("Please select",'skypostal_apibox');
 		foreach($result as $key=>$value){
@@ -227,7 +227,7 @@ class skypostalServices
 		$parameters = array(		
 			'state_code' => $state_code			
 		);	 
-		$result = $this->_sp_execute_method($method,$parameters);		
+		$result = $this->_sp_execute_method($method,$parameters,NULL,true);		
 		$cities=array();
 		$cities[0]=esc_html__("Please select",'skypostal_apibox');
 		foreach($result as $key=>$value){
