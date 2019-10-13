@@ -45,6 +45,14 @@ function spapibox_init_customer_reg_virtual_action(){
 	//Form required field validation results:
 	$results_key = $form['#id'].'_result';
 	$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);	
+
+	//EMAIL VALIDATIONS:
+	if( count($_POST[$results_key])<=0 ){
+		$info=$tools->sp_partner_customer_get_info(array("customer_email"=>$_POST['email']));
+		if($info[0]->_verify){
+			$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
+		}	
+	}	
 	
 	//additional validations:
     if (!$tools->validateDate($_POST['date_of_birth'])) $_POST[$results_key]['danger'][] =array('field'=>'date_of_birth', 'message'=>esc_html__('Invalid Birth Date','skypostal_apibox'));
@@ -55,9 +63,27 @@ function spapibox_init_customer_reg_virtual_action(){
         $result=$tools->sp_customer_registration_virtual($_POST);        
         if($result[0]->_verify){
         	$tools->save_login_service_session($result[0]->customer_key,$result[0]->customer_box_id,$_POST['first_name']);
-        	wp_redirect( $tools->_login_success_redirect_url ); exit;
+        	//Fire event
+        	spapibox_events_after_virtual_registration_success($_POST);			
+        	if($tools->_reg_email_mode=='default'){
+        		$info=$tools->sp_partner_customer_get_info(array("customer_email"=>$_POST['email']));
+				if($info[0]->_verify){
+					//$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
+
+					$suite=$info[0]->customer_address[0]->ctry_iso_code . $result[0]->customer_box_id;
+					$emaillink = $tools->get_default_email(array('suite'=>$suite, 'name'=>$_POST['first_name'],'email'=>$_POST['email']));
+					if(!empty($emaillink)){
+						$tools->send_html_email($emaillink,$_POST['email'],'Your account has been activated');
+					}
+				}	
+        	}
+
+        	//wp_redirect( $tools->_login_success_redirect_url ); exit;
         }else{
-        	$_POST[$results_key][] =array('field'=>'', 'message'=>esc_html__('Registration failed. Check your data and try again.','skypostal_apibox'));
+        	if(isset($result[0]->error) && isset($result[0]->error->error_description) && $result[0]->error->error_description=="The email account sent is already registered and associated with a box."){
+        		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
+        	}else        	
+        		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Registration failed. Check your data and try again.','skypostal_apibox'));
         }                
     }
 }
@@ -80,10 +106,12 @@ function spapibox_init_customer_reg_default_action(){
         $result=$tools->sp_customer_registration_default($_POST);
         if($result[0]->_verify){
         	$tools->save_login_service_session($result[0]->customer_key,$result[0]->customer_box_id,$_POST['first_name']);
-        	wp_redirect( $tools->_login_success_redirect_url ); exit;
+        	//wp_redirect( $tools->_login_success_redirect_url ); exit;
         }else{
-        	$_POST[$results_key][] =array('field'=>'', 'message'=>esc_html__('Registration failed. Check your data and try again.','skypostal_apibox'));
-        	$_POST[$results_key][] =array('field'=>'', 'message'=>print_r($result, true));
+        	if(isset($result[0]->error) && isset($result[0]->error->error_description) && $result[0]->error->error_description=="The email account sent is already registered and associated with a box."){
+        		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
+        	}else        	
+        		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Registration failed. Check your data and try again.','skypostal_apibox'));
         }        
         
     }	

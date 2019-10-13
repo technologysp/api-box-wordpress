@@ -503,34 +503,37 @@ function spapibox_form_build_customer_registration($skypostalServices_instance, 
 	if($bysteps) $form['delivery_address']['fields']["group6"]=array(
 		"prevbuttons2"=>array("markup"=>$buttons, "type"=>"markup", "required"=>false,"noattributes"=>array("onclick"=>"sup_prev(this)"),"layout-cols"=>"12", "wrapper-class"=>"centered")		
 	);	
-	
-	$form['account_cellphone']=array(
-		"prefix"=>($bysteps ? '<div id="form_section3">':''),
-		"suffix"=>'',
-		"title"=>__('Cellphone', 'skypostal_apibox'),
-		"attributes"=>array(),
-		"fields"=>array(
-			"group1"=>array( 	
-				"account_cellphone_country"=>array("title"=>esc_html__("Country code",'skypostal_apibox'), "type"=>"text", "required"=>true,"layout-cols"=>"3"),
-				"account_cellphone_number"=>array("title"=>esc_html__("Number",'skypostal_apibox'), "type"=>"text", "required"=>true,"layout-cols"=>"6"),
-				"account_cellphone_ext"=>array("title"=>esc_html__("Extension",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3")
-				)
-		)
-	);
-	
+
 	$form['account_telephone']=array(
-		"prefix"=>'',
+		"prefix"=>($bysteps ? '<div id="form_section3">':''),
+		
 		"suffix"=>'',
 		"title"=>__('Phone', 'skypostal_apibox'),
 		"attributes"=>array(),
 		"fields"=>array(
 			"group1"=>array( 	
-				"account_phone_country"=>array("title"=>esc_html__("Country code",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3"),
-				"account_phone_number"=>array("title"=>esc_html__("Number",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"6"),
-				"account_phone_ext"=>array("title"=>esc_html__("Extension",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3")
+				"account_phone_country"=>array("title"=>esc_html__("Country code",'skypostal_apibox'), "type"=>"text", "required"=>true,"layout-cols"=>"3","attributes"=>array("maxlength"=>3)),
+				"account_phone_number"=>array("title"=>esc_html__("Number",'skypostal_apibox'), "type"=>"text", "required"=>true,"layout-cols"=>"6","attributes"=>array("maxlength"=>12)),
+				"account_phone_ext"=>array("title"=>esc_html__("Extension",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3","attributes"=>array("maxlength"=>3))
 				)
 		)
 	);
+	
+	$form['account_cellphone']=array(
+		"prefix"=>'',
+		"suffix"=>'',
+		"title"=>__('Cellphone', 'skypostal_apibox'),
+		"attributes"=>array(),
+		"fields"=>array(
+			"group1"=>array( 	
+				"account_cellphone_country"=>array("title"=>esc_html__("Country code",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3","attributes"=>array("maxlength"=>3)),
+				"account_cellphone_number"=>array("title"=>esc_html__("Number",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"6","attributes"=>array("maxlength"=>23)),
+				"account_cellphone_ext"=>array("title"=>esc_html__("Extension",'skypostal_apibox'), "type"=>"text", "required"=>false,"layout-cols"=>"3","attributes"=>array("maxlength"=>3))
+				)
+		)
+	);
+	
+
 
 	$buttons=($bysteps ?'<input type="button" class="btn btn-secondary" onclick="sup_prev(this)" value="'.__('Prev','skypostal_apibox').'" />&nbsp;':'');
 	$form['submission']=array(

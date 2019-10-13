@@ -41,8 +41,12 @@ function spapibox_shortcode_login_form() {
 function spapibox_shortcode_logout_action(){
 	ob_start();		
 	$tools = new skypostalServices();	
-	$tools->save_logout_service_session();	
-	echo $tools->get_no_session_action();
+	//$tools->save_logout_service_session();			
+	$script= '<script>
+	document.cookie = "'.$tools->_login_user_key_identifier.'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "'.$tools->_login_box_id_identifier.'=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	</script>';
+	echo $script.$tools->get_no_session_action();
 	return ob_get_clean();		
 }
 
@@ -117,18 +121,18 @@ function spapibox_shortcode_login_small_box(){
 	ob_start();		
 	$tools = new skypostalServices();
 
-	if($tools->is_logged_in_simple()){
-		//echo __('Welcome','skypostal_apibox').' '.$tools->get_session_display_idef();		
-		$info=$tools->sp_customer_get_info();			 	        	
-	    if(!$info[0]->_verify){
-	    	echo $tools->get_no_session_action();
-			return ob_get_clean();
-	    }
-
-	    $boxid=$tools->get_session_box_id();
-	    echo spapibox_themes_theme_login_info_box($info[0],$boxid);
+	if (!$tools->is_logged_in_simple()){
+		echo $tools->get_no_session_action();
+		return ob_get_clean();
 	}
-	echo '';
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo $tools->get_no_session_action();
+		return ob_get_clean();
+    }
+
+	$boxid=$tools->get_session_box_id();
+	echo spapibox_themes_theme_login_info_box($info[0],$boxid);	
 	return ob_get_clean();
 }
 
@@ -562,11 +566,19 @@ function spapibox_shortcode_customer_reset_password_send_code() {
 	    	$code =hexdec( substr(md5($info[0]->customer_key.$diff_rand.$emailsent), 0, 8) );
 	    	$r=md5(rand());
 			
-			$link= get_site_url().'/'.$tools->_login_recovery_pass_update_url.'?k='.$code.'&e='.urlencode($emailsent).'&d='.$diff_rand.'&r='.urlencode($r);
+			$link= get_site_url().'/'.$tools->_login_recovery_pass_update_url;
+
+			$query = 'q2=two';			
+			$parsedUrl = parse_url($link);
+			if ($parsedUrl['path'] == null) {
+				$link .= '/';
+			}
+			$separator = ($parsedUrl['query'] == NULL) ? '?' : '&';
+			$link .= $separator .'k='.$code.'&e='.urlencode($emailsent).'&d='.$diff_rand.'&r='.urlencode($r);
 
 			$to = $emailsent;
-			$subject = 'Recovery Password';
-			$body = 'To recover your password, <a href="'.$link	. '"> click here </a><br />Regards';
+			$subject = __('Password Recovery','skypostal_apibox');
+			$body = __('To recover your password','skypostal_apibox') . ', <a href="'.$link	. '"> ' . __('Click Here','skypostal_apibox') . ' </a><br />' . __('Regards','skypostal_apibox') ;
 			$headers = array('Content-Type: text/html; charset=UTF-8');
 			 
 			wp_mail( $to, $subject, $body, $headers );

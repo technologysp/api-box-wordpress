@@ -21,8 +21,8 @@ class skypostalServices
 	
 	private $_app_key;//
 	private $_user_code;	//
-	private $_login_user_key_identifier;//
-	private $_login_box_id_identifier;//
+	public $_login_user_key_identifier;//
+	public $_login_box_id_identifier;//
 	
 	public $_verbose;//
 	private $_copa_id;//
@@ -38,11 +38,12 @@ class skypostalServices
 	public $_login_recovery_pass_code_url;
 	public $_login_recovery_pass_update_url;
 	public $_terms_conditions_path;
+	public $_reg_email_mode;
 
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.0.0.15';
+		$this->version = '1.0.1.9';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -72,6 +73,12 @@ class skypostalServices
 		$this->_login_recovery_pass_code_url=get_option( 'fapibox_login_recovery_pass_code' );
 		$this->_login_recovery_pass_update_url=get_option( 'fapibox_login_recovery_pass_update' );
 		$this->_terms_conditions_path=get_option( 'fapibox_terms_conditions_path' );
+		$this->_reg_email_mode='custom';
+		$opt = get_option( 'fapibox_reg_email_mode' );
+		if(is_array($opt) && count($opt)>0){
+			$this->_reg_email_mode=$opt[0];
+		}
+		
     }
 
     public function validateDate($date, $format = 'd/m/Y')
@@ -92,6 +99,31 @@ class skypostalServices
 		setcookie($this->_login_box_id_identifier, $customer_box_id, time() + $session_time, COOKIEPATH,COOKIE_DOMAIN);
 		//Also saving pre-cached customer name:
 		setcookie($this->_login_user_key_identifier.'idef', $dispname, time() + $session_time,COOKIEPATH,COOKIE_DOMAIN );		
+    }
+    public function get_default_email($data){
+    	$email='';		
+		if( $this->_reg_email_mode=='default'){
+			$email='http://service.puntomio.com/App_files/cpostactivation_mail.aspx?PathUrl=http://service.puntomio.com' .
+			'&nombre=' . urldecode($data['name']) .
+			'&suite='. urldecode($data['suite']) .
+			'&clave=No_pass&usuario=' . urldecode($data['email']) .
+			'&delivery=0&alternate_name='.
+			'&sc='.$this->_copa_id.
+			'&lang=ESP&box_user_firstname=' . urldecode($data['name']) ;
+		}
+		return $email;	
+    }
+    public function send_html_email($html_link,$emailsent,$subject){
+    	try{
+			$to = $emailsent;		
+			$body = file_get_contents($html_link);
+			$headers = array('Content-Type: text/html; charset=UTF-8');
+			 
+			wp_mail( $to, $subject, $body, $headers );
+		} catch (Exception $e) {
+    		return false;
+		}
+		return true;
     }
     public function get_session_display_idef(){
     	if(isset($_COOKIE[$this->_login_user_key_identifier.'idef'])) {//User Key
@@ -259,7 +291,6 @@ class skypostalServices
 			if($copa_info['copa_id'] > 0) $copaid=$copa_info['copa_id'];
 		}else
 			$copaid=$this->_copa_id;
-
 
 		$parameters = array(
 			"language_code"=>sanitize_text_field('ESP'),

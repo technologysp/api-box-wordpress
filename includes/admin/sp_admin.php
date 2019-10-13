@@ -273,6 +273,17 @@
         		),
                 'default' => array()
         	),//END FIRST SECTION
+            array(
+                'uid' => 'fapibox_reg_email_mode',
+                'label' => 'Virtual Registration Email',
+                'section' => 'first_section',
+                'type' => 'select',
+                'options' => array(
+                    'custom' => 'Use Events handler, Don\'t send default email' ,
+                    'default' => 'Send default email automatically'                    
+                ),
+                'default' => array()
+            ),//END FIRST SECTION
         	array(
         		'uid' => 'fapibox_login_uk_idef',
         		'label' => 'Login user key prefix',

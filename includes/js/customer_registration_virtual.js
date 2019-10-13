@@ -4,7 +4,8 @@ jQuery(document).ready(function(){
 	jQuery( "#date_of_birth" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      dateFormat:"dd/mm/yy"
+      dateFormat:"dd/mm/yy",
+      yearRange: "-100:-16"
     });
 
 	jQuery("#address_country").change(function(){
