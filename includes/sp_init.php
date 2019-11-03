@@ -269,13 +269,14 @@ function spapibox_init_customer_invoice_uploader(){
 		if($result[0]->_verify){
 			$invoice_file_guid=$result[0]->invoice_file_guid;
 			$invoice_file_name=$result[0]->invoice_file_name;
-			echo 'Attempting to read: '.$_FILES["trck_nmr_fol_invoice"]["tmp_name"];
+			
 			$filename = $_FILES["trck_nmr_fol_invoice"]["tmp_name"];
 			$handle = fopen($filename, "r");
 			$contents = fread($handle, filesize($filename));
 			fclose($handle);
 			$data=array('invoice_file_guid'=>$invoice_file_guid);
 			$result=$tools->sp_customer_upload_invoice_file($contents,$data);
+			
 			if($result[0]->_verify){
 				$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('File uploaded','skypostal_apibox').' '.$target_file);
 			}else

@@ -36,6 +36,21 @@ msgstr "Fecha de nacimiento inválida"
 msgid "Invalid email"
 msgstr "Email inválido"
 
+msgid "Email already exists"
+msgstr "La cuenta de Email ya existe"
+
+msgid "Password Recovery"
+msgstr "Recuperación de contraseña"
+
+msgid "To recover your password"
+msgstr "Para recuperar su contraseña"
+
+msgid "Click Here"
+msgstr "Haga click aquí"
+
+msgid "Regards"
+msgstr "Saludos Cordiales"
+
 #: includes/sp_init.php:43 includes/sp_init.php:71
 #: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
 msgid "Password does not match"
@@ -470,3 +485,6 @@ msgstr ""
 #. Author of the plugin
 msgid "Skypostal DEV Team"
 msgstr ""
+
+msgid "Upload Again"
+msgstr "Subir Nuevamente"

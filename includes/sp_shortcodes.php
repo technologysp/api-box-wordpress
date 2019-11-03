@@ -286,11 +286,24 @@ function spapibox_customer_get_shipments(){
 			$show_date= $dt->format('d/m/Y');
 
 			$inv=array('value'=>'');
-			if($ship->invoice_required==1) $inv=array('value'=>__('Required','skypostal_apibox'), 'link'=>$tools->_shipment_invoice_url.'?awb='.$ship->trck_nmr_fol);
+			$union='?';
+			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
+			if($ship->invoice_required==1){
+					$inv_text='';
+					if(!empty($ship->invoice_file_name)){
+						$inv_text=__('Upload Again','skypostal_apibox');
+					}else
+						$inv_text=__('Required','skypostal_apibox');
+
+					$inv=array('value'=>$inv_text, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
+			}	
+			$union_ship='?';
+			if(strrpos($tools->_shipment_details_url,'?')!==false) $union_ship='&';
+
 
 			$table['body'][]=array(
-				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
-				'external_tracking'=>array('value'=>$ship->external_tracking),
+				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.$union_ship.'awb='.$ship->trck_nmr_fol),
+				'external_tracking'=>array('value'=>$ship->external_tracking),/**/
 				'merchant'=>array('value'=>$ship->merchant),
 				'shipment_content'=>array('value'=>$ship->shipment_content),
 				'shipment_status'=>array('value'=>$ship->shipment_status),
