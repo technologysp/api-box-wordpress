@@ -171,10 +171,13 @@
                     'callback'=>'spapibox_shortcode_logout_action',
                     'description'=>__('Account Logout','skypostal_apibox'),
                     'req_session'=>false
-                )      
-                
-    			
-    			
+                )      ,                
+                array(
+                    'key'=>'sp_customer_calculator_action',
+                    'callback'=>'spapibox_shortcode_calculator',
+                    'description'=>__('Calculator','skypostal_apibox'),
+                    'req_session'=>false
+                )    			
     	);
     	return $shortcuts;
     }

@@ -117,6 +117,7 @@ function spapibox_shortcode_customer_update_personal_info() {
 	echo $render;
 	return ob_get_clean();	
 }
+
 function spapibox_shortcode_login_small_box(){
 	ob_start();		
 	$tools = new skypostalServices();
@@ -706,6 +707,117 @@ function spapibox_shortcode_shipment_invoice_handler(){
 	}	
 	$render=spapibox_form_render_table($table,$form['#id']);
 	$render.= spapibox_form_render_group($form, $data);	
+	echo $render;
+	return ob_get_clean();
+}
+
+function spapibox_shortcode_calculator(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	$render ='';
+	/*if (!$tools->is_logged_in_simple()){
+		echo $tools->get_no_session_action();
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo $tools->get_no_session_action();
+		return ob_get_clean();
+    }*/
+
+    wp_enqueue_script( 'custom_js_calc', plugins_url( '/js/customer_sent_calculator.js', __FILE__ ), array(), $tools->version );	
+
+	$form = spapibox_form_build_calculator($tools);
+	$searchresults=false;
+	$data=array();
+	$searchawb='';
+	if(!isset($_POST[$form['#id']])){
+
+		$render.='<pre>NO POST</pre>';
+
+	  /*  if(isset($_GET['awb']) && is_numeric($_GET['awb'])){
+	    	$searchresults=true;
+	    	$searchawb=sanitize_text_field($_GET['awb']);
+	    	$data['trck_nmr_fol']=$searchawb;
+	    }	    */
+	}else{
+
+		$render.='<pre>POSTING THING</pre>';
+
+		$searchresults=true;		
+		$results_key = $form['#id'].'_result';
+		$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);
+
+		if(!is_numeric($_POST['weight'])) $_POST[$results_key]['danger'][] =array('field'=>'weight', 'message'=>esc_html__('Invalid Weight','skypostal_apibox'));				
+		if(!is_numeric($_POST['price_value'])) $_POST[$results_key]['danger'][] =array('field'=>'price_value', 'message'=>esc_html__('Invalid Price','skypostal_apibox'));				
+		//if(!is_numeric($_POST['weight'])) $_POST[$results_key]['danger'][] =array('field'=>'weight', 'message'=>esc_html__('Invalid Weight','skypostal_apibox'));				
+
+		if(!empty($_POST['dim_length']) && !is_numeric($_POST['dim_length'])) $_POST[$results_key]['danger'][] =array('field'=>'dim_length', 'message'=>esc_html__('Invalid Length','skypostal_apibox'));	
+		if(!empty($_POST['dim_width']) && !is_numeric($_POST['dim_width'])) $_POST[$results_key]['danger'][] =array('field'=>'dim_width', 'message'=>esc_html__('Invalid Width','skypostal_apibox'));	
+		if(!empty($_POST['dim_height']) && !is_numeric($_POST['dim_height'])) $_POST[$results_key]['danger'][] =array('field'=>'dim_height', 'message'=>esc_html__('Invalid Height','skypostal_apibox'));	
+
+		$data=$_POST;
+		//if (isset($_POST['trck_nmr_fol'])) {$searchawb=$_POST['trck_nmr_fol'];}	
+		
+	}
+
+	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
+
+	$render.= spapibox_form_render_group($form, $data);
+	
+	/*$table['header']=array(
+		'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
+		'external_tracking'=>__('External Tracking','skypostal_apibox'),
+		'merchant'=>__('Merchant','skypostal_apibox'),
+		'shipment_content'=>__('Contents','skypostal_apibox'),
+		'shipment_status'=>__('Status','skypostal_apibox'),
+		'shipment_address'=>__('Destination','skypostal_apibox')
+	);
+	$table['body']=array();*/
+
+	if(is_numeric($searchawb) && $searchresults){
+
+		/*$shipments = $tools->sp_customer_get_shipment_info($data);
+		foreach($shipments as $ship){
+
+			$table['title']=__("Shipment Details",'skypostal_apibox');
+			$table['body'][]=array(
+				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
+				'external_tracking'=>array('value'=>$ship->external_tracking),
+				'merchant'=>array('value'=>$ship->shipment->merchant_name),
+				'shipment_content'=>array('value'=>$ship->shipment->content),
+				'shipment_status'=>array('value'=>$ship->shipment->status_name),
+				'shipment_address'=>array('value'=>$ship->shipment->address.', '.$ship->shipment->city_name.', '.$ship->shipment->state_name.', '.$ship->shipment->country_name)
+			);		
+
+			$tracking_table['title']=__("Tracking",'skypostal_apibox');
+			$tracking_table['header']=array(
+				'location'=>__('Location','skypostal_apibox'),
+				'event_date'=>__('Event Date','skypostal_apibox'),
+				'status'=>__('Status','skypostal_apibox'),
+				'comment'=>__('Comments','skypostal_apibox')				
+			);
+			$tracking_table['body']=array();	
+			foreach($ship->tracking as $track){
+				$date_r=$track->entry_date;
+			    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
+			    $ts = $time[1] / 1000;
+				// Define Time Zone if exists
+				$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
+				$dt = new DateTime('@'.$ts);
+				$show_date= $dt->format('c');
+
+				$tracking_table['body'][]=array(
+					'location'=>array('value'=>$track->iata_code),
+					'event_date'=>array('value'=>$show_date),
+					'status'=>array('value'=>$track->track_description),
+					'comment'=>array('value'=>$track->track_obs)
+				);		
+			}
+
+		}*/
+	}
+	//$render.=spapibox_form_render_table($table,$form['#id']).spapibox_form_render_table($tracking_table,$form['#id'].'_2');
 	echo $render;
 	return ob_get_clean();
 }

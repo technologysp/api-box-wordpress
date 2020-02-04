@@ -889,5 +889,73 @@ function spapibox_form_build_customer_recover_password_code($skypostalServices_i
 	return $form;
 }
 
+function spapibox_form_build_calculator($skypostalServices_instance, $definition_only=false){
+	$form=array();
+	$form['#id']='sp_customer_calc_form';
+	
+	$countries=array();
+	if(!$definition_only) $countries=$skypostalServices_instance->sp_geographic_get_countries();
+	$states=array();
+	if(!$definition_only) if(isset($_POST['address_country'])) $states=$skypostalServices_instance->sp_geographic_get_states($_POST['address_country']);
+	$cities=array();
+	if(!$definition_only) if(isset($_POST['address_state'])) $cities=$skypostalServices_instance->sp_geographic_get_cities($_POST['address_state']);
+	
+
+	$weight_types=array('KG'=>esc_html__("Kilograms",'skypostal_apibox'),'LB'=>esc_html__("Pounds",'skypostal_apibox'));
+	$dim_types=array('CM'=>esc_html__("Centimeters",'skypostal_apibox'),'IN'=>esc_html__("Inches",'skypostal_apibox'));
+
+	$categories=array();
+
+	$form['destination']=array(
+		"title"=>esc_html__("Destination",'skypostal_apibox'),
+		"attributes"=>array(),
+		"fields"=>array(	
+			"group1"=>array( 
+				"address_country"=>array("title"=>esc_html__("Country",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$countries, "layout-cols"=>"4"),
+				"address_state"=>array("title"=>esc_html__("State / Province",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$states, "layout-cols"=>"4"),
+				"address_city"=>array("title"=>esc_html__("City",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$cities, "layout-cols"=>"4")
+			)			
+		)
+	);
+	$form['product_information']=array(
+		"title"=>esc_html__("Product Information",'skypostal_apibox'),
+		"attributes"=>array(),
+		"fields"=>array(	
+			"group2"=>array( 
+				"address_zipcode"=>array("title"=>esc_html__("Zipcode",'skypostal_apibox'), "type"=>"text", "required"=>false,  "layout-cols"=>"4"),
+				"weight_type"=>array("title"=>esc_html__("Weight Type",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$weight_types, "layout-cols"=>"4"),
+				"weight"=>array("title"=>esc_html__("Weight",'skypostal_apibox'), "type"=>"text", "required"=>true,  "layout-cols"=>"4")
+			),			
+			"group4"=>array( 
+				"category"=>array("title"=>esc_html__("Category",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$categories, "layout-cols"=>"8"),
+				"price_value"=>array("title"=>esc_html__("Product Value",'skypostal_apibox'), "type"=>"text", "required"=>true, "layout-cols"=>"4")				
+			)
+		)
+	);
+	$form['dimentional_weight']=array(
+		"title"=>esc_html__("Dimentional Weight",'skypostal_apibox'),
+		"attributes"=>array(),
+		"fields"=>array(	
+			"group3"=>array( 
+				"dimension_type"=>array("title"=>esc_html__("Dimensions",'skypostal_apibox'), "type"=>"select", "required"=>true, "options"=>$dim_types, "layout-cols"=>"3"),
+				"dim_length"=>array("title"=>esc_html__("Length",'skypostal_apibox'), "type"=>"text", "required"=>false,  "layout-cols"=>"3"),
+				"dim_width"=>array("title"=>esc_html__("Width",'skypostal_apibox'), "type"=>"text", "required"=>false,  "layout-cols"=>"3"),
+				"dim_height"=>array("title"=>esc_html__("Height",'skypostal_apibox'), "type"=>"text", "required"=>false,  "layout-cols"=>"3")				
+			)
+		)
+	);
+		
+	$form['submission']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(	
+			"group1"=>array( 
+				$form['#id']=>array("title"=>esc_html__("Calculate",'skypostal_apibox'), "type"=>"submit", "required"=>true)
+				)
+			)
+	);
+	return $form;
+}
+
 
 ?>
