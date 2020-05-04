@@ -78,7 +78,7 @@ function spapibox_init_customer_reg_virtual_action(){
 				}	
         	}
 
-        	//wp_redirect( $tools->_login_success_redirect_url ); exit;
+        	wp_redirect( $tools->_login_success_redirect_url ); exit;
         }else{
         	if(isset($result[0]->error) && isset($result[0]->error->error_description) && $result[0]->error->error_description=="The email account sent is already registered and associated with a box."){
         		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
@@ -106,7 +106,7 @@ function spapibox_init_customer_reg_default_action(){
         $result=$tools->sp_customer_registration_default($_POST);
         if($result[0]->_verify){
         	$tools->save_login_service_session($result[0]->customer_key,$result[0]->customer_box_id,$_POST['first_name']);
-        	//wp_redirect( $tools->_login_success_redirect_url ); exit;
+        	wp_redirect( $tools->_login_success_redirect_url ); exit;
         }else{
         	if(isset($result[0]->error) && isset($result[0]->error->error_description) && $result[0]->error->error_description=="The email account sent is already registered and associated with a box."){
         		$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
