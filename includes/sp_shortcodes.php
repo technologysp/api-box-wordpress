@@ -731,18 +731,12 @@ function spapibox_shortcode_calculator(){
 	$searchresults=false;
 	$data=array();
 	$searchawb='';
-	if(!isset($_POST[$form['#id']])){
+	$render_result = '';
+	if(!isset($_POST[$form['#id']])){		
 
-		$render.='<pre>NO POST</pre>';
-
-	  /*  if(isset($_GET['awb']) && is_numeric($_GET['awb'])){
-	    	$searchresults=true;
-	    	$searchawb=sanitize_text_field($_GET['awb']);
-	    	$data['trck_nmr_fol']=$searchawb;
-	    }	    */
-	}else{
-
-		$render.='<pre>POSTING THING</pre>';
+	  /*  SET DEFAULTS    */
+	}else{		
+		$_POST = spapibox_check_post($_POST);
 
 		$searchresults=true;		
 		$results_key = $form['#id'].'_result';
@@ -758,67 +752,35 @@ function spapibox_shortcode_calculator(){
 
 		$data=$_POST;
 		//if (isset($_POST['trck_nmr_fol'])) {$searchawb=$_POST['trck_nmr_fol'];}	
-		
+
+		$result = $tools->sp_shipment_get_ship_rate($data);	
+
+
+		if(is_array($result) && $result[0]->_verify==1){
+
+			$shiptotal=$result[0]->ship_total_rate;
+			$ship_discount=$result[0]->ship_discount;
+			$ship_customs=$result[0]->total_customs;
+
+			$render_result = '<div class="row" id="sp_apibox_calculation_result">
+			<div class="col-12">
+			<h2>Resultado (US$)</h2>
+			<table class="table">
+			<tr><td>Costo de envio y entrega:</td><td>$'.number_format ($shiptotal,2).'</td></tr>
+			<tr><td>Impuestos estimados de aduana</td><td>$'.number_format ($ship_customs,2).'</td></tr>
+			</table>
+			</div>
+			</div>';			
+		}else{
+			$_POST[$results_key]['danger'][] =array('field'=>'sp_customer_calc_form', 'message'=>esc_html__('Calculation failed. Check your data and try again.','skypostal_apibox'));
+		}		
 	}
 
 	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
 
 	$render.= spapibox_form_render_group($form, $data);
-	
-	/*$table['header']=array(
-		'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
-		'external_tracking'=>__('External Tracking','skypostal_apibox'),
-		'merchant'=>__('Merchant','skypostal_apibox'),
-		'shipment_content'=>__('Contents','skypostal_apibox'),
-		'shipment_status'=>__('Status','skypostal_apibox'),
-		'shipment_address'=>__('Destination','skypostal_apibox')
-	);
-	$table['body']=array();*/
-
-	if(is_numeric($searchawb) && $searchresults){
-
-		/*$shipments = $tools->sp_customer_get_shipment_info($data);
-		foreach($shipments as $ship){
-
-			$table['title']=__("Shipment Details",'skypostal_apibox');
-			$table['body'][]=array(
-				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
-				'external_tracking'=>array('value'=>$ship->external_tracking),
-				'merchant'=>array('value'=>$ship->shipment->merchant_name),
-				'shipment_content'=>array('value'=>$ship->shipment->content),
-				'shipment_status'=>array('value'=>$ship->shipment->status_name),
-				'shipment_address'=>array('value'=>$ship->shipment->address.', '.$ship->shipment->city_name.', '.$ship->shipment->state_name.', '.$ship->shipment->country_name)
-			);		
-
-			$tracking_table['title']=__("Tracking",'skypostal_apibox');
-			$tracking_table['header']=array(
-				'location'=>__('Location','skypostal_apibox'),
-				'event_date'=>__('Event Date','skypostal_apibox'),
-				'status'=>__('Status','skypostal_apibox'),
-				'comment'=>__('Comments','skypostal_apibox')				
-			);
-			$tracking_table['body']=array();	
-			foreach($ship->tracking as $track){
-				$date_r=$track->entry_date;
-			    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
-			    $ts = $time[1] / 1000;
-				// Define Time Zone if exists
-				$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
-				$dt = new DateTime('@'.$ts);
-				$show_date= $dt->format('c');
-
-				$tracking_table['body'][]=array(
-					'location'=>array('value'=>$track->iata_code),
-					'event_date'=>array('value'=>$show_date),
-					'status'=>array('value'=>$track->track_description),
-					'comment'=>array('value'=>$track->track_obs)
-				);		
-			}
-
-		}*/
-	}
-	//$render.=spapibox_form_render_table($table,$form['#id']).spapibox_form_render_table($tracking_table,$form['#id'].'_2');
-	echo $render;
+		
+	echo $render.$render_result;
 	return ob_get_clean();
 }
 

@@ -102,13 +102,14 @@ class skypostalServices
     }
     public function get_default_email($data){
     	$email='';		
+    	$copaid = $this->sp_get_copartner();
 		if( $this->_reg_email_mode=='default'){
 			$email='http://service.puntomio.com/App_files/cpostactivation_mail.aspx?PathUrl=http://service.puntomio.com' .
 			'&nombre=' . urldecode($data['name']) .
 			'&suite='. urldecode($data['suite']) .
 			'&clave=No_pass&usuario=' . urldecode($data['email']) .
 			'&delivery=0&alternate_name='.
-			'&sc='.$this->_copa_id.
+			'&sc='.$copaid.
 			'&lang=ESP&box_user_firstname=' . urldecode($data['name']) ;
 		}
 		return $email;	
@@ -275,6 +276,18 @@ class skypostalServices
 		return $result;
 	}
 
+	public function sp_get_copartner(){
+		$url = get_site_url();
+		$copaid=$this->_copa_id;
+		$copa_info = $this->sp_partner_getcopa_id_by_url(array('copa_url'=>$url));
+		if(isset($copa_info['copa_id'])){
+			if($copa_info['copa_id'] > 0) $copaid=$copa_info['copa_id'];
+		}else
+			$copaid=$this->_copa_id;
+
+		return $copaid;
+	}
+
 	public function sp_customer_registration_virtual($data){
 		$method = '/service-customer.svc/customer/customer-registration';					
 		
@@ -284,13 +297,15 @@ class skypostalServices
 		if(!is_numeric($tax) || empty($tax)) $tax=0;
 
 		//Validate COPA by URL
-		$url = get_site_url();
+		/*$url = get_site_url();
 		$copaid=$this->_copa_id;
 		$copa_info = $this->sp_partner_getcopa_id_by_url(array('copa_url'=>$url));
 		if(isset($copa_info['copa_id'])){
 			if($copa_info['copa_id'] > 0) $copaid=$copa_info['copa_id'];
 		}else
-			$copaid=$this->_copa_id;
+			$copaid=$this->_copa_id;*/
+
+		$copaid = $this->sp_get_copartner();
 
 		$parameters = array(
 			"language_code"=>sanitize_text_field('ESP'),
@@ -337,9 +352,11 @@ class skypostalServices
 		$date_bt_o=sanitize_text_field($data['date_of_birth']);		
 		$date_bt = DateTime::createFromFormat('d/m/Y', $date_bt_o);
 
+		$copaid = $this->sp_get_copartner();
+
 		$parameters = array(
 			"language_code"=>sanitize_text_field('ESP'),
-			"copa_id"=>$this->_copa_id,
+			"copa_id"=>$copaid,
 			"customer_first_name"=>sanitize_text_field($data['first_name']),
 			"customer_last_name"=>sanitize_text_field($data['last_name']),
 			"customer_identity_number"=>sanitize_text_field($data['address_id_number']),
@@ -551,17 +568,48 @@ class skypostalServices
 	}
 	
 	public function sp_shipment_get_ship_rate($data){
-		$method = '/service-customer.svc/customer/TEMP';					
+		$method = '/service-shipment.svc/shipment/get-shipment-rate';			
+		$copaid = $this->sp_get_copartner();		
+
+		if(!is_numeric($data['dim_height'])) $data['dim_height']=1;
+		if(!is_numeric($data['dim_length'])) $data['dim_length']=1;
+		if(!is_numeric($data['dim_width'])) $data['dim_width']=1;
+
 		$parameters = array(			
-			"trck_nmr_fol"=>sanitize_text_field($data['trck_nmr_fol']),
-			"invoice_file_name"=>sanitize_text_field($data['invoice_file_name']),			
+			"weight"=> $data['weight'], //       2,
+			"weight_type"=> $data['weight_type'], //       "kg",
+			"merchandise_value"=> $data['price_value'], //       300.5,
+			"copa_id"=> $copaid, //       616,
+			"country_code"=> $data['address_country'], //       155,
+			"city_code"=> $data['address_city'], //       95812,
+			"fmpr_cdg"=> $data['category'], //       "VYC",
+			"height_dim"=> $data['dim_height'], //       20,
+			"length_dim"=> $data['dim_length'], //       15.5,
+			"width_dim"=> $data['dim_width'], //       32,
+			"dim_type"=> $data['dimension_type'], //       "cm",
+			"coupon_code"=>"", //       "",
+			"iata_code_origin"=>"", //       "HKG",
+			"zip_code"=> $data['address_zipcode'] //      "12345",	
 		);
-		$result = $this->_sp_execute_method($method,$parameters);		
+		$result = $this->_sp_execute_method($method,$parameters);	
+
 		return $result;
 	}
-	
-	
-	
+
+	public function sp_shipment_get_family_products(){
+		$method = '/service-shipment.svc/shipment/search-family-products-copa';		
+		$copaid= $this->sp_get_copartner();	
+		$parameters = array(
+			"copa_id"=>$copaid,
+			"language_code"=>"ESP"
+		);					 
+		$result = $this->_sp_execute_method($method,$parameters,NULL,true);		
+		$families=array();
+		foreach($result[0]->_family_products as $key=>$value){
+			$families[$value->fmpr_cdg] = $value->fmpr_name;
+		}
+		return $families;		
+	}
 }
 
 ?>

@@ -899,12 +899,12 @@ function spapibox_form_build_calculator($skypostalServices_instance, $definition
 	if(!$definition_only) if(isset($_POST['address_country'])) $states=$skypostalServices_instance->sp_geographic_get_states($_POST['address_country']);
 	$cities=array();
 	if(!$definition_only) if(isset($_POST['address_state'])) $cities=$skypostalServices_instance->sp_geographic_get_cities($_POST['address_state']);
-	
-
-	$weight_types=array('KG'=>esc_html__("Kilograms",'skypostal_apibox'),'LB'=>esc_html__("Pounds",'skypostal_apibox'));
-	$dim_types=array('CM'=>esc_html__("Centimeters",'skypostal_apibox'),'IN'=>esc_html__("Inches",'skypostal_apibox'));
 
 	$categories=array();
+	$categories = $skypostalServices_instance->sp_shipment_get_family_products();	
+
+	$weight_types=array('KG'=>esc_html__("Kilograms",'skypostal_apibox'),'LB'=>esc_html__("Pounds",'skypostal_apibox'));
+	$dim_types=array('CM'=>esc_html__("Centimeters",'skypostal_apibox'),'IN'=>esc_html__("Inches",'skypostal_apibox'));	
 
 	$form['destination']=array(
 		"title"=>esc_html__("Destination",'skypostal_apibox'),

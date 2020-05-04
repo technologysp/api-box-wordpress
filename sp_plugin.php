@@ -3,7 +3,7 @@
 Plugin Name: Skypostal API-BOX
 Plugin URI: https://skypostal.com
 Description: Skypostal API-BOX Plugin
-Version: 1.0
+Version: 1.3
 Author: Skypostal DEV Team
 Author URI: https://skypostal.com
 Text Domain: skypostal_apibox
