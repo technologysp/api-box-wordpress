@@ -356,14 +356,13 @@ function spapibox_form_render_group($form, $filldata){
 
 	$prevmessages='<div class="form-result-messages">';
 
-	if(isset($filldata[$form['#id'].'_result']) && count($filldata[$form['#id'].'_result'])>0 ){
-
-		foreach($filldata[$form['#id'].'_result'] as $msg_type=>$msgs){
+	if(isset($filldata[$form['#id'].'_result']) && count($filldata[$form['#id'].'_result'])>0 ){		
+		foreach($filldata[$form['#id'].'_result'] as $msg_type=>$msgs){			
 			$body='<ul>';
-			foreach ($msgs as $message){
+			foreach ($msgs as $message){				
 				if(isset($message['message'])) $body.='<li>'.$message['message'].'</li>';
 			}
-			$body.='</ul>';
+			$body.='</ul>';			
 			$prevmessages.=spapibox_get_message($msg_type,$body);
 		}
 	}

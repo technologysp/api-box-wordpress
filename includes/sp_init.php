@@ -238,6 +238,8 @@ function spapibox_init_customer_invoice_uploader(){
 	//print_r($_POST);
 	//Form required field validation results:
 	$results_key = $form['#id'].'_result';
+	$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);
+	//$_POST[$results_key]=array();
 	
 	//trck_nmr_fol_invoice
 	$target_dir = "";
@@ -269,6 +271,8 @@ function spapibox_init_customer_invoice_uploader(){
 		if($result[0]->_verify){
 			$invoice_file_guid=$result[0]->invoice_file_guid;
 			$invoice_file_name=$result[0]->invoice_file_name;
+
+			//print_r('Rescatando al soldado: '.$invoice_file_guid);
 			
 			$filename = $_FILES["trck_nmr_fol_invoice"]["tmp_name"];
 			$handle = fopen($filename, "r");
@@ -276,6 +280,8 @@ function spapibox_init_customer_invoice_uploader(){
 			fclose($handle);
 			$data=array('invoice_file_guid'=>$invoice_file_guid);
 			$result=$tools->sp_customer_upload_invoice_file($contents,$data);
+
+			//echo 'Rescatando al otro soldado: '.print_r($result,true);
 			
 			if($result[0]->_verify){
 				$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('File uploaded','skypostal_apibox').' '.$target_file);
@@ -284,6 +290,7 @@ function spapibox_init_customer_invoice_uploader(){
 		}else
 			$_POST[$results_key]['danger'][] =array('field'=>'customer_email', 'message'=>__('File not uploaded','skypostal_apibox'));    
 	}
+	//echo ' === Y POS AL FINAL === '.print_r($_POST[$results_key],true);
 }
 
 function spapibox_init_post_actions(){

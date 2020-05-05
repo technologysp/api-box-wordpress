@@ -256,6 +256,14 @@ function spapibox_customer_get_shipments(){
 		if (!$tools->validateDate($_POST['end_date'], 'Y-m-d')) $_POST[$results_key]['danger'][] =array('field'=>'end_date', 'message'=>esc_html__('Invalid end date','skypostal_apibox'));
 
 		$data=$_POST;
+	}else{
+
+		$startdate=$form['account_information']['fields']['group1']['start_date']['default'];
+		$enddate=$form['account_information']['fields']['group1']['end_date']['default'];
+		$_POST['start_date']=$startdate;
+		$_POST['end_date']=$enddate;
+		$_POST[$form['#id']]=$form['#id'];
+		$searchresults=true;
 	}
 
 	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
@@ -661,9 +669,11 @@ function spapibox_shortcode_shipment_invoice_handler(){
 	spapibpx_enqueue_styles();*/
 
 	$form = spapibox_form_build_customer_shipment_invoice($tools);
+	//$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);
 	$searchresults=true;
 	$data=array();
 	$searchawb='';
+
 	if(isset($_GET['awb']) && is_numeric($_GET['awb'])) $searchawb=sanitize_text_field($_GET['awb']);
 	if(isset($_POST[$form['#id']])) $data=$_POST;	    
 	
@@ -681,7 +691,7 @@ function spapibox_shortcode_shipment_invoice_handler(){
 	if(is_numeric($searchawb) && $searchresults){
 		$datashipsearch=array();
 		$datashipsearch['trck_nmr_fol']=$searchawb;
-		$data=$datashipsearch;
+		$data['trck_nmr_fol']=$searchawb;
 		$shipments = $tools->sp_customer_get_shipment_info($datashipsearch);
 		foreach($shipments as $ship){
 
