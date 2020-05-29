@@ -63,6 +63,23 @@ function spapibox_init_langs(){
     //wp_enqueue_style( 'apibox_main',plugins_url( '/includes/css/apibox_css_sample.css', __FILE__ ), array(), $tools->version); 
     $findfile = load_plugin_textdomain( 'skypostal_apibox', false,dirname( plugin_basename( __FILE__ ) ). '/languages' );    
 }
+
+function spapibox_ev_avr_example($data){
+    //Display data as example after hook executed:
+    //echo '<hr><p>FUNCTION spapibox_ev_avr_example</p><pre>'.print_r($data,true).'</pre>';
+}
+
+function spapibox_ev_aiu_example($data){
+    //Display data as example after hook executed:
+   // echo '<hr><p>FUNCTION spapibox_ev_aiu_example</p><pre>'.print_r($data,true).'</pre>';
+}
+
+/*
+add actions for hook events (example) : 
+add_action( 'spapibox_after_virtual_registration_success', 'spapibox_ev_avr_example', 1, 1 );
+add_action( 'spapibox_after_invoice_uploaded_success', 'spapibox_ev_aiu_example', 1, 1 );
+*/
+
 add_action( 'init', 'spapibox_init_langs');
 
 //Handles POST actions for forms and endpoints

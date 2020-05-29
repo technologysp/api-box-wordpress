@@ -370,6 +370,7 @@ function spapibox_customer_get_shipment_info(){
 
 	$render= spapibox_form_render_group($form, $data);
 	
+	/*first table details*/
 	$table['header']=array(
 		'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
 		'external_tracking'=>__('External Tracking','skypostal_apibox'),
@@ -379,6 +380,17 @@ function spapibox_customer_get_shipment_info(){
 		'shipment_address'=>__('Destination','skypostal_apibox')
 	);
 	$table['body']=array();
+	/*SECOND TABLE DETAILS (MORE) */
+	$table_two['header']=array(
+		'trck_nmr_fol'=>__('Shipment Value','skypostal_apibox'),
+		'external_tracking'=>__('Weight','skypostal_apibox'),
+		'merchant'=>__('Shipping Charge','skypostal_apibox'),
+		'shipment_content'=>__('Contents','skypostal_apibox'),
+		'shipment_status'=>__('Status','skypostal_apibox'),
+		'shipment_address'=>__('Destination','skypostal_apibox')
+	);
+	$table_two['body']=array();
+
 
 	if(is_numeric($searchawb) && $searchresults){
 

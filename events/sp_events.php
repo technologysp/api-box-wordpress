@@ -14,7 +14,11 @@
  */
 
 function spapibox_events_after_virtual_registration_success($data){
+	do_action( 'spapibox_after_virtual_registration_success', $data );
+}
 
+function sapibox_events_after_invoice_uploaded_success($data){
+	do_action( 'spapibox_after_invoice_uploaded_success', $data );
 }
 
  ?>

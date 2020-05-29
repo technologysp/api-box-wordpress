@@ -269,6 +269,7 @@ function spapibox_init_customer_invoice_uploader(){
 		$data=array("trck_nmr_fol"=>$_POST['trck_nmr_fol'],'invoice_file_name'=>$target_file);
 		$result=$tools->sp_customer_upload_invoice_data($data);
 		if($result[0]->_verify){
+			$invoice_data = $result;
 			$invoice_file_guid=$result[0]->invoice_file_guid;
 			$invoice_file_name=$result[0]->invoice_file_name;
 
@@ -285,12 +286,13 @@ function spapibox_init_customer_invoice_uploader(){
 			
 			if($result[0]->_verify){
 				$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('File uploaded','skypostal_apibox').' '.$target_file);
+				sapibox_events_after_invoice_uploaded_success(array('invoice_data'=>$invoice_data,'file_upload'=>$result));
 			}else
 				$_POST[$results_key]['danger'][] =array('field'=>'customer_email', 'message'=>__('File not uploaded','skypostal_apibox'));
 		}else
 			$_POST[$results_key]['danger'][] =array('field'=>'customer_email', 'message'=>__('File not uploaded','skypostal_apibox'));    
 	}
-	//echo ' === Y POS AL FINAL === '.print_r($_POST[$results_key],true);
+	//echo ' === Y POS AL FINAL === '.print_r($_POST[$results_key],true);	
 }
 
 function spapibox_init_post_actions(){
