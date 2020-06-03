@@ -43,7 +43,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.0.1.10';
+		$this->version = '1.3.1.14';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -177,7 +177,9 @@ class skypostalServices
 		curl_setopt($ch, CURLOPT_POST, 1);	 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);		
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);	 		
-		
+		curl_setopt($ch, CURLOPT_FAILONERROR, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
 		if(!is_array($headers)){
 			$headers=array();
 		}
@@ -187,6 +189,12 @@ class skypostalServices
 		if($this->_verbose) echo '<pre>HEADERS='.print_r($headers, true).'</pre>';
 		curl_setopt($ch, CURLOPT_HTTPHEADER,$headers); 	 		
 		$result = curl_exec($ch);		
+
+		if (curl_errno($ch)) {
+    		$error_msg = curl_error($ch);
+    		if($this->_verbose) echo '<pre>'.$error_msg.'</pre>';
+		}
+
 		curl_close($ch);
 		if($this->_verbose) echo '<pre>'.$result.'</pre>';
 		return json_decode($result);
@@ -206,7 +214,9 @@ class skypostalServices
 		curl_setopt($ch, CURLOPT_POST, 1);	 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);		
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_stream);	 		
-		
+		curl_setopt($ch, CURLOPT_FAILONERROR, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
 		if(!is_array($headers)){
 			$headers=array();
 		}		
@@ -218,6 +228,12 @@ class skypostalServices
 		if($this->_verbose) echo '<pre>HEADERS='.print_r($headers, true).'</pre>';
 		curl_setopt($ch, CURLOPT_HTTPHEADER,$headers); 	 		
 		$result = curl_exec($ch);		
+
+		if (curl_errno($ch)) {
+    		$error_msg = curl_error($ch);
+    		if($this->_verbose) echo '<pre>'.$error_msg.'</pre>';
+		}
+
 		curl_close($ch);
 		if($this->_verbose) echo '<pre>'.$result.'</pre>';
 		return json_decode($result);
@@ -411,13 +427,15 @@ class skypostalServices
 
 	public function sp_customer_activate_box($data){
 		$method = '/service-customer.svc/customer/customer-activate-box';					
-		
+		$copaid = $this->sp_get_copartner();
+
 		$date_month=sanitize_text_field($data['cc_expiration_month']);		
 		$date_year=sanitize_text_field($data['cc_expiration_year']);		
 
 		$date_bt =$date_year.'-'.$date_month.'-01'; //DateTime::createFromFormat('d/m/Y', $date_bt_o);
 
-		$parameters = array(			
+		$parameters = array(	
+			"copa_id"=> $copaid,		
 			"customer_credit_card"=>array(
 				array(
 					"cc_type_name"=>sanitize_text_field($data['cc_type_name']),

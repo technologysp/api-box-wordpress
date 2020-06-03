@@ -161,7 +161,8 @@ function spapibox_shortcode_customer_activate_box(){
 	    }		
 	}else
 		$data=$_POST;
-
+	//Remove the sec code:
+	$data['cc_security_code']='';
 	$render= spapibox_form_render_group($form, $data);
 	
 	echo $render;
@@ -300,7 +301,8 @@ function spapibox_customer_get_shipments(){
 			if($ship->invoice_required==1){
 					$inv_text='';
 					if(!empty($ship->invoice_file_name)){
-						$inv_text=__('Upload Again','skypostal_apibox');
+						//$inv_text=__('Upload Again','skypostal_apibox');
+						$inv_text=__('Change File','skypostal_apibox');
 					}else
 						$inv_text=__('Required','skypostal_apibox');
 

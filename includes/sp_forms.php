@@ -280,8 +280,10 @@ function spapibox_form_render_group_field($field_key,$field,$parent_fieldset,$fo
 
 	if($field['type']=='file' ){
 		$render_field= '<div class="custom-file">
-						<label for="'.$identifier.'">'.$field['title'].$inputrequiredlabel .'</label>
-						<input class="form-control-file border'.$inlineclass.'" type="'.$field['type'].'" id="'.$identifier.'" name="'.$identifier.'" value="'. $field['title'].'" '.$attributes.' /> </div>';   
+						<input type="button" id="button_'.$identifier.'" class="btn btn-secondary" value="'.(isset($field['button_text']) ? $field['button_text'] : '...' ).'" ></input> 
+						<label for="button_'.$identifier.'"><strong>'.$field['title'] . ':</strong> <span class="file_selected_name">'.(isset($field['empty_text']) ? $field['empty_text'] : '' ).'</span></label>
+						 
+						<input style="display:none;" onchange="spapibox_invoice_showname(this)" class="form-control-file border'.$inlineclass.'" type="'.$field['type'].'" id="'.$identifier.'" name="'.$identifier.'" value="'. $field['title'].'" '.$attributes.' /> </div>';   
 	}
 
 	if($field['type']=='select' ){
@@ -765,7 +767,7 @@ function spapibox_form_build_customer_shipment_invoice($skypostalServices_instan
 		"attributes"=>array(),
 		"fields"=>array(				
 			"group1"=>array( 
-				"trck_nmr_fol_invoice"=>array("title"=>esc_html__("Invoice File",'skypostal_apibox'), "type"=>"file", "required"=>true, "default"=> $awbdefault, "layout-cols"=>"12"),				
+				"trck_nmr_fol_invoice"=>array("title"=>esc_html__("Invoice File Selected",'skypostal_apibox'), "type"=>"file", "required"=>true, "default"=> $awbdefault, "layout-cols"=>"12", "button_text" => esc_html__("Select a file",'skypostal_apibox'),  "empty_text" => esc_html__("None",'skypostal_apibox') ),				
 				"trck_nmr_fol"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true)
 			)
 		)

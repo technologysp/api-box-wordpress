@@ -69,6 +69,9 @@ msgstr "Falló el regístro. Revise los datos e intente de nuevo."
 msgid "Information updated"
 msgstr "Información actualizada"
 
+msgid "Information updated successfully"
+msgstr "Información actualizada exitosamente"
+
 #: includes/sp_init.php:104 includes/sp_init.php:126 includes/sp_init.php:149
 #: includes/sp_init.php:194 includes/sp_init.php:216
 msgid "Information not updated"
@@ -466,6 +469,9 @@ msgstr "Tu cuenta esta activa"
 msgid "Activate your account"
 msgstr "Activa tu cuenta"
 
+msgid "Check your payment details and try again"
+msgstr "Revise los datos de pago e intente nuevamente"
+
 #: includes/admin/sp_themes.php:1
 msgid "Your account is not active"
 msgstr "Tu cuenta no esta activa"
@@ -498,5 +504,80 @@ msgstr "El archivo es demasiado grande. El tamaño máximo es"
 msgid "File not uploaded"
 msgstr "No se pudo subir el archivo"
 
-msgid "File uploaded"
-msgstr "Archivo subido"
+msgid "File uploaded successfully"
+msgstr "Archivo subido exitosamente"
+
+msgid "Change File"
+msgstr "Cambiar Archivo"
+
+msgid "Select a file"
+msgstr "Seleccionar un archivo"
+
+msgid "Invoice File Selected"
+msgstr "Archivo de factura seleccionado"
+
+msgid "only"
+msgstr "únicamente"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Invalid Weight"
+msgstr "thisisastring"
+
+msgid "Invalid Price"
+msgstr "thisisastring"
+
+msgid "Invalid Length"
+msgstr "thisisastring"
+
+msgid "Invalid Width"
+msgstr "thisisastring"
+
+msgid "Invalid Height"
+msgstr "thisisastring"
+
+msgid "Calculation failed. Check your data and try again."
+msgstr "thisisastring"
+
+msgid "Product Information"
+msgstr "thisisastring"
+
+msgid "Zipcode"
+msgstr "thisisastring"
+
+msgid "Weight Type"
+msgstr "thisisastring"
+
+msgid "Weight"
+msgstr "thisisastring"
+
+msgid "Category"
+msgstr "thisisastring"
+
+msgid "Product Value"
+msgstr "thisisastring"
+
+msgid "Dimentional Weight"
+msgstr "thisisastring"
+
+msgid "Dimensions"
+msgstr "thisisastring"
+
+msgid "Length"
+msgstr "thisisastring"
+
+msgid "Width"
+msgstr "thisisastring"
+
+msgid "Height"
+msgstr "thisisastring"
+
+msgid "Calculate"
+msgstr "thisisastring"
+
+msgid "Pounds"
+msgstr "thisisastring"
+
+msgid "Inches"
+msgstr "thisisastring"
