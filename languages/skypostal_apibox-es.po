@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-09 23:19+0000\n"
-"PO-Revision-Date: 2020-05-29 00:51-0600\n"
+"PO-Revision-Date: 2020-06-02 23:39-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -523,61 +523,62 @@ msgid "None"
 msgstr "Ninguno"
 
 msgid "Invalid Weight"
-msgstr "thisisastring"
+msgstr "Peso Inválido"
 
 msgid "Invalid Price"
-msgstr "thisisastring"
+msgstr "Precio Inválido"
 
 msgid "Invalid Length"
-msgstr "thisisastring"
+msgstr "Largo Inválido"
 
 msgid "Invalid Width"
-msgstr "thisisastring"
+msgstr "Ancho Inváldo"
 
 msgid "Invalid Height"
-msgstr "thisisastring"
+msgstr "Alto Inváldo"
 
 msgid "Calculation failed. Check your data and try again."
-msgstr "thisisastring"
+msgstr ""
+"No se pudo realizar el cálculo, revise sus datos e invente nuevamente."
 
 msgid "Product Information"
-msgstr "thisisastring"
+msgstr "Información del producto"
 
 msgid "Zipcode"
-msgstr "thisisastring"
+msgstr "Código Postal"
 
 msgid "Weight Type"
-msgstr "thisisastring"
+msgstr "Tipo de peso"
 
 msgid "Weight"
-msgstr "thisisastring"
+msgstr "Peso"
 
 msgid "Category"
-msgstr "thisisastring"
+msgstr "Categoria"
 
 msgid "Product Value"
-msgstr "thisisastring"
+msgstr "Valor del producto"
 
 msgid "Dimentional Weight"
-msgstr "thisisastring"
+msgstr "Peso dimensional"
 
 msgid "Dimensions"
-msgstr "thisisastring"
+msgstr "Dimensiones"
 
 msgid "Length"
-msgstr "thisisastring"
+msgstr "Largo"
 
 msgid "Width"
-msgstr "thisisastring"
+msgstr "Ancho"
 
 msgid "Height"
-msgstr "thisisastring"
+msgstr "Alto"
 
 msgid "Calculate"
-msgstr "thisisastring"
+msgstr "Calcular"
 
 msgid "Pounds"
-msgstr "thisisastring"
+msgstr "Libras"
 
 msgid "Inches"
-msgstr "thisisastring"
+msgstr "Pulgadas"
