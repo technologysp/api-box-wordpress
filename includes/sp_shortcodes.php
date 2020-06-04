@@ -163,7 +163,11 @@ function spapibox_shortcode_customer_activate_box(){
 		$data=$_POST;
 	//Remove the sec code:
 	$data['cc_security_code']='';
-	$render= spapibox_form_render_group($form, $data);
+	$render='';
+	if($info[0]->is_active){
+		$render = spapibox_themes_theme_box_payment_method($info[0]->last_payment_method);
+	}
+	$render.= spapibox_form_render_group($form, $data);
 	
 	echo $render;
 	return ob_get_clean();

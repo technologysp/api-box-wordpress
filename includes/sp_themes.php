@@ -48,6 +48,16 @@ $t='<div id="'.$fieldsetId.'" class="'.$wrapperClass.'">
    return $t;
 }
 
+function spapibox_themes_theme_box_payment_method($last_payment_method){
+  $t='';
+  if(!empty($last_payment_method)){
+    $t='<div class="row box-payment-method">
+          <div class="col-12"><span class="payment-method-title">'.__('Your current payment method','skypostal_apibox').':</span>&nbsp; <span class="payment-method-summary">'.$last_payment_method.'</span></div>          
+        </div>';
+  }
+  return $t;
+}
+
 function spapibox_themes_theme_box_status_alert($customer_info,$inactive_only=false){
   $t='';
   if(!$inactive_only) $t=spapibox_get_message('info',__('Your account is activated','skypostal_apibox'));

@@ -582,3 +582,6 @@ msgstr "Libras"
 
 msgid "Inches"
 msgstr "Pulgadas"
+
+msgid "Your current payment method"
+msgstr "Su método de pago actual"
