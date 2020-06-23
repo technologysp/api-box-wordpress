@@ -43,7 +43,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.3.1.16';
+		$this->version = '1.3.1.17';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -105,12 +105,12 @@ class skypostalServices
     	$copaid = $this->sp_get_copartner();
 		if( $this->_reg_email_mode=='default'){
 			$email='http://service.puntomio.com/App_files/cpostactivation_mail.aspx?PathUrl=http://service.puntomio.com' .
-			'&nombre=' . urldecode($data['name']) .
-			'&suite='. urldecode($data['suite']) .
-			'&clave=No_pass&usuario=' . urldecode($data['email']) .
+			'&nombre=' . urlencode($data['name']) .
+			'&suite='. urlencode($data['suite']) .
+			'&clave=No_pass&usuario=' . urlencode($data['email']) .
 			'&delivery=0&alternate_name='.
 			'&sc='.$copaid.
-			'&lang=ESP&box_user_firstname=' . urldecode($data['name']) ;
+			'&lang=ESP&box_user_firstname=' . urlencode($data['name']) ;
 		}
 		return $email;	
     }
@@ -118,10 +118,11 @@ class skypostalServices
     	try{
 			$to = $emailsent;		
 			$body = file_get_contents($html_link);
-			$headers = array('Content-Type: text/html; charset=UTF-8');
-			 
-			wp_mail( $to, $subject, $body, $headers );
-		} catch (Exception $e) {
+			$headers = array('Content-Type: text/html; charset=UTF-8');		
+
+			$result=false;
+			$result = wp_mail( $to, $subject, $body, $headers );			
+		} catch (Exception $e) {			
     		return false;
 		}
 		return true;
