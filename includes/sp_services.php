@@ -43,7 +43,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.3.1.17';
+		$this->version = '1.3.1.18';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -117,7 +117,7 @@ class skypostalServices
     public function send_html_email($html_link,$emailsent,$subject){
     	try{
 			$to = $emailsent;		
-			$body = file_get_contents($html_link);
+			$body = $this->get_email_contents($html_link);
 			$headers = array('Content-Type: text/html; charset=UTF-8');		
 
 			$result=false;
@@ -629,6 +629,24 @@ class skypostalServices
 		}
 		return $families;		
 	}
+
+
+	public function get_email_contents($url){			
+		
+		$ch = curl_init($url);	 				
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);				
+		curl_setopt($ch, CURLOPT_FAILONERROR, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+		if(!is_array($headers)){
+			$headers=array();
+		}		 		
+		$result = curl_exec($ch);	
+		curl_close($ch);	
+
+		return $result;
+	}
+
 }
 
 ?>

@@ -117,12 +117,14 @@ function spapibox_form_render_table($data, $formid){
 
 	$table.='<table class="table table-striped results_'.$formid.'">';	
 	$header='<thead><tr>';
+	if(isset($data['header'] ) && is_array($data['header']))
 	foreach($data['header'] as $head=>$val){
 		$header.='<th>'.$val.'</th>';
 	}
 	$header .='</tr></thead>';
 
 	$body='<tbody>';
+	if(isset($data['body']) && is_array($data['body']))
 	foreach($data['body'] as $row){
 		$body.='<tr>';
 			foreach($data['header'] as $head=>$val){

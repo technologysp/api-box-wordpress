@@ -662,8 +662,10 @@ function spapibox_shortcode_customer_inactive_alert(){
     if(!$info[0]->_verify){
     	echo '';
 		return ob_get_clean();
-    }
+    }   
+
     $render=spapibox_themes_theme_box_status_alert($info[0],true);
+
     echo $render;
 	return ob_get_clean();	
 }
@@ -809,6 +811,25 @@ function spapibox_shortcode_calculator(){
 	$render.= spapibox_form_render_group($form, $data);
 		
 	echo $render.$render_result;
+	return ob_get_clean();
+}
+
+function spapibox_shortcode_email_test(){
+	ob_start();
+	$tools = new skypostalServices();	
+	$render='';
+	$suite='';
+	$name='';
+	$email='';
+	if(isset($_GET['suite'])) $suite=$_GET['suite'];
+	if(isset($_GET['name'])) $name=$_GET['name'];
+	if(isset($_GET['email'])) $email=$_GET['email'];
+
+	$emaillink = $tools->get_default_email(array('suite'=>$suite, 'name'=>$name,'email'=>$email));
+	$render ='<pre>Email link: ' . $emaillink . '</pre>';
+
+	$render .='<pre>Email content (Just testing): </pre><pre>' . $tools->get_email_contents($emaillink) . '</pre>';
+	echo $render;
 	return ob_get_clean();
 }
 
