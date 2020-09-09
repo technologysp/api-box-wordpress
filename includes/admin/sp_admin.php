@@ -24,8 +24,23 @@
     	add_menu_page( $page_title, $menu_title, $capability, $slug, $callback, $icon, $position );
     }
    function spabibox_plugin_settings_page_content() {?>
-    	<div class="wrap">
-    		<h2>Skypostal API-BOX Integration</h2><?php
+        <style>
+        .alert-warning-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            position: relative;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            display:none;
+        }
+        </style>
+    	<div class="wrap" >
+    		<h2>Skypostal API-BOX Integration</h2>
+            <h3 class="alert-warning-message" id="form_spapibox_main_wrap_err">This form has invalid options</h3>
+            <?php
             if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ){
                   spabibox_admin_notice();
             } ?>
@@ -37,7 +52,16 @@
                     submit_button();
                 ?>
     		</form>    		    		
-    		
+    	<script type="text/javascript">
+              var spbxerr = document.getElementsByClassName("spapibox_invalid_field_data");
+            if(spbxerr.length>0){
+                let sbapiboxformx = document.getElementById("form_spapibox_main_wrap_err"); 
+                sbapiboxformx.style.display = "block";
+
+            }
+        </script >
+          
+        
     	</div> <?php
     }
 
@@ -455,6 +479,26 @@
                 'helper' => '',
                 'supplimental' => 'URL to link users to the activation path when not activated',
                 'default' => ''
+            ),
+            array(
+                'uid' => 'fapibox_calc_custom_percent_add',
+                'label' => 'Customs calculation additional percentage (0%-100%)',
+                'section' => 'second_section',
+                'type' => 'text',
+                'placeholder' => '',
+                'helper' => '',
+                'supplimental' => 'Additional % fee to be added to customs calculation',
+                'default' => '0'
+            ),
+            array(
+                'uid' => 'fapibox_calc_shipment_percent_add',
+                'label' => 'Shipment calculation additional percentage (0%-100%)',
+                'section' => 'second_section',
+                'type' => 'text',
+                'placeholder' => '',
+                'helper' => '',
+                'supplimental' => 'Additional % fee to be added to shipment calculation',
+                'default' => '0'
             )
         );
     	foreach( $fields as $field ){
@@ -471,7 +515,26 @@
             case 'text':
             case 'password':
             case 'number':
-                printf( '<input style="min-width:400px;" name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $value );
+                $isvalid=true;
+                $message='';
+                if($arguments['uid']=='fapibox_calc_custom_percent_add' || $arguments['uid']=='fapibox_calc_shipment_percent_add'){
+                    if(is_numeric($value)){
+
+                        if($value <0 || $value > 100) {
+                            $isvalid=false;
+                            $message=' Invalid option ';    
+                        }
+
+                    }else{
+                        $isvalid=false;
+                        $message=' Invalid option ';
+                    }
+                }
+                if($isvalid){
+                    printf( '<input style="min-width:400px;" name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $value );
+                }else{
+                    printf( '<input class="spapibox_invalid_field_data" style="min-width:400px; border:1px solid red;" name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" /><span style="color:red;"> '.$message.' </span>', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $value );
+                }
                 break;
             case 'textarea':
                 printf( '<textarea name="%1$s" id="%1$s" placeholder="%2$s" rows="5" cols="50">%3$s</textarea>', $arguments['uid'], $arguments['placeholder'], $value );
