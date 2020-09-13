@@ -987,6 +987,18 @@ function spapibox_shortcode_calculator(){
 			$ship_discount=$result[0]->ship_discount;
 			$ship_customs=$result[0]->total_customs;
 
+			//Validating additionals
+			$x_customs_add= get_option( 'fapibox_calc_custom_percent_add' );
+			$x_shipment_add= get_option( 'fapibox_calc_shipment_percent_add' );
+
+			if(is_numeric($x_customs_add) && $x_customs_add>=0 && $x_customs_add <=100){
+				$ship_customs+= ($ship_customs*($x_customs_add/100));
+			}
+
+			if(is_numeric($x_shipment_add) && $x_shipment_add>=0 && $x_shipment_add <=100){
+				$shiptotal+= ($shiptotal*($x_shipment_add/100));
+			}
+
 			$render_result = '<div class="row" id="sp_apibox_calculation_result">
 			<div class="col-12">
 			<h2>Resultado (US$)</h2>
