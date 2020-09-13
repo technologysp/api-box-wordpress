@@ -126,12 +126,19 @@ function spapibox_form_render_table($data, $formid){
 	$body='<tbody>';
 	if(isset($data['body']) && is_array($data['body']))
 	foreach($data['body'] as $row){
-		$body.='<tr>';
+		$body.='<tr class="spapibox_tr">';
 			foreach($data['header'] as $head=>$val){
 
 				$disp=$row[$head]['value'];
 				if(!empty($row[$head]['link'])) $disp='<a href="'.$row[$head]['link'].'">'.$disp.'</a>';
-				$body.='<td>'.$disp.'</td>';
+
+				$attributes='';
+				if(isset($row[$head]['attributes']) && is_array($row[$head]['attributes']) ) {
+					foreach($row[$head]['attributes'] as $atkey=>$atval){
+						$attributes.=' '.$atkey.'="'.$atval.'"';
+					}
+				}
+				$body.='<td class="spapibox_td" '.$attributes.'>'.$disp.'</td>';
 			}
 		$body.='</tr>';
 	}
@@ -317,15 +324,24 @@ function spapibox_form_render_group_field($field_key,$field,$parent_fieldset,$fo
         				<label for="'.$identifier.'">'.$field['title'].$inputrequiredlabel .'</label>';//</div>;
 	}
 
+	$render_markup= false;
+
 	if($field['type']=='markup' && isset($field['markup'])){
 
 		$render_field = $field['markup'];
+		
 	}	
+
+	if(isset($field['#direct_render']) && $field['#direct_render']) $render_markup=true;
+
 	$layout_cols=12;
 	$prefix=(isset($field['#prefix'])?$field['#prefix']:'');
 	$suffix=(isset($field['#suffix'])?$field['#suffix']:'');
 	if(!empty($field['layout-cols'])) $layout_cols=$field['layout-cols'];
-	return  spapibox_themes_themeFormField($layout_cols,$prefix.$render_field.$suffix,$fieldclass);
+	if($render_markup){
+		return  spapibox_themes_themeFormField_markup($layout_cols,$prefix.$render_field.$suffix,$fieldclass);
+	}else
+		return  spapibox_themes_themeFormField($layout_cols,$prefix.$render_field.$suffix,$fieldclass);
 }
 
 function spapibox_form_render_group($form, $filldata){
@@ -728,6 +744,27 @@ function spapibox_form_build_customer_get_shipments($skypostalServices_instance,
 	return $form;
 }
 
+function spapibox_form_build_customer_get_shipments_consolidation($skypostalServices_instance, $definition_only=false){
+	$form=array();
+	$form['#id']='sp_customer_get_shipments_consolidation';
+
+
+	$buttons='<input type="button" class="btn btn-secondary back-button" onclick="apibox_conso_prev(this)" value="'.__('Back','skypostal_apibox').'" />&nbsp;';
+
+	$form['shipments_consolidation']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(				
+			"group1"=>array( 				
+
+				$form['#id']=>array("title"=>esc_html__("Consolidate selected shipments",'skypostal_apibox'), "type"=>"submit", "required"=>true,"wrapper-class"=>"centered","#prefix"=>$buttons),
+				"trck_nmr_fol_list"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true)
+				)
+			)					
+	);
+	return $form;
+}
+
 function spapibox_form_build_customer_get_shipment_info($skypostalServices_instance, $definition_only=false){
 	$form=array();
 	$form['#id']='sp_customer_get_shipments';
@@ -780,6 +817,44 @@ function spapibox_form_build_customer_shipment_invoice($skypostalServices_instan
 		"fields"=>array(	
 			"group1"=>array( 				
 				$form['#id']=>array("title"=>esc_html__("Upload",'skypostal_apibox'), "type"=>"submit", "required"=>true)
+			)
+		)
+	);
+	return $form;
+}
+
+function spapibox_form_build_customer_shipment_invoice_custom($skypostalServices_instance, $pre_data, $definition_only=false){
+	$form=array();
+	$form['#id']='sp_customer_invoice_uploader_custom';
+	$form['#attributes']=' enctype="multipart/form-data" ';
+	
+	$d_end=new DateTime();
+	$d_start=new DateTime();
+	$d_start->modify('-30 day');
+
+	$awbdefault='';
+	if(isset($_GET['awb']) && is_numeric($_GET['awb'])) $awbdefault=sanitize_text_field($_GET['awb']);
+
+	$form['account_information']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(				
+			"group1"=>array( 				
+				"trck_nmr_fol"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true),
+				"trck_add_deatil"=>array("title"=>"", "markup"=>'<button id="skpt_add_item_detail_ic" type="button" class="btn btn-info">'.esc_html__("Add Item",'skypostal_apibox').'</button>', "type"=>"markup", "required"=>false )
+			),
+			"group2"=>array( 
+				"frm_custom_detail"=>array("title"=>esc_html__("Invoice Detail",'skypostal_apibox'), "markup"=>spapibox_themes_theme_invoice_detail_html($pre_data), "type"=>"markup", "required"=>false, "default"=> '', "layout-cols"=>"12", '#direct_render'=>true ),				
+			)
+		)
+	);
+
+	$form['submission']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(			
+			"group1"=>array( 				
+				$form['#id']=>array("#prefix"=>'<input id="skpt_add_item_detail_validate" type="button" class="btn btn-info" value="'.esc_html__("Next",'skypostal_apibox').'" ></input></br><h3 id="skpt_invoice_custom_totals" style="display:none;">'.esc_html__("Declared Value",'skypostal_apibox').' $<span id="current_declared_value">0.00</span></h3></br>', "title"=>esc_html__("Upload Invoice",'skypostal_apibox'), "type"=>"submit", "required"=>true, 'attributes'=>array('class'=>'disabled', 'style'=>'display:none;'))
 			)
 		)
 	);

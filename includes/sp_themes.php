@@ -32,6 +32,14 @@ $t='<div class="form-group col-md-'.$fieldLayoutColumn.' '.$groupClass.'">
     return $t;
 }
 
+function spapibox_themes_themeFormField_markup($fieldLayoutColumn,$inputContent, $groupClass){
+$t='<div class="'.$groupClass.'">
+      '.$inputContent.'
+    </div>';
+    return $t;
+}
+
+
 function spapibox_themes_themeFieldset($fieldsetContent,$fieldsetId,$title,$wrapperClass){
 $t='<div id="'.$fieldsetId.'" class="'.$wrapperClass.'">    
         <fieldset class="panel panel-default form-wrapper" >
@@ -95,5 +103,77 @@ $t='<div class="box-info-container"><div class="row">
   </div>';
 return $t;
 }
+
+function spapibox_themes_theme_invoice_detail_html($detail_info_post){
+
+  $detail= '<div class="table-responsive">
+  <table class="table table-striped  box-invoice-custom-detail">
+    <thead><tr>
+      <th class="" style="min-width:200px;">
+        <span><strong>'.__('Item Description','skypostal_apibox').'</strong></span>
+      </th>
+      <th class="">
+        <span><strong>'.__('Qty.','skypostal_apibox').'</strong></span>
+      </th>
+      <th class="">
+        <span><strong>'.__('Item Price $','skypostal_apibox').'</strong></span>
+      </th>
+      <th class="">
+        <span><strong>'.__('Total $','skypostal_apibox').'</strong></span>
+      </th>
+      <th class="">
+      X
+      </th>
+    </tr></thead>
+  
+  ';
+  $idx=0;
+
+  if(count($detail_info_post)<=0) {
+    $pre_data = array();
+    $pre_data[0]=array('idui'=>0, 'qty'=>'', 'price'=>'','desc'=>'');  
+  }else
+    $pre_data = $detail_info_post;
+
+  $detail.='<tbody id="skpt_tbody_details">';
+  
+  $count=0;
+  foreach($pre_data as $k=>$v){
+
+    $idx=$count;
+    $count+=1;
+
+    $total_display=0;
+    if(is_numeric($v['qty']) && is_numeric($v['price'])) $total_display=$v['qty']*$v['price'];
+
+    $detail.='<tr id="skptinvdet-main_'.$idx.'" class="detail_display_row">  
+      <input type="hidden" name = "skptinvdetidx_'.$idx.'" value = "'.$idx.'" />
+      <th class=""  style="min-width:200px;">
+        <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'.$idx.'" name="skptinvdetdesc_'.$idx.'" value="'.$v['desc'].'">
+      </th>
+      <th class="">
+        <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'">
+      </th>
+      <th class="">
+        <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'">
+      </th>
+      <th class="">
+        <span id="skptinvdet-summary_'.$idx.'">$ '.$total_display.' </span>
+      </th>
+      <th class="">
+        <button id="skptinvdet-summary_'.$idx.'" onclick="skpt_det_remove('.$idx.')" type="button" class="btn btn-outline-danger">x</button>
+      </th>
+    </tr>
+  ';
+  }
+
+
+
+  $detail.='</tbody></table></div>';
+
+  return $detail;
+}
+
+
 
 ?>

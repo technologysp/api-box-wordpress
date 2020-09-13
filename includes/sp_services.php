@@ -43,7 +43,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.3.1.18';
+		$this->version = '1.3.1.19';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -500,6 +500,17 @@ class skypostalServices
 		return $result;
 	}
 
+	public function sp_customer_get_shipments_hbc($data){
+		$method = '/service-customer.svc/customer/customer-get-shipments-hbc';					
+
+		$parameters = array(
+			"start_date"=>sanitize_text_field($data['start_date']),
+			"end_date"=>sanitize_text_field($data['end_date'])						
+		);
+		$result = $this->_sp_execute_method($method,$parameters);		
+		return $result;
+	}
+
 	public function sp_customer_get_shipment_info($data){
 		$method = '/service-shipment.svc/shipment/get-shipment-info';					
 
@@ -610,6 +621,22 @@ class skypostalServices
 			"iata_code_origin"=>"", //       "HKG",
 			"zip_code"=> $data['address_zipcode'] //      "12345",	
 		);
+		$result = $this->_sp_execute_method($method,$parameters);	
+
+		return $result;
+	}
+
+	public function sp_customer_upload_invoice_custom($data){
+		$method = '/service-customer.svc/customer/customer-upload-invoice-custom';			
+		$copaid = $this->sp_get_copartner();		
+
+		$detail=$data['detail'];
+
+		$parameters = array(			
+			"trck_nmr_fol"=> $data['trck_nmr_fol'], //       2,
+			"detail"=> $detail //       "kg",		
+		);	
+
 		$result = $this->_sp_execute_method($method,$parameters);	
 
 		return $result;

@@ -1,0 +1,3 @@
+2020-08-29	New shortcode added: sp_customer_shipment_invoice_custom
+--SHP_GET_INFO_BASIC
+--

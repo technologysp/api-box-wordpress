@@ -148,6 +148,12 @@
     				'description'=>__('Shipment required invoice control','skypostal_apibox'),
     				'req_session'=>true
     			),
+                array(
+                    'key'=>'sp_customer_shipment_invoice_custom',
+                    'callback'=>'spapibox_shortcode_shipment_invoice_handler_custom',
+                    'description'=>__('Shipment required invoice control Custom detail','skypostal_apibox'),
+                    'req_session'=>true
+                ),
     			array(
     				'key'=>'sp_customer_change_password',
     				'callback'=>'spapibox_shortcode_customer_change_password',
@@ -183,7 +189,14 @@
                     'callback'=>'spapibox_shortcode_email_test',
                     'description'=>__('Email Test GET','skypostal_apibox'),
                     'req_session'=>false
+                ),
+                array(
+                    'key'=>'sp_spapibox_customer_get_shipments_for_consolidation',
+                    'callback'=>'spapibox_customer_get_shipments_for_consolidation',
+                    'description'=>__('Shipments Consolidation','skypostal_apibox'),
+                    'req_session'=>false
                 )
+                
     	);
     	return $shortcuts;
     }

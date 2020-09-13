@@ -303,12 +303,20 @@ function spapibox_customer_get_shipments(){
 			$union='?';
 			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
 			if($ship->invoice_required==1){
-					$inv_text='';
+
+					$inv_text=__('Required','skypostal_apibox');
+					
+					if(isset($ship->comm_inv_detail_declared_value) && is_numeric($ship->comm_inv_detail_declared_value)) {
+						if($ship->comm_inv_detail_declared_value>0) {
+							$inv_text='$'.$ship->comm_inv_detail_declared_value.' ('.__('Change','skypostal_apibox').')';
+						}
+					}
+
+					
 					if(!empty($ship->invoice_file_name)){
 						//$inv_text=__('Upload Again','skypostal_apibox');
 						$inv_text=__('Change File','skypostal_apibox');
-					}else
-						$inv_text=__('Required','skypostal_apibox');
+					}
 
 					$inv=array('value'=>$inv_text, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
 			}	
@@ -684,7 +692,7 @@ function spapibox_shortcode_shipment_invoice_handler(){
     }
 
 	wp_enqueue_script( 'custom_js_inv', plugins_url( '/js/customer_shipment_invoice.js', __FILE__ ), array(), $tools->version );	
-	
+	$render ='';
 	/*	spapibpx_enqueue_scripts();
 	spapibpx_enqueue_styles();*/
 
@@ -735,8 +743,195 @@ function spapibox_shortcode_shipment_invoice_handler(){
 			$tracking_table['body']=array();	
 		}
 	}	
-	$render=spapibox_form_render_table($table,$form['#id']);
+	$render.=spapibox_form_render_table($table,$form['#id']);
 	$render.= spapibox_form_render_group($form, $data);	
+	echo $render;
+	return ob_get_clean();
+}
+
+function spapibox_read_invoice_detail_from_data($detail_info){
+
+  $details=array();
+
+  $currentid=0;
+
+  if(is_array($detail_info)){
+      foreach($detail_info as $key=>$value){
+          //Check if ID exists:
+
+          if (strpos($key, 'skptinvdetidx') !== false) {
+              //Get the main index for array:
+            $findid = explode('_',$key);
+            if(!is_array($details[$currentid])) $details[$currentid]=array();
+            $details[$value]['idui']=$value;
+            if(count($findid)>1){
+              $currentid=$findid[1];
+              if(!is_array($details[$currentid])) $details[$currentid]=array();
+              if(isset($details[$currentid])) $details[$currentid]['idui']=$value;
+            }
+          }
+
+          if (strpos($key, 'skptinvdet-qty') !== false) {
+              //Get the main index for array:
+            $findid = explode('_',$key);
+            //if(count($findid)>1){
+              $currentid=$findid[1];
+              if(!is_array($details[$currentid])) $details[$currentid]=array();
+
+              $details[$currentid]['qty']=$value;
+              
+            //}
+          }
+
+          if (strpos($key, 'skptinvdet-price') !== false) {
+              //Get the main index for array:
+            $findid = explode('_',$key);
+            //if(count($findid)>1){
+              $currentid=$findid[1];
+              if(!is_array($details[$currentid])) $details[$currentid]=array();
+
+              $details[$currentid]['price']=$value;
+              
+            //}
+          }
+
+          if (strpos($key, 'skptinvdetdesc_') !== false) {
+              //Get the main index for array:
+            $findid = explode('_',$key);
+            //if(count($findid)>1){
+              $currentid=$findid[1];
+              if(!is_array($details[$currentid])) $details[$currentid]=array();
+              $details[$currentid]['desc']=$value;
+              
+           // }
+          }
+      }
+  }
+  return $details;
+}
+
+function spapibox_shortcode_shipment_invoice_handler_custom(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo $tools->get_no_session_action();
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo $tools->get_no_session_action();
+		return ob_get_clean();
+    }
+
+	wp_enqueue_script( 'custom_js_inv', plugins_url( '/js/customer_shipment_invoice_custom.js', __FILE__ ), array(), $tools->version );	
+	wp_enqueue_style( 'apibox_invoce',plugins_url( '/css/apibox_invoce.css', __FILE__ ), array(), $tools->version);
+	/*	spapibpx_enqueue_scripts();
+	spapibpx_enqueue_styles();*/
+	$render='';
+
+	$results_key = 'sp_customer_invoice_uploader_custom_result';
+
+	//$render .='<pre>'.print_r($_POST,true).'</pre>';
+	$pre_data_detail=spapibox_read_invoice_detail_from_data($_POST);
+
+	if(isset($_POST['sp_customer_invoice_uploader_custom'])){
+		//sp_customer_upload_invoice_custom
+		$post_detail=array();
+		foreach($pre_data_detail as $key=>$val){
+			$post_detail[]=array('quantity'=>$val['qty'], 'description'=>$val['desc'], 'price_value'=>$val['price'], 'reference_code'=>'');
+		}
+		$_POST['detail']=$post_detail;
+		
+		$result = $tools->sp_customer_upload_invoice_custom($_POST);
+		if($result[0]->_verify){
+        	$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('Information updated','skypostal_apibox'));
+        }else
+        	$_POST[$results_key]['danger'][] =array('field'=>'', 'message'=>esc_html__('Information not updated','skypostal_apibox'));
+	}
+
+	$searchresults=true;
+	$data=array();
+	$searchawb='';
+	
+	if(isset($_GET['awb']) && is_numeric($_GET['awb'])) $searchawb=sanitize_text_field($_GET['awb']);
+		    
+
+	if(is_numeric($searchawb) && $searchresults){
+
+		$datashipsearch=array();
+		$datashipsearch['trck_nmr_fol']=$searchawb;
+		$data['trck_nmr_fol']=$searchawb;
+		$shipments = $tools->sp_customer_get_shipment_info($datashipsearch);
+
+
+		if(isset($shipments[0]) && isset($shipments[0]->_verify)) {
+
+			$details=array();
+			$currentid=0;
+
+			//$render.=print_r($shipments[0]->invoice->detail, true);
+
+			if(isset($shipments[0]->invoice) && isset($shipments[0]->invoice->detail)) {
+
+				foreach($shipments[0]->invoice->detail as $inv_det){
+
+					$details[$currentid]=array();
+					$details[$currentid]['idui']=$inv_det->$currentid;
+					$details[$currentid]['qty']=$inv_det->quantity;
+					$details[$currentid]['price']=$inv_det->price_value;
+					$details[$currentid]['desc']=$inv_det->description;
+					$currentid+=1;
+
+				}
+				if(count($details)>0) $pre_data_detail=$details;
+			}
+		}
+
+		$current_detail_rows_idx = count($pre_data_detail);
+
+		//$render.=print_r($pre_data_detail, true);
+		$form = spapibox_form_build_customer_shipment_invoice_custom($tools,$pre_data_detail);
+		if(isset($_POST[$form['#id']])) $data=$_POST;
+
+		$table['header']=array(
+			'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
+			'external_tracking'=>__('External Tracking','skypostal_apibox'),
+			'merchant'=>__('Merchant','skypostal_apibox'),
+			'shipment_content'=>__('Contents','skypostal_apibox'),
+			'shipment_status'=>__('Status','skypostal_apibox'),
+			'shipment_address'=>__('Destination','skypostal_apibox')
+		);
+		$table['body']=array();
+		
+		foreach($shipments as $ship){
+
+			$table['title']=__("Shipment Details",'skypostal_apibox');
+			$table['body'][]=array(
+				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
+				'external_tracking'=>array('value'=>$ship->external_tracking),
+				'merchant'=>array('value'=>$ship->shipment->merchant_name),
+				'shipment_content'=>array('value'=>$ship->shipment->content),
+				'shipment_status'=>array('value'=>$ship->shipment->status_name),
+				'shipment_address'=>array('value'=>$ship->shipment->address.', '.$ship->shipment->city_name.', '.$ship->shipment->state_name.', '.$ship->shipment->country_name)
+			);		
+
+			$tracking_table['title']=__("Tracking",'skypostal_apibox');
+			$tracking_table['header']=array(
+				'location'=>__('Location','skypostal_apibox'),
+				'event_date'=>__('Event Date','skypostal_apibox'),
+				'status'=>__('Status','skypostal_apibox'),
+				'comment'=>__('Comments','skypostal_apibox')				
+			);
+			$tracking_table['body']=array();	
+		}
+
+		$render.=spapibox_form_render_table($table,$form['#id']);
+		
+		$render.= spapibox_form_render_group($form, $data);	
+		$render.='<script> var skpt_current_detail_rows_idx = '.$current_detail_rows_idx.';</script>';
+	}	
+	
+
 	echo $render;
 	return ob_get_clean();
 }
@@ -811,6 +1006,173 @@ function spapibox_shortcode_calculator(){
 	$render.= spapibox_form_render_group($form, $data);
 		
 	echo $render.$render_result;
+	return ob_get_clean();
+}
+
+function spapibox_customer_get_shipments_for_consolidation(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo $tools->get_no_session_action();
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo $tools->get_no_session_action();
+		return ob_get_clean();
+    }
+
+	wp_enqueue_script( 'custom_js_cab', plugins_url( '/js/customer_get_shipments_consolidation.js', __FILE__ ), array(), $tools->version );	
+	
+	spapibpx_enqueue_scripts();
+	spapibpx_enqueue_styles();
+
+	$form = spapibox_form_build_customer_get_shipments_consolidation($tools);
+	$searchresults=true;
+	$data=array();
+	$results_key = $form['#id'].'_result';
+	$topmessages='';
+	/*if(isset($_POST[$form['#id']])){
+		$searchresults=true;		
+		$results_key = $form['#id'].'_result';
+		$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);
+
+		if (!$tools->validateDate($_POST['start_date'], 'Y-m-d')) $_POST[$results_key]['danger'][] =array('field'=>'start_date', 'message'=>esc_html__('Invalid start date','skypostal_apibox'));
+
+		if (!$tools->validateDate($_POST['end_date'], 'Y-m-d')) $_POST[$results_key]['danger'][] =array('field'=>'end_date', 'message'=>esc_html__('Invalid end date','skypostal_apibox'));
+
+		$data=$_POST;
+	}else{
+
+		$startdate=$form['account_information']['fields']['group1']['start_date']['default'];
+		$enddate=$form['account_information']['fields']['group1']['end_date']['default'];
+		$_POST['start_date']=$startdate;
+		$_POST['end_date']=$enddate;
+		$_POST[$form['#id']]=$form['#id'];
+		$searchresults=true;
+	}*/
+
+	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
+
+	
+	
+	$table['header']=array(
+		'check'=>'<input type="checkbox" class="checkable_item_head" value="">',
+		'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
+		'external_tracking'=>__('External Tracking','skypostal_apibox'),
+		//'merchant'=>__('Merchant','skypostal_apibox'),
+		'shipment_content'=>__('Contents','skypostal_apibox'),
+		//'shipment_status'=>__('Status','skypostal_apibox'),
+		//'date_received'=>__('Date','skypostal_apibox'),
+		"consolidation_status"=>__('Consolidation','skypostal_apibox'),
+		"invoice"=>__('Invoice','skypostal_apibox')
+	);
+	$table['body']=array();
+
+	if($searchresults){
+
+		$shipments = $tools->sp_customer_get_shipments_hbc($data);
+
+
+		if(isset($_POST[$form['#id']])){
+
+			$_POST = spapibox_check_post($_POST);			
+
+			if(count($shipments)>0 && $shipments[0]->_verify ){	
+
+				$selected_awbs = explode(",",$_POST['trck_nmr_fol_list']);
+				if(count($selected_awbs) > 0 && is_numeric($selected_awbs[0])) {
+					$topmessages.=	spapibox_get_message('success',__('You requested a consolidation for '.$_POST['trck_nmr_fol_list'], 'skypostal_apibox'));	
+
+				}else
+					$topmessages.=	spapibox_get_message('danger',__('No available shipments to consolidate', 'skypostal_apibox'));
+				
+			}else{				
+				$topmessages.=	spapibox_get_message('danger',__('No available shipments to consolidate', 'skypostal_apibox'));
+			}
+		}
+
+		foreach($shipments as $ship){
+			if($ship->_verify){
+			$date_r=$ship->date_received;
+		    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
+		    $ts = $time[1] / 1000;
+			// Define Time Zone if exists
+			$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
+			$dt = new DateTime('@'.$ts);
+			$show_date= $dt->format('d/m/Y');
+
+			$inv=array('value'=>'');
+			$union='?';
+			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
+			$invoicegood=true;
+			if($ship->invoice_required==1){
+
+					$inv_text=__('Required','skypostal_apibox');
+					
+					if(isset($ship->comm_inv_detail_declared_value) && is_numeric($ship->comm_inv_detail_declared_value)) {
+						if($ship->comm_inv_detail_declared_value>0) {
+							$inv_text='$'.$ship->comm_inv_detail_declared_value;
+						}
+					}					
+					if(!empty($ship->invoice_file_name)){
+						//$inv_text=__('Upload Again','skypostal_apibox');
+						$inv_text=__('File Uploaded','skypostal_apibox');
+					}
+
+					if(empty($ship->invoice_file_name) && $ship->comm_inv_detail_declared_value<=0){
+						$invoicegood=false;
+					}
+
+					$inv=array('value'=>$inv_text, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
+					//$inv=array('value'=>$inv_text);
+			}	
+			$union_ship='?';
+			if(strrpos($tools->_shipment_details_url,'?')!==false) $union_ship='&';
+
+			$consolidation_requests='';
+			$check = array('value'=>'<input type="checkbox" class="checkable_item" value="">', 'attributes'=>array('prop-awb'=>$ship->trck_nmr_fol));
+			if($ship->consolidation_requests>0) {
+				$consolidation_requests='Consolidation requested';
+				$check=array('value'=>'');
+			}
+
+			if(!$invoicegood){
+				$consolidation_requests='Invoice is required';
+				$check=array('value'=>'');	
+			}
+
+
+			$table['body'][]=array(
+				'check'=>$check,
+				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.$union_ship.'awb='.$ship->trck_nmr_fol),
+				'external_tracking'=>array('value'=>$ship->external_tracking),/**/
+				'merchant'=>array('value'=>$ship->merchant),
+				'shipment_content'=>array('value'=>$ship->shipment_content),
+				'shipment_status'=>array('value'=>$ship->shipment_status),
+				'date_received'=>array('value'=>$show_date),
+				'consolidation_status'=>array('value'=>$consolidation_requests),
+				'invoice'=>$inv
+			);	
+			}		
+		}
+	}
+	$render.='<div class="consolidation_shipments_lists">'.$topmessages;
+	$render.=spapibox_form_render_table($table,$form['#id']);	
+	$render.='<div class="row"><div class="col-12"><input class="btn btn-primary form-submit  form-control" type="submit" id="sp_customer_get_shipments_consolidation" name="sp_customer_get_shipments" value="Continue" onclick="spapibox_continue_consolidation()"></div></div>';
+	$render.='</div >';
+	$render.='<div class="consolidation_shipments_confirm" style="display:none;">';
+	$render.='<div class="consolidation_title">';
+	$render.=__('Are you sure you want to consolidate the following shipments?', 'skypostal_apibox');
+	$render.='</div >';
+	$render.='<div class="consolidation_shipments_selected">';
+
+	$render.='</div >';
+	$render.= spapibox_form_render_group($form, $data);
+	$render.='</div >';
+	
+	if(isset($_POST[$form['#id']]) && count($table['body']) <=0) $render.=spapibox_get_message('warning',__('No information found', 'skypostal_apibox'));
+	echo $render;
 	return ob_get_clean();
 }
 
