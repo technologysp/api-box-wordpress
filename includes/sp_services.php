@@ -43,7 +43,7 @@ class skypostalServices
     public function __construct($arg= NULL){
     	$this->_verbose= false;
 
-		$this->version = '1.3.1.19';
+		$this->version = '1.3.1.22';
 		$this->_app_key= get_option( 'fapibox_api_app_key' );//'zgo4oD0DiMOVN02172dhMXC4o739TwdH';
 		$this->_url_test= get_option( 'fapibox_api_test_url' );//'https://api-box-test.skypostal.com/wcf-services';
 		$this->_url_prod= get_option( 'fapibox_api_production_url' );//'https://api-box.skypostal.com/wcf-services';
@@ -670,6 +670,41 @@ class skypostalServices
 		}		 		
 		$result = curl_exec($ch);	
 		curl_close($ch);	
+
+		return $result;
+	}
+
+	public function sp_customer_send_consolidation($data){
+		$method = '/service-customer.svc/customer/customer-consolidate-awb';			
+		$copaid = $this->sp_get_copartner();		
+		
+		$parameters = array(			
+			"trck_nmr_fol_list"=> $data['trck_nmr_fol_list']
+		);	
+
+		$result = $this->_sp_execute_method($method,$parameters);	
+
+		return $result;
+	}
+
+	public function sp_customer_start_consolidation($data){
+		$method = '/service-customer.svc/customer/customer-start-consolidation';			
+		$copaid = $this->sp_get_copartner();		
+		
+		$parameters = array();	
+
+		$result = $this->_sp_execute_method($method,$parameters);	
+
+		return $result;
+	}
+
+	public function sp_customer_end_consolidation($data){
+		$method = '/service-customer.svc/customer/customer-end-consolidation';			
+		$copaid = $this->sp_get_copartner();		
+		
+		$parameters = array();	
+
+		$result = $this->_sp_execute_method($method,$parameters);	
 
 		return $result;
 	}

@@ -765,6 +765,38 @@ function spapibox_form_build_customer_get_shipments_consolidation($skypostalServ
 	return $form;
 }
 
+function spapibox_form_build_customer_consolidation_status($skypostalServices_instance, $customer_info, $definition_only=false){
+	$form=array();
+	$form['#id']='sp_customer_get_shipments_conso_status';
+
+	$status=$customer_info->box_status;
+    
+	$crr_status_desc=__('Shipment consolidation is enabled','skypostal_apibox');
+	$crr_button_text=__('Disable Consolidation','skypostal_apibox');
+	$crr_class='spapibox_consolidation_enbaled';
+
+	if($status != 5){
+	  $crr_status_desc=__('Shipment consolidation is disabled','skypostal_apibox');
+	  $crr_button_text=__('Enable Consolidation','skypostal_apibox');
+	  $crr_class='spapibox_consolidation_disabled';
+	}
+
+	$buttons='<h4 class="'.$crr_class.'">'.$crr_status_desc.'</h4>';
+
+	$form['shipments_consolidation']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(				
+			"group1"=>array( 				
+
+				$form['#id']=>array("title"=>$crr_button_text, "type"=>"submit", "required"=>true,"wrapper-class"=>"centered button_".$crr_class,"#prefix"=>$buttons),
+				"trck_nmr_fol_list"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true)
+				)
+			)					
+	);
+	return $form;
+}
+
 function spapibox_form_build_customer_get_shipment_info($skypostalServices_instance, $definition_only=false){
 	$form=array();
 	$form['#id']='sp_customer_get_shipments';

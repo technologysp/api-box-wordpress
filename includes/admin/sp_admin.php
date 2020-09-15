@@ -218,8 +218,15 @@
                     'key'=>'sp_spapibox_customer_get_shipments_for_consolidation',
                     'callback'=>'spapibox_customer_get_shipments_for_consolidation',
                     'description'=>__('Shipments Consolidation','skypostal_apibox'),
-                    'req_session'=>false
+                    'req_session'=>true
+                ),
+                array(
+                    'key'=>'sp_spapibox_customer_box_consolidation_status',
+                    'callback'=>'spapibox_shortcode_customer_box_consolidation_status',
+                    'description'=>__('Get/Toggles Consolidation Status','skypostal_apibox'),
+                    'req_session'=>true
                 )
+
                 
     	);
     	return $shortcuts;

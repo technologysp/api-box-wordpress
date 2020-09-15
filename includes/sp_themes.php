@@ -104,6 +104,30 @@ $t='<div class="box-info-container"><div class="row">
 return $t;
 }
 
+function spapibox_themes_theme_consolidation_status($customer_info,$box_id){
+
+//$msg_status=spapibox_themes_theme_box_status_alert($customer_info);
+
+
+
+$t='<div class="box-info-container"><div class="row">
+  <div class="col">    
+      <h3>'.__('Welcome','skypostal_apibox').' '.$customer_info->customer_first_name.'</h3>
+      '.$msg_status.'    
+  </div>
+  <div class="col"><h3>'.__('Your tax free U.S. address is','skypostal_apibox').': </h3>
+  <p>
+  7701 NW 15th Street<br />
+  <b>Suite # '.$customer_info->customer_address[0]->ctry_iso_code.$box_id.'</b><br />
+  Miami, Florida 33106<br />
+  +1 (305) 436-6811<br />
+  </p>
+  </div>
+  </div>
+  </div>';
+return $t;
+}
+
 function spapibox_themes_theme_invoice_detail_html($detail_info_post){
 
   $detail= '<div class="table-responsive">

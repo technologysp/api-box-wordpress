@@ -659,6 +659,42 @@ function spapibox_shortcode_customer_box_status(){
 	return ob_get_clean();
 }
 
+function spapibox_shortcode_customer_box_consolidation_status(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo '';
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo '';
+		return ob_get_clean();
+    }
+    $data=array();
+
+    $form = spapibox_form_build_customer_consolidation_status($tools,$info[0],false);
+    if(isset($_POST[$form['#id']])){
+    	$data=$_POST;
+
+    	if($info[0]->box_status !=5 ){//Not consolidation, toggle to consolidation enabled
+    		$tools->sp_customer_start_consolidation(array());
+    	}else{
+			$tools->sp_customer_end_consolidation(array());
+    	}
+
+    	//Reload data:
+    	$info=$tools->sp_customer_get_info();			 	        	
+    	$form = spapibox_form_build_customer_consolidation_status($tools,$info[0],false);
+    }
+
+
+    $render=spapibox_form_render_group($form, $data);	
+    //$render=spapibox_themes_theme_consolidation_status($info[0]);
+    echo $render;
+	return ob_get_clean();
+}
+
 function spapibox_shortcode_customer_inactive_alert(){
 	ob_start();		
 	$tools = new skypostalServices();	
@@ -810,7 +846,7 @@ function spapibox_read_invoice_detail_from_data($detail_info){
   return $details;
 }
 
-function spapibox_shortcode_shipment_invoice_handler_custom(){
+function spapibox_shortcode_shipment_invoice_handler_custom() {
 	ob_start();		
 	$tools = new skypostalServices();	
 	if (!$tools->is_logged_in_simple()){
@@ -823,7 +859,7 @@ function spapibox_shortcode_shipment_invoice_handler_custom(){
 		return ob_get_clean();
     }
 
-	wp_enqueue_script( 'custom_js_inv', plugins_url( '/js/customer_shipment_invoice_custom.js', __FILE__ ), array(), $tools->version );	
+	wp_enqueue_script( 'custom_js_inv_custom', plugins_url( '/js/customer_shipment_invoice_custom.js', __FILE__ ), array(), $tools->version );	
 	wp_enqueue_style( 'apibox_invoce',plugins_url( '/css/apibox_invoce.css', __FILE__ ), array(), $tools->version);
 	/*	spapibpx_enqueue_scripts();
 	spapibpx_enqueue_styles();*/
@@ -1085,7 +1121,6 @@ function spapibox_customer_get_shipments_for_consolidation(){
 
 		$shipments = $tools->sp_customer_get_shipments_hbc($data);
 
-
 		if(isset($_POST[$form['#id']])){
 
 			$_POST = spapibox_check_post($_POST);			
@@ -1093,9 +1128,75 @@ function spapibox_customer_get_shipments_for_consolidation(){
 			if(count($shipments)>0 && $shipments[0]->_verify ){	
 
 				$selected_awbs = explode(",",$_POST['trck_nmr_fol_list']);
-				if(count($selected_awbs) > 0 && is_numeric($selected_awbs[0])) {
-					$topmessages.=	spapibox_get_message('success',__('You requested a consolidation for '.$_POST['trck_nmr_fol_list'], 'skypostal_apibox'));	
+				$coonsolidation_detail =array();
+				if(count($selected_awbs) > 0 && is_numeric($selected_awbs[0]) ) {
 
+					$count_awb_to_conso =count($selected_awbs);
+					$good_to_go_awbs = 0;
+
+
+					foreach($selected_awbs as $selectawb){
+
+						$current_error=false;
+						$found=false;
+						$current_value=0;
+						$current_url = '';
+
+						foreach($shipments as $ship){
+
+							if(intval ($ship->trck_nmr_fol)==intval ($selectawb)){
+
+								$found=true;
+
+								$invoicegood=true;
+								if($ship->invoice_required==1){
+									if(empty($ship->invoice_file_name) && $ship->comm_inv_detail_declared_value<=0){
+										$invoicegood=false;
+									}
+								}
+
+								if(isset($ship->comm_inv_detail_declared_value)) $current_value= $ship->comm_inv_detail_declared_value;
+								if($current_value<=0) $current_value=1;
+
+								if(!empty($ship->invoice_file_url)) $current_url= $ship->invoice_file_url;
+
+								if($ship->consolidation_requests>0) {								
+									$topmessages.=	spapibox_get_message('danger',__('Shipment Not eligible for consolidation, already requested', 'skypostal_apibox').': '.$selectawb );
+									$current_error=true;
+								}
+
+								if(!$invoicegood){
+									$topmessages.=	spapibox_get_message('danger',__('Shipment Not eligible for consolidation, invoice is required', 'skypostal_apibox').': '.$selectawb );
+									$current_error=true;
+								}
+
+							}
+
+						}
+
+						//Check if AWB was found.
+						if($found){
+							if(!$current_error){
+								$coonsolidation_detail[]=array(
+									'trck_nmr_fol'=>$selectawb,
+									'awb_declared_value'=>$current_value,
+									'awb_invoice_url'=>$current_url
+								);
+							}
+						}else
+							$topmessages.=	spapibox_get_message('danger',__('Shipment not available', 'skypostal_apibox').': '.$selectawb);
+					}
+
+					//Final check
+					if(count($coonsolidation_detail) == $count_awb_to_conso){
+						$topmessages.=	spapibox_get_message('success',__('Consolidation requested successfully', 'skypostal_apibox').' ('.$_POST['trck_nmr_fol_list'].')');	
+
+						$response = $tools->sp_customer_send_consolidation(array('trck_nmr_fol_list'=>$coonsolidation_detail));
+						
+						$shipments = $tools->sp_customer_get_shipments_hbc($data);						
+
+					}else
+						$topmessages.=	spapibox_get_message('danger',__('Shipments to consolidate count missmatch', 'skypostal_apibox'));
 				}else
 					$topmessages.=	spapibox_get_message('danger',__('No available shipments to consolidate', 'skypostal_apibox'));
 				
