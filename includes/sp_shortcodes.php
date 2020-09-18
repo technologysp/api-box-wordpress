@@ -1169,21 +1169,29 @@ function spapibox_customer_get_shipments_for_consolidation(){
 			}		
 		}
 	}
-	$render.='<div class="consolidation_shipments_lists">'.$topmessages;
-	$render.=spapibox_form_render_table($table,$form['#id']);	
-	$render.='<div class="row"><div class="col-12"><input class="btn btn-primary form-submit  form-control" type="submit" id="sp_customer_get_shipments_consolidation" name="sp_customer_get_shipments" value="Continue" onclick="spapibox_continue_consolidation()"></div></div>';
-	$render.='</div >';
-	$render.='<div class="consolidation_shipments_confirm" style="display:none;">';
-	$render.='<div class="consolidation_title">';
-	$render.=__('Are you sure you want to consolidate the following shipments?', 'skypostal_apibox');
-	$render.='</div >';
-	$render.='<div class="consolidation_shipments_selected">';
 
-	$render.='</div >';
-	$render.= spapibox_form_render_group($form, $data);
-	$render.='</div >';
+	$render.='<div style="position:relative;" >';
+
+		$render.='<div style="position:relative;" class="consolidation_shipments_lists">';
+			$render.=''.$topmessages;
+			$render.=spapibox_form_render_table($table,$form['#id']);	
+			$render.='<div class="row"><div class="col-12"><input class="btn btn-primary form-submit  form-control" type="submit" id="sp_customer_get_shipments_consolidation" name="sp_customer_get_shipments" value="'.__('Continue', 'skypostal_apibox').'" onclick="spapibox_continue_consolidation()" style="display:none;" /></div></div>';
+		$render.='</div >';
+
+		$render.='<div id="conso_overlay" style="position:absolute; top:0; left:0; z-index:5; display:none; width:100%; height:100%; background-color:rgba(0,0,0,0.5); ">';
+			$render.='<div class="consolidation_shipments_confirm" style=" position:absolute; background-color:#FFFFFF; margin:10px; padding:15px; width:calc(100% - 20px); height:auto;">';
+				$render.='<div class="consolidation_title">';
+					$render.=__('Are you sure you want to consolidate the following shipments?', 'skypostal_apibox');
+				$render.='</div >';
+				$render.='<div class="consolidation_shipments_selected">';
+
+				$render.='</div >';
+				$render.= spapibox_form_render_group($form, $data);
+			$render.='</div >';
+		$render.='</div >';
 	
 	if(isset($_POST[$form['#id']]) && count($table['body']) <=0) $render.=spapibox_get_message('warning',__('No information found', 'skypostal_apibox'));
+	$render.='</div>';
 	echo $render;
 	return ob_get_clean();
 }
