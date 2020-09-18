@@ -673,9 +673,11 @@ function spapibox_shortcode_customer_box_consolidation_status(){
     }
     $data=array();
 
+    wp_enqueue_script( 'custom_js_conso_status_ptd', plugins_url( '/js/customer_conso_status_uptd.js', __FILE__ ), array(), $tools->version );	
+
     $form = spapibox_form_build_customer_consolidation_status($tools,$info[0],false);
     if(isset($_POST[$form['#id']])){
-    	$data=$_POST;
+    	//$data=$_POST;
 
     	if($info[0]->box_status !=5 ){//Not consolidation, toggle to consolidation enabled
     		$tools->sp_customer_start_consolidation(array());
@@ -686,6 +688,11 @@ function spapibox_shortcode_customer_box_consolidation_status(){
     	//Reload data:
     	$info=$tools->sp_customer_get_info();			 	        	
     	$form = spapibox_form_build_customer_consolidation_status($tools,$info[0],false);
+    }
+
+    $data['conso_toggled_box']=0;
+    if($info[0]->box_status == 5){
+    	$data['conso_toggled_box']=1;
     }
 
 

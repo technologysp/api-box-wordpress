@@ -789,7 +789,8 @@ function spapibox_form_build_customer_consolidation_status($skypostalServices_in
 		"fields"=>array(				
 			"group1"=>array( 				
 
-				$form['#id']=>array("title"=>$crr_button_text, "type"=>"submit", "required"=>true,"wrapper-class"=>"centered button_".$crr_class,"#prefix"=>$buttons),
+				"conso_toggled_box"=>array("title"=>'', "type"=>"checkbox", "required"=>false, "wrapper-class"=>"centered button_".$crr_class,"#prefix"=>$buttons ),
+				$form['#id']=>array("title"=>$crr_button_text, "attributes"=>array(array("style"=>"display:none;")), "type"=>"submit", "required"=>true,"wrapper-class"=>"centered button_".$crr_class, "#prefix"=>'<div style="display:none;">', "#suffix"=>'</div>'),
 				"trck_nmr_fol_list"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true)
 				)
 			)					
