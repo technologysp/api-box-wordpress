@@ -277,11 +277,57 @@ function spapibox_init_customer_invoice_uploader(){
 			if($result[0]->_verify){
 				$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('File uploaded successfully','skypostal_apibox').': '.$target_file);
 				sapibox_events_after_invoice_uploaded_success(array('invoice_data'=>$invoice_data,'file_upload'=>$result));
+
+				//Check redirect:
+	        	$redurl = get_option( 'fapibox_invoice_success_file_upload' );
+	        	if(!empty($redurl)){
+	        		$suffix='?awb=';
+	        		if ( strpos($redurl, '?') !== false) $suffix='&awb=';
+	        		$suffix.=$_POST['trck_nmr_fol'];
+	        		wp_redirect($redurl.$suffix); exit;
+	        	}
+
 			}else
 				$_POST[$results_key]['danger'][] =array('field'=>'customer_email', 'message'=>__('File not uploaded','skypostal_apibox'));
 		}else
 			$_POST[$results_key]['danger'][] =array('field'=>'customer_email', 'message'=>__('File not uploaded','skypostal_apibox'));    
 	}	
+}
+
+function spapibox_init_invoice_upload_custom(){
+	$_POST = spapibox_check_post($_POST);
+	//echo '<pre>'.print_r($_POST, true).'</pre>';
+	$tools = new skypostalServices();		
+	$tools->_verbose= true;
+	if(!$tools->is_logged_in_simple()) return null;
+
+	$pre_data_detail=spapibox_read_invoice_detail_from_data($_POST);
+	$results_key = 'sp_customer_invoice_uploader_custom_result';
+
+	if(isset($_POST['sp_customer_invoice_uploader_custom'])){
+		//sp_customer_upload_invoice_custom
+		$post_detail=array();
+		foreach($pre_data_detail as $key=>$val){
+			$post_detail[]=array('quantity'=>$val['qty'], 'description'=>$val['desc'], 'price_value'=>$val['price'], 'reference_code'=>'');
+		}
+		$_POST['detail']=$post_detail;
+		
+		$result = $tools->sp_customer_upload_invoice_custom($_POST);
+		if($result[0]->_verify){
+	    	$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('Information updated','skypostal_apibox'));
+
+	    	//Check redirect:
+	    	$redurl = get_option( 'fapibox_invoice_success_custom' );     	        					
+	    	if(!empty($redurl)){
+	    		$suffix='?awb=';
+	    		if ( strpos($redurl, '?') !== false) $suffix='&awb=';
+	    		$suffix.=$_POST['trck_nmr_fol'];
+	    		wp_redirect($redurl.$suffix); exit;
+	    	}
+
+	    }else
+	    	$_POST[$results_key]['danger'][] =array('field'=>'', 'message'=>esc_html__('Information not updated','skypostal_apibox'));
+	}
 }
 
 function spapibox_init_post_actions(){
@@ -330,6 +376,11 @@ function spapibox_init_post_actions(){
 		spapibox_init_customer_invoice_uploader();
 		return;
 	}	
+	if ( isset( $_POST['sp_customer_invoice_uploader_custom'] ) ) {
+		spapibox_init_invoice_upload_custom();
+		return;
+	}	
+	
 	/*CHECK FOR LOGOUT*/ 
 	$service_url = get_option( 'fapibox_login_logout_url' );//new skypostalServices();
 

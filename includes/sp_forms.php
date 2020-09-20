@@ -138,7 +138,9 @@ function spapibox_form_render_table($data, $formid){
 						$attributes.=' '.$atkey.'="'.$atval.'"';
 					}
 				}
-				$body.='<td class="spapibox_td" '.$attributes.'>'.$disp.'</td>';
+				$add_class='';
+				if(isset($row[$head]['class']) && !empty($row[$head]['class'])) $add_class=' '.$row[$head]['class'];
+				$body.='<td class="spapibox_td'.$add_class.'" '.$attributes.'>'.$disp.'</td>';
 			}
 		$body.='</tr>';
 	}
@@ -872,13 +874,14 @@ function spapibox_form_build_customer_shipment_invoice_custom($skypostalServices
 		"title"=>"",
 		"attributes"=>array(),
 		"fields"=>array(				
+			"group0"=>array( 
+				"frm_custom_detail"=>array("title"=>esc_html__("Invoice Detail",'skypostal_apibox'), "markup"=>spapibox_themes_theme_invoice_detail_html($pre_data), "type"=>"markup", "required"=>false, "default"=> '', "layout-cols"=>"12", '#direct_render'=>true ),				
+			),
 			"group1"=>array( 				
 				"trck_nmr_fol"=>array("title"=>esc_html__("trck_nmr_fol",'skypostal_apibox'), "type"=>"hidden", "required"=>true),
 				"trck_add_deatil"=>array("title"=>"", "markup"=>'<button id="skpt_add_item_detail_ic" type="button" class="btn btn-info">'.esc_html__("Add Item",'skypostal_apibox').'</button>', "type"=>"markup", "required"=>false )
-			),
-			"group2"=>array( 
-				"frm_custom_detail"=>array("title"=>esc_html__("Invoice Detail",'skypostal_apibox'), "markup"=>spapibox_themes_theme_invoice_detail_html($pre_data), "type"=>"markup", "required"=>false, "default"=> '', "layout-cols"=>"12", '#direct_render'=>true ),				
 			)
+			
 		)
 	);
 

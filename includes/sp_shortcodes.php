@@ -269,6 +269,7 @@ function spapibox_customer_get_shipments(){
 		$_POST['end_date']=$enddate;
 		$_POST[$form['#id']]=$form['#id'];
 		$searchresults=true;
+		$data=$_POST;
 	}
 
 	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
@@ -302,6 +303,7 @@ function spapibox_customer_get_shipments(){
 			$inv=array('value'=>'');
 			$union='?';
 			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
+			$invoice_required_class='spinv_notrequired';
 			if($ship->invoice_required==1){
 
 					$inv_text=__('Required','skypostal_apibox');
@@ -316,9 +318,17 @@ function spapibox_customer_get_shipments(){
 					if(!empty($ship->invoice_file_name)){
 						//$inv_text=__('Upload Again','skypostal_apibox');
 						$inv_text=__('Change File','skypostal_apibox');
+
 					}
 
-					$inv=array('value'=>$inv_text, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
+					if(empty($ship->invoice_file_name) && $ship->comm_inv_detail_declared_value<=0){
+						$invoice_required_class='spinv_required';
+					}else{
+						$invoice_required_class='spinv_uploaded';
+						$inv_text=__('OK','skypostal_apibox');
+					}
+
+					$inv=array('value'=>$inv_text,'class'=>$invoice_required_class, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
 			}	
 			$union_ship='?';
 			if(strrpos($tools->_shipment_details_url,'?')!==false) $union_ship='&';
@@ -885,11 +895,21 @@ function spapibox_shortcode_shipment_invoice_handler_custom() {
 		}
 		$_POST['detail']=$post_detail;
 		
-		$result = $tools->sp_customer_upload_invoice_custom($_POST);
+		/*$result = $tools->sp_customer_upload_invoice_custom($_POST);
 		if($result[0]->_verify){
         	$_POST[$results_key]['success'][] =array('field'=>'',  'message'=>esc_html__('Information updated','skypostal_apibox'));
+
+        	//Check redirect:
+        	$redurl = get_option( 'fapibox_invoice_success_custom' );     	        					
+        	if(!empty($redurl)){
+        		$suffix='?awb=';
+        		if ( strpos($redurl, '?') !== false) $suffix='&awb=';
+        		$suffix.=$_POST['trck_nmr_fol'];
+        		wp_redirect($redurl.$suffix); exit;
+        	}
+
         }else
-        	$_POST[$results_key]['danger'][] =array('field'=>'', 'message'=>esc_html__('Information not updated','skypostal_apibox'));
+        	$_POST[$results_key]['danger'][] =array('field'=>'', 'message'=>esc_html__('Information not updated','skypostal_apibox'));*/
 	}
 
 	$searchresults=true;
@@ -1226,6 +1246,7 @@ function spapibox_customer_get_shipments_for_consolidation(){
 			$union='?';
 			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
 			$invoicegood=true;
+			$invoice_required_class='spinv_notrequired';
 			if($ship->invoice_required==1){
 
 					$inv_text=__('Required','skypostal_apibox');
@@ -1242,9 +1263,13 @@ function spapibox_customer_get_shipments_for_consolidation(){
 
 					if(empty($ship->invoice_file_name) && $ship->comm_inv_detail_declared_value<=0){
 						$invoicegood=false;
+						$invoice_required_class='spinv_required';
+					}else{
+						$invoice_required_class='spinv_uploaded';
+						$inv_text=__('OK','skypostal_apibox');
 					}
 
-					$inv=array('value'=>$inv_text, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
+					$inv=array('value'=>$inv_text, 'class'=>$invoice_required_class, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
 					//$inv=array('value'=>$inv_text);
 			}	
 			$union_ship='?';

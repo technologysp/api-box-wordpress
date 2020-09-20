@@ -146,16 +146,17 @@ function spapibox_themes_theme_invoice_detail_html($detail_info_post){
         <span><strong>'.__('Total $','skypostal_apibox').'</strong></span>
       </th>
       <th class="">
-      X
+      <span><strong>'.__('Delete','skypostal_apibox').'</strong></span>
       </th>
     </tr></thead>
   
   ';
   $idx=0;
-
+  $label_for_0=array();
+  $label_for_0[0]=array('idui'=>0, 'qty'=>'2', 'price'=>'10','desc'=>__('T-Shirt','skypostal_apibox'));  
   if(count($detail_info_post)<=0) {
     $pre_data = array();
-    $pre_data[0]=array('idui'=>0, 'qty'=>'', 'price'=>'','desc'=>'');  
+    $pre_data[0]=array('idui'=>0, 'qty'=>'', 'price'=>'','desc'=>'');      
   }else
     $pre_data = $detail_info_post;
 
@@ -172,14 +173,14 @@ function spapibox_themes_theme_invoice_detail_html($detail_info_post){
 
     $detail.='<tr id="skptinvdet-main_'.$idx.'" class="detail_display_row">  
       <input type="hidden" name = "skptinvdetidx_'.$idx.'" value = "'.$idx.'" />
-      <th class=""  style="min-width:200px;">
-        <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'.$idx.'" name="skptinvdetdesc_'.$idx.'" value="'.$v['desc'].'">
+      <th class=""  style="min-width:200px;">        
+        <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'.$idx.'" name="skptinvdetdesc_'.$idx.'" value="'.$v['desc'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['desc']:'').'" >
       </th>
       <th class="">
-        <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'">
+        <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['qty']:'').'">
       </th>
       <th class="">
-        <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'">
+        <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['price']:'').'">
       </th>
       <th class="">
         <span id="skptinvdet-summary_'.$idx.'">$ '.$total_display.' </span>

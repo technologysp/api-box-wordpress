@@ -519,6 +519,26 @@
                 'helper' => '',
                 'supplimental' => 'Additional % fee to be added to shipment calculation',
                 'default' => '0'
+            ),
+            array(
+                'uid' => 'fapibox_invoice_success_file_upload',
+                'label' => 'After Invoice Success URL - File Upload',
+                'section' => 'third_section',
+                'type' => 'text',
+                'placeholder' => '',
+                'helper' => '',
+                'supplimental' => 'URL to redirect users after successfuly uploading an invoice file',
+                'default' => ''
+            ),
+            array(
+                'uid' => 'fapibox_invoice_success_custom',
+                'label' => 'After Invoice Success URL - Custom Invoice',
+                'section' => 'third_section',
+                'type' => 'text',
+                'placeholder' => '',
+                'helper' => '',
+                'supplimental' => 'URL to redirect users after successfuly declaring a custom invoice detail',
+                'default' => ''
             )
         );
     	foreach( $fields as $field ){
