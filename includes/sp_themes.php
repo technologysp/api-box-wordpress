@@ -171,23 +171,23 @@ function spapibox_themes_theme_invoice_detail_html($detail_info_post){
     $total_display=0;
     if(is_numeric($v['qty']) && is_numeric($v['price'])) $total_display=$v['qty']*$v['price'];
 
-    $detail.='<tr id="skptinvdet-main_'.$idx.'" class="detail_display_row">  
-      <input type="hidden" name = "skptinvdetidx_'.$idx.'" value = "'.$idx.'" />
-      <th class=""  style="min-width:200px;">        
-        <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'.$idx.'" name="skptinvdetdesc_'.$idx.'" value="'.$v['desc'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['desc']:'').'" >
-      </th>
-      <th class="">
-        <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['qty']:'').'">
-      </th>
-      <th class="">
+    $detail.='<tr id="skptinvdet-main_'.$idx.'" class="detail_display_row">        
+      <td class=""  style="min-width:200px;">      
+        <input type="hidden" name = "skptinvdetidx_'.$idx.'" value = "'.$idx.'" />  
+        <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'.$idx.'" name="skptinvdetdesc_'.$idx.'" value="'.$v['desc'].'" placeholder="'.($idx==0 && isset($label_for_0[0])? $label_for_0[0]['desc']:'').'" >
+      </td>
+      <td class="">
+        <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'" placeholder="'.($idx==0 && isset($label_for_0[0])? $label_for_0[0]['qty']:'').'">
+      </td>
+      <td class="">
         <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['price']:'').'">
-      </th>
-      <th class="">
+      </td>
+      <td class="">
         <span id="skptinvdet-summary_'.$idx.'">$ '.$total_display.' </span>
-      </th>
-      <th class="">
+      </td>
+      <td class="">
         <button id="skptinvdet-summary_'.$idx.'" onclick="skpt_det_remove('.$idx.')" type="button" class="btn btn-outline-danger">x</button>
-      </th>
+      </td>
     </tr>
   ';
   }
