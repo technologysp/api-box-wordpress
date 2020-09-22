@@ -1275,15 +1275,18 @@ function spapibox_customer_get_shipments_for_consolidation(){
 			$union_ship='?';
 			if(strrpos($tools->_shipment_details_url,'?')!==false) $union_ship='&';
 
-			$consolidation_requests='';
+			$consolidation_requests=__('Ready for consolidation','skypostal_apibox');
+			$text_class='spapibox_cons_status_ready';
 			$check = array('value'=>'<input type="checkbox" class="checkable_item" value="">', 'attributes'=>array('prop-awb'=>$ship->trck_nmr_fol));
 			if($ship->consolidation_requests>0) {
-				$consolidation_requests='Consolidation requested';
+				$consolidation_requests=__('Consolidation requested','skypostal_apibox');
+				$text_class='spapibox_cons_status_requested';
 				$check=array('value'=>'');
 			}
 
 			if(!$invoicegood){
-				$consolidation_requests='Invoice is required';
+				$consolidation_requests=__('Invoice is required','skypostal_apibox');
+				$text_class='spapibox_cons_status_invrequired';
 				$check=array('value'=>'');	
 			}
 
@@ -1296,7 +1299,7 @@ function spapibox_customer_get_shipments_for_consolidation(){
 				'shipment_content'=>array('value'=>$ship->shipment_content),
 				'shipment_status'=>array('value'=>$ship->shipment_status),
 				'date_received'=>array('value'=>$show_date),
-				'consolidation_status'=>array('value'=>$consolidation_requests),
+				'consolidation_status'=>array('value'=>$consolidation_requests, 'class'=>$text_class),
 				'invoice'=>$inv
 			);	
 			}		
