@@ -225,6 +225,12 @@
                     'callback'=>'spapibox_shortcode_customer_box_consolidation_status',
                     'description'=>__('Get/Toggles Consolidation Status','skypostal_apibox'),
                     'req_session'=>true
+                ),
+                array(
+                    'key'=>'sp_customer_calculator_action_detailed',
+                    'callback'=>'spapibox_shortcode_calculator_detailed',
+                    'description'=>__('Calculator - Detailed','skypostal_apibox'),
+                    'req_session'=>false
                 )
 
                 

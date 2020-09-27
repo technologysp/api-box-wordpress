@@ -29,6 +29,8 @@ jQuery(document).ready(function(){
           jQuery("#sp_customer_invoice_uploader_custom").fadeIn();
           jQuery("#current_declared_value").html(detgrand_total);
           jQuery("#skpt_invoice_custom_totals").fadeIn();
+          jQuery(".field_trck_add_deatil").fadeOut();
+          jQuery("#sktp_inv_back_button").show();
         }
 
       });;
@@ -40,16 +42,18 @@ jQuery(document).ready(function(){
 
       jQuery("#sp_customer_invoice_uploader_custom").hide();
       jQuery("#skpt_add_item_detail_validate").show();
+      jQuery(".field_trck_add_deatil").show();
       jQuery("#current_declared_value").html(0);
       jQuery("#skpt_invoice_custom_totals").hide();
+      jQuery("#sktp_inv_back_button").hide();
 
       let idx=skpt_current_detail_rows_idx;
-      let html='<tr id="skptinvdet-main_'+idx+'" class="detail_display_row"> <th class=""  style="min-width:200px;"> <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'+idx+'" name="skptinvdetdesc_'+idx+'" value=""></th>';
-          html+='<th class=""><input class="form-control  required detqty" onchange="skpt_qty_price('+idx+')" type="text" id="skptinvdet-qty_'+idx+'" name="skptinvdet-qty_'+idx+'" value=""></th>';
-          html+='<th class=""><input class="form-control  required detprice" onchange="skpt_chg_price('+idx+')" type="text" id="skptinvdet-price_'+idx+'" name="skptinvdet-price_'+idx+'" value=""></th>';
-          html+='<th class=""><span id="skptinvdet-summary_'+idx+'">$ 0.00 </span></th>';
-          html+='<th class=""><button id="skptinvdet-summary_'+idx+'" onclick="skpt_det_remove('+idx+')" type="button" class="btn btn-outline-danger">X</button></th></tr>';
-          html+='<input type="hidden" name = "skptinvdetidx_'+idx+'" value = "'+idx+'" />';
+      let html='<tr id="skptinvdet-main_'+idx+'" class="detail_display_row"> <th class=""  style="min-width:200px;"> <input class="form-control  required detdesc" type="text" id="skptinvdet-desc_'+idx+'" name="skptinvdetdesc_'+idx+'" value=""></td>';
+          html+='<td class=""><input class="form-control  required detqty" onchange="skpt_qty_price('+idx+')" type="text" id="skptinvdet-qty_'+idx+'" name="skptinvdet-qty_'+idx+'" value=""></td>';
+          html+='<td class=""><input class="form-control  required detprice" onchange="skpt_chg_price('+idx+')" type="text" id="skptinvdet-price_'+idx+'" name="skptinvdet-price_'+idx+'" value=""></td>';
+          html+='<td class=""><span id="skptinvdet-summary_'+idx+'">$ 0.00 </span></td>';
+          html+='<td class=""><button id="skptinvdet-summary_'+idx+'" onclick="skpt_det_remove('+idx+')" type="button" class="btn btn-outline-danger">X</button>';
+          html+='<input type="hidden" name = "skptinvdetidx_'+idx+'" value = "'+idx+'" /></td></tr>';
           jQuery("#skpt_tbody_details").append(html);
     });
 
@@ -59,8 +63,10 @@ function skpt_recalc_price(idx){
 
   jQuery("#sp_customer_invoice_uploader_custom").hide();
   jQuery("#skpt_add_item_detail_validate").show();
+  jQuery(".field_trck_add_deatil").show();
   jQuery("#current_declared_value").html(0);
   jQuery("#skpt_invoice_custom_totals").hide();
+  jQuery("#sktp_inv_back_button").hide();
   
 
   let qty = jQuery("#skptinvdet-qty_"+idx).val(); 
@@ -86,8 +92,10 @@ function skpt_det_remove(idx){
     jQuery("#skptinvdet-main_"+idx).remove();
     jQuery("#sp_customer_invoice_uploader_custom").hide();
     jQuery("#skpt_add_item_detail_validate").show();
+    jQuery(".field_trck_add_deatil").show();
     jQuery("#current_declared_value").html(0);
     jQuery("#skpt_invoice_custom_totals").hide();
+    jQuery("#sktp_inv_back_button").hide();
   }
 }
 

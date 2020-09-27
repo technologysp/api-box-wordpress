@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 	});
 
 	if(jQuery("#sp_apibox_calculation_result").length ){
-		 jQuery('html, body').animate({  scrollTop: jQuery("#sp_apibox_calculation_result").offset().top-20}, 1000);
+		 jQuery('html, body').animate({  scrollTop: jQuery("#sp_apibox_calculation_result").offset().top-30}, 1000);
 	}
 
 });

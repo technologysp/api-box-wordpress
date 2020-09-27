@@ -11,3 +11,18 @@
 	text-align: center;
 }
 
+#skpt_add_item_detail_validate{
+	margin-top:5px;
+}
+
+#skpt_add_item_detail_goback{
+	margin-top:5px;	
+	margin-left:5px;
+}
+.field_frm_custom_detail{
+	width:100%;
+}
+.field_sp_customer_invoice_uploader_custom{
+	text-align:right;
+	border-top:1px solid gray;
+}

@@ -1000,6 +1000,14 @@ function spapibox_shortcode_shipment_invoice_handler_custom() {
 }
 
 function spapibox_shortcode_calculator(){
+	return spapibox_shortcode_calculator_generator(false);
+}
+
+function spapibox_shortcode_calculator_detailed(){
+	return spapibox_shortcode_calculator_generator(false);
+}
+
+function spapibox_shortcode_calculator_generator($detailed){
 	ob_start();		
 	$tools = new skypostalServices();	
 	$render ='';
@@ -1070,7 +1078,11 @@ function spapibox_shortcode_calculator(){
 			<tr><td>Impuestos estimados de aduana</td><td>$'.number_format ($ship_customs,2).'</td></tr>
 			</table>
 			</div>
-			</div>';			
+			</div>';		
+
+			if($detailed)
+				$render_result.='<pre>'	. print_r($result[0],true).'</pre>';
+			
 		}else{
 			$_POST[$results_key]['danger'][] =array('field'=>'sp_customer_calc_form', 'message'=>esc_html__('Calculation failed. Check your data and try again.','skypostal_apibox'));
 		}		
@@ -1083,6 +1095,8 @@ function spapibox_shortcode_calculator(){
 	echo $render.$render_result;
 	return ob_get_clean();
 }
+
+
 
 function spapibox_customer_get_shipments_for_consolidation(){
 	ob_start();		

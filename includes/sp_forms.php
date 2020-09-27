@@ -890,7 +890,7 @@ function spapibox_form_build_customer_shipment_invoice_custom($skypostalServices
 		"attributes"=>array(),
 		"fields"=>array(			
 			"group1"=>array( 				
-				$form['#id']=>array("#prefix"=>'<input id="skpt_add_item_detail_validate" type="button" class="btn btn-info" value="'.esc_html__("Next",'skypostal_apibox').'" ></input></br><h3 id="skpt_invoice_custom_totals" style="display:none;">'.esc_html__("Declared Value",'skypostal_apibox').' $<span id="current_declared_value">0.00</span></h3></br>', "title"=>esc_html__("Upload Invoice",'skypostal_apibox'), "type"=>"submit", "required"=>true, 'attributes'=>array('class'=>'disabled', 'style'=>'display:none;'))
+				$form['#id']=>array("#prefix"=>'<input id="skpt_add_item_detail_validate" type="button" class="btn btn-info" value="'.esc_html__("Next",'skypostal_apibox').'" ></input></br><h3 id="skpt_invoice_custom_totals" style="display:none;">'.esc_html__("Declared Value",'skypostal_apibox').' $<span id="current_declared_value">0.00</span></h3></br><a id="sktp_inv_back_button" style="display:none;" href="javascript:void(0);" onclick="skpt_recalc_price(-1);">  Back </a>&nbsp;&nbsp;&nbsp; ', "title"=>esc_html__("Upload Invoice",'skypostal_apibox'), "type"=>"submit", "required"=>true, 'attributes'=>array('class'=>'disabled', 'style'=>'display:none;'))
 			)
 		)
 	);
