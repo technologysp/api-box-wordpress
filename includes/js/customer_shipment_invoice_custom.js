@@ -52,11 +52,15 @@ jQuery(document).ready(function(){
           html+='<td class=""><input class="form-control  required detqty" onchange="skpt_qty_price('+idx+')" type="text" id="skptinvdet-qty_'+idx+'" name="skptinvdet-qty_'+idx+'" value=""></td>';
           html+='<td class=""><input class="form-control  required detprice" onchange="skpt_chg_price('+idx+')" type="text" id="skptinvdet-price_'+idx+'" name="skptinvdet-price_'+idx+'" value=""></td>';
           html+='<td class=""><span id="skptinvdet-summary_'+idx+'">$ 0.00 </span></td>';
-          html+='<td class=""><button id="skptinvdet-summary_'+idx+'" onclick="skpt_det_remove('+idx+')" type="button" class="btn btn-outline-danger">X</button>';
+          html+='<td class=""><button id="skptinvdet-summary_'+idx+'" onclick="skpt_det_remove('+idx+')" type="button" class="btn btn-outline-danger btn-remove-inv-line">X</button>';
           html+='<input type="hidden" name = "skptinvdetidx_'+idx+'" value = "'+idx+'" /></td></tr>';
-          jQuery("#skpt_tbody_details").append(html);
+      
+      jQuery("#skpt_tbody_details").append(html);
+
+      sktp_inv_check_delete_buttons();
     });
 
+    sktp_inv_check_delete_buttons();
 });
 
 function skpt_recalc_price(idx){
@@ -87,6 +91,13 @@ function skpt_chg_price(idx){
   skpt_recalc_price(idx);
 }
 
+function sktp_inv_check_delete_buttons(){
+  if(jQuery('.detail_display_row').length <= 1){
+    jQuery(".btn-remove-inv-line").hide();
+  }else
+    jQuery(".btn-remove-inv-line").show();
+}
+
 function skpt_det_remove(idx){
   if(jQuery('.detail_display_row').length > 1){
     jQuery("#skptinvdet-main_"+idx).remove();
@@ -97,6 +108,7 @@ function skpt_det_remove(idx){
     jQuery("#skpt_invoice_custom_totals").hide();
     jQuery("#sktp_inv_back_button").hide();
   }
+  sktp_inv_check_delete_buttons();
 }
 
 function spapibox_invoice_showname(ele) {

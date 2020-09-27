@@ -186,7 +186,7 @@ function spapibox_themes_theme_invoice_detail_html($detail_info_post){
         <span id="skptinvdet-summary_'.$idx.'">$ '.$total_display.' </span>
       </td>
       <td class="">
-        <button id="skptinvdet-summary_'.$idx.'" onclick="skpt_det_remove('.$idx.')" type="button" class="btn btn-outline-danger">x</button>
+        <button id="skptinvdet-summary_'.$idx.'" onclick="skpt_det_remove('.$idx.')" type="button" class="btn btn-outline-danger btn-remove-inv-line">x</button>
       </td>
     </tr>
   ';
