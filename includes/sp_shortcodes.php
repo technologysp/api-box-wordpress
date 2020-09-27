@@ -878,6 +878,7 @@ function spapibox_shortcode_shipment_invoice_handler_custom() {
 
 	wp_enqueue_script( 'custom_js_inv_custom', plugins_url( '/js/customer_shipment_invoice_custom.js', __FILE__ ), array(), $tools->version );	
 	wp_enqueue_style( 'apibox_invoce',plugins_url( '/css/apibox_invoce.css', __FILE__ ), array(), $tools->version);
+	wp_enqueue_style( 'apibox_main',plugins_url( '/css/apibox_main.css', __FILE__ ), array(), $tools->version);
 	/*	spapibpx_enqueue_scripts();
 	spapibpx_enqueue_styles();*/
 	$render='';
