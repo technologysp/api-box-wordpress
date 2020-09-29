@@ -776,7 +776,7 @@ function spapibox_shortcode_shipment_invoice_handler(){
 		$shipments = $tools->sp_customer_get_shipment_info($datashipsearch);
 		foreach($shipments as $ship){
 
-			$table['title']=__("Shipment Details",'skypostal_apibox');
+			$table['title']=__("Shipment Details",'skypostal_apibox').' '.$ship->trck_nmr_fol;
 			$table['body'][]=array(
 				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
 				'external_tracking'=>array('value'=>$ship->external_tracking),
@@ -969,7 +969,7 @@ function spapibox_shortcode_shipment_invoice_handler_custom() {
 		
 		foreach($shipments as $ship){
 
-			$table['title']=__("Shipment Details",'skypostal_apibox');
+			$table['title']=__("Shipment Details",'skypostal_apibox').' '.$ship->trck_nmr_fol;
 			$table['body'][]=array(
 				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
 				'external_tracking'=>array('value'=>$ship->external_tracking),
