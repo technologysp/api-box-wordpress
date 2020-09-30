@@ -78,6 +78,9 @@ function skpt_recalc_price(idx){
   console.log('Q '+qty + ' P '+price);
   if(!isNaN(qty) && !isNaN(price)){
     let calc=qty*price;
+    let val = parseFloat(calc);
+    calc=val.toFixed(2);
+
     jQuery("#skptinvdet-summary_"+idx).html('$ '+calc);
   }else
     jQuery("#skptinvdet-summary_"+idx).html('');

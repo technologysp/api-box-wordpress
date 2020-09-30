@@ -421,44 +421,52 @@ function spapibox_customer_get_shipment_info(){
 		$shipments = $tools->sp_customer_get_shipment_info($data);
 		foreach($shipments as $ship){
 
-			$table['title']=__("Shipment Details",'skypostal_apibox');
-			$table['body'][]=array(
-				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
-				'external_tracking'=>array('value'=>$ship->external_tracking),
-				'merchant'=>array('value'=>$ship->shipment->merchant_name),
-				'shipment_content'=>array('value'=>$ship->shipment->content),
-				'shipment_status'=>array('value'=>$ship->shipment->status_name),
-				'shipment_address'=>array('value'=>$ship->shipment->address.', '.$ship->shipment->city_name.', '.$ship->shipment->state_name.', '.$ship->shipment->country_name)
-			);		
+			if($ship->_verify){
 
-			$tracking_table['title']=__("Tracking",'skypostal_apibox');
-			$tracking_table['header']=array(
-				'location'=>__('Location','skypostal_apibox'),
-				'event_date'=>__('Event Date','skypostal_apibox'),
-				'status'=>__('Status','skypostal_apibox'),
-				'comment'=>__('Comments','skypostal_apibox')				
-			);
-			$tracking_table['body']=array();	
-			foreach($ship->tracking as $track){
-				$date_r=$track->entry_date;
-			    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
-			    $ts = $time[1] / 1000;
-				// Define Time Zone if exists
-				$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
-				$dt = new DateTime('@'.$ts);
-				$show_date= $dt->format('c');
-
-				$tracking_table['body'][]=array(
-					'location'=>array('value'=>$track->iata_code),
-					'event_date'=>array('value'=>$show_date),
-					'status'=>array('value'=>$track->track_description),
-					'comment'=>array('value'=>$track->track_obs)
+				$table['title']=__("Shipment Details",'skypostal_apibox');
+				$table['body'][]=array(
+					'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.'?awb='.$ship->trck_nmr_fol),
+					'external_tracking'=>array('value'=>$ship->external_tracking),
+					'merchant'=>array('value'=>$ship->shipment->merchant_name),
+					'shipment_content'=>array('value'=>$ship->shipment->content),
+					'shipment_status'=>array('value'=>$ship->shipment->status_name),
+					'shipment_address'=>array('value'=>$ship->shipment->address.', '.$ship->shipment->city_name.', '.$ship->shipment->state_name.', '.$ship->shipment->country_name)
 				);		
-			}
 
+				$tracking_table['title']=__("Tracking",'skypostal_apibox');
+				$tracking_table['header']=array(
+					'location'=>__('Location','skypostal_apibox'),
+					'event_date'=>__('Event Date','skypostal_apibox'),
+					'status'=>__('Status','skypostal_apibox'),
+					'comment'=>__('Comments','skypostal_apibox')				
+				);
+				$tracking_table['body']=array();	
+				foreach($ship->tracking as $track){
+					$date_r=$track->entry_date;
+				    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
+				    $ts = $time[1] / 1000;
+					// Define Time Zone if exists
+					$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
+					$dt = new DateTime('@'.$ts);
+					$show_date= $dt->format('c');
+
+					$tracking_table['body'][]=array(
+						'location'=>array('value'=>$track->iata_code),
+						'event_date'=>array('value'=>$show_date),
+						'status'=>array('value'=>$track->track_description),
+						'comment'=>array('value'=>$track->track_obs)
+					);		
+				}
+			}
 		}
 	}
-	$render.=spapibox_form_render_table($table,$form['#id']).spapibox_form_render_table($tracking_table,$form['#id'].'_2');
+
+	if(count($table['body'])>0){
+		$render.=spapibox_form_render_table($table,$form['#id']).spapibox_form_render_table($tracking_table,$form['#id'].'_2');
+	}else{
+		if($searchresults==true) $render.=spapibox_get_message('warning',__('No information found', 'skypostal_apibox'));
+	}
+	
 	echo $render;
 	return ob_get_clean();
 }

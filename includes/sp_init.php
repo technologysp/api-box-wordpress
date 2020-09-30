@@ -101,7 +101,16 @@ function spapibox_init_customer_reg_default_action(){
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) $_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Invalid email','skypostal_apibox'));
     if ($_POST['password'] != $_POST['confirm_password'])  $_POST[$results_key]['danger'][] =array('field'=>'password',  'message'=>esc_html__('Password does not match','skypostal_apibox'));
 
-    if(!(is_array($_POST[$results_key]) && count($_POST[$results_key])>0)){
+    //EMAIL VALIDATIONS:
+	if( count($_POST[$results_key])<=0 ){
+		$info=$tools->sp_partner_customer_get_info(array("customer_email"=>$_POST['email']));
+		if($info[0]->_verify){
+			$_POST[$results_key]['danger'][] =array('field'=>'email', 'message'=>esc_html__('Email already exists','skypostal_apibox'));
+		}	
+	}
+
+    if(!(is_array($_POST[$results_key]) && count($_POST[$results_key])>0)){	
+
         $result=$tools->sp_customer_registration_default($_POST);
         if($result[0]->_verify){
         	$tools->save_login_service_session($result[0]->customer_key,$result[0]->customer_box_id,$_POST['first_name']);
