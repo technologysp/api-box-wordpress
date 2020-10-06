@@ -307,7 +307,7 @@ function spapibox_init_invoice_upload_custom(){
 	$_POST = spapibox_check_post($_POST);
 	//echo '<pre>'.print_r($_POST, true).'</pre>';
 	$tools = new skypostalServices();		
-	$tools->_verbose= true;
+	
 	if(!$tools->is_logged_in_simple()) return null;
 
 	$pre_data_detail=spapibox_read_invoice_detail_from_data($_POST);
