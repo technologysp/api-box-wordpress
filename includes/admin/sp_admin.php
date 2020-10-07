@@ -231,6 +231,12 @@
                     'callback'=>'spapibox_shortcode_calculator_detailed',
                     'description'=>__('Calculator - Detailed','skypostal_apibox'),
                     'req_session'=>false
+                ),
+                array(
+                    'key'=>'sp_customer_get_shipments_inv_required',
+                    'callback'=>'spapibox_customer_get_shipments_invoice',
+                    'description'=>__('Display customer shipments form, required invoice only','skypostal_apibox'),
+                    'req_session'=>true
                 )
 
                 

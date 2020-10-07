@@ -724,6 +724,28 @@ function spapibox_form_build_customer_address_info($skypostalServices_instance,$
 	return $form;
 }
 
+function spapibox_form_build_customer_get_shipment_invoices($skypostalServices_instance, $definition_only=false){
+	$form=array();
+	$form['#id']='sp_customer_get_shipments_inv';
+
+	$d_end=new DateTime();
+	$d_start=new DateTime();
+	$d_start->modify('-90 day');
+
+	$form['account_information']=array(
+		"title"=>"",
+		"attributes"=>array(),
+		"fields"=>array(				
+			"group1"=>array( 
+				"start_date"=>array("title"=>esc_html__("Start date",'skypostal_apibox'), "type"=>"text", "required"=>true, "default"=> $d_start->format('Y-m-d'), "layout-cols"=>"4"),
+				"end_date"=>array("title"=>esc_html__("End date",'skypostal_apibox'), "type"=>"text", "required"=>true, "default"=>$d_end->format('Y-m-d'), "layout-cols"=>"4"),
+				$form['#id']=>array("title"=>esc_html__("Search",'skypostal_apibox'), "type"=>"submit", "display"=>"inline", "required"=>true, "layout-cols"=>"4")
+				)
+			)					
+	);
+	return $form;
+}
+
 function spapibox_form_build_customer_get_shipments($skypostalServices_instance, $definition_only=false){
 	$form=array();
 	$form['#id']='sp_customer_get_shipments';
@@ -890,7 +912,7 @@ function spapibox_form_build_customer_shipment_invoice_custom($skypostalServices
 		"attributes"=>array(),
 		"fields"=>array(			
 			"group1"=>array( 				
-				$form['#id']=>array("#prefix"=>'<input id="skpt_add_item_detail_validate" type="button" class="btn btn-info" value="'.esc_html__("Next",'skypostal_apibox').'" ></input></br><h3 id="skpt_invoice_custom_totals" style="display:none;">'.esc_html__("Declared Value",'skypostal_apibox').' $<span id="current_declared_value">0.00</span></h3></br><a id="sktp_inv_back_button" style="display:none;" href="javascript:void(0);" onclick="skpt_recalc_price(-1);">  Back </a>&nbsp;&nbsp;&nbsp; ', "title"=>esc_html__("Upload Invoice",'skypostal_apibox'), "type"=>"submit", "required"=>true, 'attributes'=>array('class'=>'disabled', 'style'=>'display:none;'))
+				$form['#id']=>array("#prefix"=>'<input onclick=" window.history.back();" id="skpt_add_item_detail_goback" type="button" class="btn btn-info" value="'.esc_html__("Back",'skypostal_apibox').'" ></input>&nbsp;<input id="skpt_add_item_detail_validate" type="button" class="btn btn-info" value="'.esc_html__("Next",'skypostal_apibox').'" ></input></br><h3 id="skpt_invoice_custom_totals" style="display:none;">'.esc_html__("Declared Value",'skypostal_apibox').' $<span id="current_declared_value">0.00</span></h3></br><a id="sktp_inv_back_button" style="display:none;" href="javascript:void(0);" onclick="skpt_recalc_price(-1);">  Back </a>&nbsp;&nbsp;&nbsp; ', "title"=>esc_html__("Upload Invoice",'skypostal_apibox'), "type"=>"submit", "required"=>true, 'attributes'=>array('class'=>'disabled', 'style'=>'display:none;'))
 			)
 		)
 	);

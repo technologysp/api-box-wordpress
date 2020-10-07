@@ -352,6 +352,133 @@ function spapibox_customer_get_shipments(){
 	return ob_get_clean();
 }
 
+
+function spapibox_customer_get_shipments_invoice(){
+	ob_start();		
+	$tools = new skypostalServices();	
+	if (!$tools->is_logged_in_simple()){
+		echo $tools->get_no_session_action();
+		return ob_get_clean();
+	}
+	$info=$tools->sp_customer_get_info();			 	        	
+    if(!$info[0]->_verify){
+    	echo $tools->get_no_session_action();
+		return ob_get_clean();
+    }
+
+	wp_enqueue_script( 'custom_js_cab', plugins_url( '/js/customer_get_shipments.js', __FILE__ ), array(), $tools->version );	
+	
+	spapibpx_enqueue_scripts();
+	spapibpx_enqueue_styles();
+
+	$form = spapibox_form_build_customer_get_shipment_invoices($tools);
+	$searchresults=false;
+	$data=array();
+	if(isset($_POST[$form['#id']])){
+		$searchresults=true;		
+		$results_key = $form['#id'].'_result';
+		$_POST[$results_key]= spapibox_form_validate_required_groups($form , $_POST);
+
+		if (!$tools->validateDate($_POST['start_date'], 'Y-m-d')) $_POST[$results_key]['danger'][] =array('field'=>'start_date', 'message'=>esc_html__('Invalid start date','skypostal_apibox'));
+
+		if (!$tools->validateDate($_POST['end_date'], 'Y-m-d')) $_POST[$results_key]['danger'][] =array('field'=>'end_date', 'message'=>esc_html__('Invalid end date','skypostal_apibox'));
+
+		$data=$_POST;
+	}else{
+
+		$startdate=$form['account_information']['fields']['group1']['start_date']['default'];
+		$enddate=$form['account_information']['fields']['group1']['end_date']['default'];
+		$_POST['start_date']=$startdate;
+		$_POST['end_date']=$enddate;
+		$_POST[$form['#id']]=$form['#id'];
+		$searchresults=true;
+		$data=$_POST;
+	}
+
+	if( isset( $data[$results_key] ) && isset( $data[$results_key]['danger'] ) && count( $data[$results_key]['danger'] ) > 0) $searchresults=false;
+
+	$render= spapibox_form_render_group($form, $data);
+	
+	$table['header']=array(
+		'trck_nmr_fol'=>__('AWB','skypostal_apibox'),
+		'external_tracking'=>__('External Tracking','skypostal_apibox'),
+		'merchant'=>__('Merchant','skypostal_apibox'),
+		'shipment_content'=>__('Contents','skypostal_apibox'),
+		'shipment_status'=>__('Status','skypostal_apibox'),
+		'date_received'=>__('Date','skypostal_apibox'),
+		"invoice"=>__('Invoice','skypostal_apibox')
+	);
+	$table['body']=array();
+
+	if(isset($_POST[$form['#id']]) && $searchresults){
+
+		$shipments = $tools->sp_customer_get_shipments($data);
+		foreach($shipments as $ship){
+			if($ship->_verify){
+
+			$needs_inv = false;
+
+			$date_r=$ship->date_received;
+		    preg_match('/\/Date\(([0-9]+)(\+[0-9]+)?/', $date_r, $time);
+		    $ts = $time[1] / 1000;
+			// Define Time Zone if exists
+			$tz = isset($time[2]) ? new DateTimeZone($time[2]) : null;
+			$dt = new DateTime('@'.$ts);
+			$show_date= $dt->format('d/m/Y');
+
+			$inv=array('value'=>'');
+			$union='?';
+			if(strrpos($tools->_shipment_invoice_url,'?')!==false) $union='&';
+			$invoice_required_class='spinv_notrequired';
+			if($ship->invoice_required==1){
+
+					$inv_text=__('Required','skypostal_apibox');
+					
+					if(isset($ship->comm_inv_detail_declared_value) && is_numeric($ship->comm_inv_detail_declared_value)) {
+						if($ship->comm_inv_detail_declared_value>0) {
+							$inv_text='$'.$ship->comm_inv_detail_declared_value.' ('.__('Change','skypostal_apibox').')';
+						}
+					}
+
+					
+					if(!empty($ship->invoice_file_name)){
+						//$inv_text=__('Upload Again','skypostal_apibox');
+						$inv_text=__('Change File','skypostal_apibox');
+
+					}
+
+					if(empty($ship->invoice_file_name) && $ship->comm_inv_detail_declared_value<=0){
+						$invoice_required_class='spinv_required';
+						$needs_inv=true;
+					}else{
+						$invoice_required_class='spinv_uploaded';
+						$inv_text=__('OK','skypostal_apibox');
+					}
+
+					$inv=array('value'=>$inv_text,'class'=>$invoice_required_class, 'link'=>$tools->_shipment_invoice_url.$union.'awb='.$ship->trck_nmr_fol);
+			}	
+			$union_ship='?';
+			if(strrpos($tools->_shipment_details_url,'?')!==false) $union_ship='&';
+
+			if($needs_inv)
+			$table['body'][]=array(
+				'trck_nmr_fol'=>array('value'=>$ship->trck_nmr_fol, 'link'=>$tools->_shipment_details_url.$union_ship.'awb='.$ship->trck_nmr_fol),
+				'external_tracking'=>array('value'=>$ship->external_tracking),/**/
+				'merchant'=>array('value'=>$ship->merchant),
+				'shipment_content'=>array('value'=>$ship->shipment_content),
+				'shipment_status'=>array('value'=>$ship->shipment_status),
+				'date_received'=>array('value'=>$show_date),
+				'invoice'=>$inv
+			);	
+			}		
+		}
+	}
+	$render.=spapibox_form_render_table($table,$form['#id']);
+	if(isset($_POST[$form['#id']]) && count($table['body']) <=0) $render.=spapibox_get_message('warning',__('No information found', 'skypostal_apibox'));
+	echo $render;
+	return ob_get_clean();
+}
+
 function spapibox_customer_get_shipment_info(){
 	ob_start();		
 	$tools = new skypostalServices();	
