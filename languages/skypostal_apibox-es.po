@@ -644,3 +644,63 @@ msgstr "Precio $"
 
 msgid "Total $"
 msgstr "Total $"
+
+msgid "Shipment consolidation is enabled"
+msgstr "Consolidación de paquetes habilitada"
+
+msgid "Disable Consolidation"
+msgstr "Deshabilitar consolidación"
+
+msgid "Shipment consolidation is disabled"
+msgstr "Consolidación de paquetes deshabilitada"
+
+msgid "Enable Consolidation"
+msgstr "Habilitar consolidación"
+
+msgid "Shipment Not eligible for consolidation, already requested"
+msgstr "El paquete no es elegible para consolidar, ya fue solicitado"
+
+msgid "Shipment Not eligible for consolidation, invoice is required"
+msgstr "El paquete no es elegible para consolidar, factura es requerida"
+
+msgid "Shipment not available"
+msgstr "El paquete no esta disponible"
+
+msgid "Consolidation requested successfully"
+msgstr "Consolidación solicitada con éxito"
+
+msgid "Shipments to consolidate count missmatch"
+msgstr "No coincide la cantidad de paquetes a consolidar"
+
+msgid "No available shipments to consolidate"
+msgstr "No hay paquetes disponibles para consolidar"
+
+msgid "File Uploaded"
+msgstr "Archivo subido"
+
+msgid "OK"
+msgstr "Ok"
+
+msgid "Ready for consolidation"
+msgstr "Listo para consolidar"
+
+msgid "Consolidation requested"
+msgstr "Consolidación ya fue solicitada"
+
+msgid "Invoice is required"
+msgstr "Factura es requerida"
+
+msgid "Consolidation"
+msgstr "Consolidación"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Are you sure you want to consolidate the following shipments?"
+msgstr "¿Seguro desea solicitar la consolidación de los siguientes paquetes?"
+
+msgid "Consolidate selected shipments"
+msgstr "Consolidar los paquetes seleccionados"
+
+msgid "Remove declaration for"
+msgstr "¿Eliminar la pre-alerta por"
