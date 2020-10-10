@@ -163,15 +163,25 @@ class skypostalServices
 		}
 		return $parameters;
 	}
+	public $_prefill_user_data;
 	private function _sp_execute_method($method,$parameters,$headers=NULL,$noverbose=false){
 		$executeurl=$this->_url_prod;
 		if($this->_api_test_mode) $executeurl=$this->_url_test;
 		$executeurl.=$method;		
+
 		$ch = curl_init($executeurl);	 		
 		//Adding static variables from module (user_code and app_key):
 		$parameters['user_info']=array('user_code'=>$this->_user_code, 'app_key'=>$this->_app_key);		
 		//Adding login-service parameters automatically(if any):
 		$parameters = $this->_add_login_service_parameters($parameters);		
+
+		if($this->_verbose && !$noverbose) echo '<pre>Prefill user data:</pre><pre>'.print_r($this->_prefill_user_data,true).'</pre>';
+		if(is_array($this->_prefill_user_data) && count($this->_prefill_user_data)>0){
+			foreach($this->_prefill_user_data as $k=>$v){
+				$parameters[$k]=$v;
+			}
+		}
+
 		$jsonDataEncoded = json_encode($parameters);	 
 		
 		if($this->_verbose && !$noverbose) echo '<pre>'.$executeurl.'</pre><pre>'.$jsonDataEncoded.'</pre>';
