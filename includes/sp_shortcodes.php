@@ -1063,7 +1063,9 @@ function spapibox_shortcode_calculator_generator($detailed){
 
 		if(is_array($result) && $result[0]->_verify==1){
 
-			$shiptotal=$result[0]->ship_total_rate;
+			//$shiptotal=$result[0]->ship_total_rate;
+			$shiptotal=$result[0]->rate_vlr_gatewaty;
+			if(isset($result[0]->fuel_surcharge) && is_numeric($result[0]->fuel_surcharge) ) $shiptotal+=$result[0]->fuel_surcharge;
 			$ship_discount=$result[0]->ship_discount;
 			$ship_customs=$result[0]->total_customs;
 
