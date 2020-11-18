@@ -25,7 +25,12 @@ jQuery(document).ready(function(){
       }).promise().done( function(){ 
 
         if(!errors){
+
+          let val = parseFloat(detgrand_total);
+          detgrand_total=val.toFixed(2);
+
           jQuery("#skpt_add_item_detail_validate").fadeOut();
+          jQuery("#skpt_add_item_detail_goback").fadeOut();          
           jQuery("#sp_customer_invoice_uploader_custom").fadeIn();
           jQuery("#current_declared_value").html(detgrand_total);
           jQuery("#skpt_invoice_custom_totals").fadeIn();
@@ -42,6 +47,7 @@ jQuery(document).ready(function(){
 
       jQuery("#sp_customer_invoice_uploader_custom").hide();
       jQuery("#skpt_add_item_detail_validate").show();
+      jQuery("#skpt_add_item_detail_goback").show();          
       jQuery(".field_trck_add_deatil").show();
       jQuery("#current_declared_value").html(0);
       jQuery("#skpt_invoice_custom_totals").hide();
@@ -67,6 +73,7 @@ function skpt_recalc_price(idx){
 
   jQuery("#sp_customer_invoice_uploader_custom").hide();
   jQuery("#skpt_add_item_detail_validate").show();
+  jQuery("#skpt_add_item_detail_goback").show();          
   jQuery(".field_trck_add_deatil").show();
   jQuery("#current_declared_value").html(0);
   jQuery("#skpt_invoice_custom_totals").hide();
@@ -106,6 +113,7 @@ function skpt_det_remove(idx){
     jQuery("#skptinvdet-main_"+idx).remove();
     jQuery("#sp_customer_invoice_uploader_custom").hide();
     jQuery("#skpt_add_item_detail_validate").show();
+    jQuery("#skpt_add_item_detail_goback").show();          
     jQuery(".field_trck_add_deatil").show();
     jQuery("#current_declared_value").html(0);
     jQuery("#skpt_invoice_custom_totals").hide();

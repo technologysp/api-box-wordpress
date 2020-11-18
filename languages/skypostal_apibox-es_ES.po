@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-09 23:19+0000\n"
-"PO-Revision-Date: 2020-06-02 23:39-0600\n"
+"PO-Revision-Date: 2020-10-07 20:05-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -51,8 +51,8 @@ msgstr "Haga click aquí"
 msgid "Regards"
 msgstr "Saludos Cordiales"
 
-#: includes/sp_init.php:43 includes/sp_init.php:71
-#: includes/sp_shortcodes.php:464 includes/sp_shortcodes.php:520
+#: includes/sp_init.php:43 includes/sp_init.php:71 includes/sp_shortcodes.php:464
+#: includes/sp_shortcodes.php:520
 msgid "Password does not match"
 msgstr "Las contraseñas no coinciden"
 
@@ -93,9 +93,8 @@ msgstr "es requerido"
 msgid "Account Information"
 msgstr "Información de tu cuenta"
 
-#: includes/sp_forms.php:449 includes/sp_forms.php:798
-#: includes/sp_forms.php:799 includes/sp_forms.php:852
-#: includes/sp_forms.php:878 includes/sp_forms.php:879
+#: includes/sp_forms.php:449 includes/sp_forms.php:798 includes/sp_forms.php:799
+#: includes/sp_forms.php:852 includes/sp_forms.php:878 includes/sp_forms.php:879
 msgid "Email"
 msgstr "Email"
 
@@ -107,8 +106,7 @@ msgstr "Nombres"
 msgid "Last name"
 msgstr "Apellidos"
 
-#: includes/sp_forms.php:456 includes/sp_forms.php:825
-#: includes/sp_forms.php:853
+#: includes/sp_forms.php:456 includes/sp_forms.php:825 includes/sp_forms.php:853
 msgid "Password"
 msgstr "Contraseña"
 
@@ -172,34 +170,31 @@ msgstr "Región"
 msgid "Postal Code"
 msgstr "Código postal"
 
-#: includes/sp_forms.php:494 includes/sp_forms.php:565
-#: includes/sp_forms.php:657
+#: includes/sp_forms.php:494 includes/sp_forms.php:565 includes/sp_forms.php:657
 msgid "Identification Number"
 msgstr "Número de identificación"
 
-#: includes/sp_forms.php:513 includes/sp_forms.php:527
-#: includes/sp_forms.php:669 includes/sp_forms.php:683
+#: includes/sp_forms.php:513 includes/sp_forms.php:527 includes/sp_forms.php:669
+#: includes/sp_forms.php:683
 msgid "Country code"
 msgstr "Código de País"
 
-#: includes/sp_forms.php:514 includes/sp_forms.php:528
-#: includes/sp_forms.php:607 includes/sp_forms.php:670
-#: includes/sp_forms.php:684
+#: includes/sp_forms.php:514 includes/sp_forms.php:528 includes/sp_forms.php:607
+#: includes/sp_forms.php:670 includes/sp_forms.php:684
 msgid "Number"
 msgstr "Número"
 
-#: includes/sp_forms.php:515 includes/sp_forms.php:529
-#: includes/sp_forms.php:671 includes/sp_forms.php:685
+#: includes/sp_forms.php:515 includes/sp_forms.php:529 includes/sp_forms.php:671
+#: includes/sp_forms.php:685
 msgid "Extension"
 msgstr "Extensión"
 
 #: includes/sp_forms.php:541
 msgid ""
-"Yes, I would like to receive specials offers and important information "
-"regarding my address."
+"Yes, I would like to receive specials offers and important information regarding my "
+"address."
 msgstr ""
-"Sí, me gustaría recibir ofertas especiales e información importante de mi "
-"casillero."
+"Sí, me gustaría recibir ofertas especiales e información importante de mi casillero."
 
 #: includes/sp_forms.php:542
 msgid "By submitting, you accept the"
@@ -225,9 +220,8 @@ msgstr "Masculino"
 msgid "Female"
 msgstr "Femenino"
 
-#: includes/sp_forms.php:577 includes/sp_forms.php:622
-#: includes/sp_forms.php:695 includes/sp_forms.php:809
-#: includes/sp_forms.php:836
+#: includes/sp_forms.php:577 includes/sp_forms.php:622 includes/sp_forms.php:695
+#: includes/sp_forms.php:809 includes/sp_forms.php:836
 msgid "Update"
 msgstr "Actualizar"
 
@@ -538,8 +532,7 @@ msgid "Invalid Height"
 msgstr "Alto Inváldo"
 
 msgid "Calculation failed. Check your data and try again."
-msgstr ""
-"No se pudo realizar el cálculo, revise sus datos e invente nuevamente."
+msgstr "No se pudo realizar el cálculo, revise sus datos e invente nuevamente."
 
 msgid "Product Information"
 msgstr "Información del producto"
@@ -588,3 +581,126 @@ msgstr "Su método de pago actual"
 
 msgid "Your account has been activated"
 msgstr "Tu cuenta ha sido activada"
+
+msgid "A file was already uploaded"
+msgstr "Se subió el archivo"
+
+msgid "A custom invoice was already declared for "
+msgstr "Una factura manual ya fue declarada por "
+
+msgid "Deseas actualizar el archivo declarado"
+msgstr "Deseas actualizar el archivo declarado"
+
+msgid "Escoge entre los dos métodos disponibles para subir el registro de tu factura:"
+msgstr "Escoge entre los dos métodos disponibles para subir el registro de tu factura:"
+
+msgid "Subir Archivo"
+msgstr "Subir Archivo"
+
+msgid "Back"
+msgstr "Regresar"
+
+msgid "Declaration was created"
+msgstr "Se creó la declaración"
+
+msgid "customer not found"
+msgstr "no se encontró el cliente"
+
+msgid "Add Item"
+msgstr "Agregar Item"
+
+msgid "Order Number"
+msgstr "Número de Orden"
+
+msgid "Order Tracking"
+msgstr "Número de Rastreo"
+
+msgid "Upload Invoice"
+msgstr "Subir Factura"
+
+msgid "Declared Value"
+msgstr "Valor Declarado"
+
+msgid "The record was removed"
+msgstr "Se eliminó el regístro"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Invoice Detail"
+msgstr "Detalle de la factura"
+
+msgid "Item Description"
+msgstr "Descripción"
+
+msgid "Qty."
+msgstr "Cant."
+
+msgid "Item Price $"
+msgstr "Precio $"
+
+msgid "Total $"
+msgstr "Total $"
+
+msgid "Shipment consolidation is enabled"
+msgstr "Consolidación de paquetes habilitada"
+
+msgid "Disable Consolidation"
+msgstr "Deshabilitar consolidación"
+
+msgid "Shipment consolidation is disabled"
+msgstr "Consolidación de paquetes deshabilitada"
+
+msgid "Enable Consolidation"
+msgstr "Habilitar consolidación"
+
+msgid "Shipment Not eligible for consolidation, already requested"
+msgstr "El paquete no es elegible para consolidar, ya fue solicitado"
+
+msgid "Shipment Not eligible for consolidation, invoice is required"
+msgstr "El paquete no es elegible para consolidar, factura es requerida"
+
+msgid "Shipment not available"
+msgstr "El paquete no esta disponible"
+
+msgid "Consolidation requested successfully"
+msgstr "Consolidación solicitada con éxito"
+
+msgid "Shipments to consolidate count missmatch"
+msgstr "No coincide la cantidad de paquetes a consolidar"
+
+msgid "No available shipments to consolidate"
+msgstr "No hay paquetes disponibles para consolidar"
+
+msgid "File Uploaded"
+msgstr "Archivo subido"
+
+msgid "OK"
+msgstr "Ok"
+
+msgid "Ready for consolidation"
+msgstr "Listo para consolidar"
+
+msgid "Consolidation requested"
+msgstr "Consolidación ya fue solicitada"
+
+msgid "Invoice is required"
+msgstr "Factura es requerida"
+
+msgid "Consolidation"
+msgstr "Consolidación"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Are you sure you want to consolidate the following shipments?"
+msgstr "¿Seguro desea solicitar la consolidación de los siguientes paquetes?"
+
+msgid "Consolidate selected shipments"
+msgstr "Consolidar los paquetes seleccionados"
+
+msgid "Remove declaration for"
+msgstr "¿Eliminar la pre-alerta por"
