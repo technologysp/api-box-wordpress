@@ -824,7 +824,7 @@ function spapibox_form_build_customer_consolidation_status($skypostalServices_in
 
 function spapibox_form_build_customer_get_shipment_info($skypostalServices_instance, $definition_only=false){
 	$form=array();
-	$form['#id']='sp_customer_get_shipments';
+	$form['#id']='sp_customer_get_shipments_awb';
 
 	$d_end=new DateTime();
 	$d_start=new DateTime();
