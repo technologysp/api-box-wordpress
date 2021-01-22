@@ -180,7 +180,7 @@ function spapibox_themes_theme_invoice_detail_html($detail_info_post){
         <input class="form-control  required detqty" type="text" onchange="skpt_qty_price('.$idx.')" id="skptinvdet-qty_'.$idx.'" name="skptinvdet-qty_'.$idx.'" value="'.$v['qty'].'" placeholder="'.($idx==0 && isset($label_for_0[0])? $label_for_0[0]['qty']:'').'">
       </td>
       <td class="">
-        <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'" placeholder="'.(idx==0 && isset($label_for_0[0])? $label_for_0[0]['price']:'').'">
+        <input class="form-control  required detprice" type="text" onchange="skpt_chg_price('.$idx.')" id="skptinvdet-price_'.$idx.'" name="skptinvdet-price_'.$idx.'" value="'.$v['price'].'" placeholder="'.($idx==0 && isset($label_for_0[0])? $label_for_0[0]['price']:'').'">
       </td>
       <td class="">
         <span id="skptinvdet-summary_'.$idx.'">$ '.$total_display.' </span>
